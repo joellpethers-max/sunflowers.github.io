@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunflowers - Catálogo 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('fondo.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #333;
+        }
+
+        .overlay {
+            background: rgba(255, 255, 255, 0.95);
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 15px 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            height: 60px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            background: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .cart-icon:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .cart-icon span {
+            font-size: 24px;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .hero {
+            width: 100%;
+            height: 500px;
+            background-image: url('portada.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content {
+            position: relative;
+            text-align: center;
+            color: white;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.5em;
+            color: #f5576c;
+            text-align: center;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #f093fb, #f5576c);
+            border-radius: 2px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            background: #f5f5f5;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .product-price {
+            font-size: 1.5em;
+            color: #f5576c;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -500px;
+            width: 500px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .cart-sidebar.open {
+            right: 0;
+        }
+
+        .cart-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .cart-content {
+            padding: 20px;
+        }
+
+        .cart-item {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+
+        .cart-item-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: #f5576c;
+            margin-bottom: 10px;
+        }
+
+        .note-section {
+            margin-top: 10px;
+        }
+
+        .note-checkbox {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .note-textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            resize: vertical;
+            min-height: 80px;
+            display: none;
+            font-family: inherit;
+        }
+
+        .note-textarea.active {
+            display: block;
+        }
+
+        .word-counter {
+            font-size: 0.85em;
+            color: #666;
+            text-align: right;
+            margin-top: 5px;
+        }
+
+        .word-counter.warning {
+            color: #ff4757;
+        }
+
+        .remove-item {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .checkout-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1em;
+        }
+
+        .delivery-options {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .option-item {
+            margin: 10px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .option-item input[type="radio"] {
+            margin-top: 4px;
+        }
+
+        .option-item label {
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .map-selection {
+            margin-top: 10px;
+            display: none;
+        }
+
+        .map-selection.active {
+            display: block;
+        }
+
+        .map-selection iframe {
+            width: 100%;
+            height: 300px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .location-input {
+            margin-top: 10px;
+            padding: 10px;
+            background: #fff;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+        }
+
+        .payment-options {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .payment-amount {
+            margin-top: 10px;
+            display: none;
+        }
+
+        .payment-amount.active {
+            display: block;
+        }
+
+        .total-price {
+            font-size: 1.8em;
+            color: #f5576c;
+            font-weight: bold;
+            text-align: right;
+            margin: 20px 0;
+        }
+
+        .subtotal-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 1em;
+        }
+
+        .pay-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pay-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(245, 87, 108, 0.4);
+        }
+
+        .map-section {
+            margin: 60px auto;
+            text-align: center;
+        }
+
+        .map-container {
+            max-width: 800px;
+            margin: 30px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+        }
+
+        .delivery-info {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .delivery-info h3 {
+            color: #f5576c;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .delivery-info p {
+            font-size: 1.1em;
+            margin: 10px 0;
+            color: #666;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 50px 20px;
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <header>
+            <img src="logo.png" alt="Sunflowers Logo" class="logo">
+            <div class="cart-icon" onclick="toggleCart()">
+                <span>🛒</span>
+                <div class="cart-count" id="cartCount">0</div>
+            </div>
+        </header>
+
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Sunflowers 2025</h1>
+                <p style="font-size: 1.5em;">Regalos que florecen</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="section" id="bouquets">
+                <h2 class="section-title">Bouquets</h2>
+                <div class="products-grid" id="bouquetsGrid"></div>
+            </div>
+
+            <div class="section" id="boxes">
+                <h2 class="section-title">Boxes</h2>
+                <div class="products-grid" id="boxesGrid"></div>
+            </div>
+
+            <div class="delivery-info">
+                <h3>Información de Entrega</h3>
+                <p><strong>Delivery Zona Céntrica:</strong> Gs. 15.000</p>
+                <p><strong>Tarjeta personalizada + porta tarjeta:</strong> Gs. 7.000</p>
+                <p style="margin-top: 20px; font-size: 0.95em;">Los pedidos se agendan con el pago de un adelanto del 50% del costo del producto elegido.</p>
+            </div>
+
+            <div class="map-section">
+                <h2 class="section-title">Nuestra Ubicación</h2>
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps?q=-25.427703486660484,-56.43439222876249&output=embed"
+                        width="600" 
+                        height="450" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart-sidebar" id="cartSidebar">
+            <div class="cart-header">
+                <h2>Mi Carrito</h2>
+                <button class="close-cart" onclick="toggleCart()">×</button>
+            </div>
+            <div class="cart-content" id="cartContent">
+                <div class="empty-cart">
+                    <p>Tu carrito está vacío</p>
+                    <p style="font-size: 3em;">🛒</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBDRELXPWePmtZ-R6dGJKbE1OhUqt-gLe8",
+            authDomain: "sunflowers-b59ab.firebaseapp.com",
+            projectId: "sunflowers-b59ab",
+            storageBucket: "sunflowers-b59ab.appspot.app",
+            messagingSenderId: "224773276578",
+            appId: "1:224773276578:web:c66d85cf4797b4911268fb",
+            measurementId: "G-7KF45KLQZW"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const analytics = getAnalytics(app);
+
+        const products = {
+            bouquets: [
+                { id: 'b1', name: 'Bouquet Romántico', price: 150000, image: 'bouquet1.jpg' },
+                { id: 'b2', name: 'Bouquet Primavera', price: 180000, image: 'bouquet2.jpg' },
+                { id: 'b3', name: 'Bouquet Elegante', price: 200000, image: 'bouquet3.jpg' },
+                { id: 'b4', name: 'Bouquet Deluxe', price: 250000, image: 'bouquet4.jpg' }
+            ],
+            boxes: [
+                { id: 'x1', name: 'Box Sorpresa', price: 120000, image: 'box1.jpg' },
+                { id: 'x2', name: 'Box Amor', price: 160000, image: 'box2.jpg' },
+                { id: 'x3', name: 'Box Premium', price: 220000, image: 'box3.jpg' },
+                { id: 'x4', name: 'Box Especial', price: 280000, image: 'box4.jpg' }
+            ]
+        };
+
+        let cart = [];
+        let deliveryOption = 'pickup';
+        let deliveryLocation = '';
+        let paymentMethod = 'online';
+
+        function renderProducts() {
+            const bouquetsGrid = document.getElementById('bouquetsGrid');
+            const boxesGrid = document.getElementById('boxesGrid');
+
+            products.bouquets.forEach(product => {
+                bouquetsGrid.innerHTML += createProductCard(product);
+            });
+
+            products.boxes.forEach(product => {
+                boxesGrid.innerHTML += createProductCard(product);
+            });
+        }
+
+        function createProductCard(product) {
+            return `
+                <div class="product-card">
+                    <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22280%22%3E%3Crect fill=%22%23f5f5f5%22 width=%22280%22 height=%22280%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2220%22%3E${product.name}%3C/text%3E%3C/svg%3E'">
+                    <div class="product-info">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-price">Gs. ${product.price.toLocaleString()}</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('${product.id}')">
+                            Agregar al carrito
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        window.addToCart = function(productId) {
+            const allProducts = [...products.bouquets, ...products.boxes];
+            const product = allProducts.find(p => p.id === productId);
+            
+            if (product) {
+                cart.push({
+                    ...product,
+                    cartId: Date.now() + Math.random(),
+                    withCard: false,
+                    cardText: ''
+                });
+                updateCart();
+                
+                const cartIcon = document.querySelector('.cart-icon');
+                cartIcon.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    cartIcon.style.transform = 'scale(1)';
+                }, 200);
+            }
+        };
+
+        function countWords(text) {
+            return text.trim().split(/\s+/).filter(word => word.length > 0).length;
+        }
+
+        function updateCart() {
+            const cartCount = document.getElementById('cartCount');
+            const cartContent = document.getElementById('cartContent');
+            
+            cartCount.textContent = cart.length;
+
+            if (cart.length === 0) {
+                cartContent.innerHTML = `
+                    <div class="empty-cart">
+                        <p>Tu carrito está vacío</p>
+                        <p style="font-size: 3em;">🛒</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let cartHTML = '<div>';
+            let productsTotal = 0;
+
+            cart.forEach(item => {
+                productsTotal += item.price;
+
+                cartHTML += `
+                    <div class="cart-item">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">Gs. ${item.price.toLocaleString()}</div>
+                        
+                        <div class="note-section">
+                            <label class="note-checkbox">
+                                <input type="checkbox" onchange="toggleCard('${item.cartId}')" ${item.withCard ? 'checked' : ''}>
+                                <span>Agregar tarjeta personalizada (+Gs. 7.000)</span>
+                            </label>
+                            <textarea 
+                                class="note-textarea ${item.withCard ? 'active' : ''}" 
+                                id="card-${item.cartId}"
+                                placeholder="Escribe tu mensaje para la tarjeta aquí... (máx. 200 palabras)"
+                                oninput="updateCard('${item.cartId}', this.value)"
+                            >${item.cardText}</textarea>
+                            ${item.withCard ? `<div class="word-counter" id="card-counter-${item.cartId}">0/200 palabras</div>` : ''}
+                        </div>
+                        
+                        <button class="remove-item" onclick="removeFromCart('${item.cartId}')">
+                            Eliminar
+                        </button>
+                    </div>
+                `;
+            });
+
+            const cardTotal = cart.reduce((sum, item) => sum + (item.withCard ? 7000 : 0), 0);
+            const deliveryCost = calculateDeliveryCost();
+            const grandTotal = productsTotal + cardTotal + deliveryCost;
+
+            cartHTML += `
+                </div>
+                <div class="checkout-section">
+                    <div class="form-group">
+                        <label>Nombre completo:</label>
+                        <input type="text" id="customerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono:</label>
+                        <input type="tel" id="customerPhone" required>
+                    </div>
+
+                    <div class="delivery-options">
+                        <label style="font-weight: bold; display: block; margin-bottom: 10px;">Opciones de Entrega:</label>
+                        
+                        <div class="option-item">
+                            <input type="radio" name="delivery" id="delivery-pickup" value="pickup" ${deliveryOption === 'pickup' ? 'checked' : ''} onchange="handleDeliveryChange('pickup')">
+                            <label for="delivery-pickup">
+                                <strong>Retirar en Sucursal</strong> (Sin costo)
+                            </label>
+                        </div>
+
+                        <div class="option-item">
+                            <input type="radio" name="delivery" id="delivery-near" value="near" ${deliveryOption === 'near' ? 'checked' : ''} onchange="handleDeliveryChange('near')">
+                            <label for="delivery-near">
+                                <strong>Delivery Zona Céntrica</strong> (+Gs. 15.000)
+                            </label>
+                        </div>
+
+                        <div class="option-item">
+                            <input type="radio" name="delivery" id="delivery-medium" value="medium" ${deliveryOption === 'medium' ? 'checked' : ''} onchange="handleDeliveryChange('medium')">
+                            <label for="delivery-medium">
+                                <strong>Delivery Zona Media</strong> (+Gs. 25.000)
+                            </label>
+                        </div>
+
+                        <div class="option-item">
+                            <input type="radio" name="delivery" id="delivery-far" value="far" ${deliveryOption === 'far' ? 'checked' : ''} onchange="handleDeliveryChange('far')">
+                            <label for="delivery-far">
+                                <strong>Delivery Zona Lejana</strong> (+Gs. 35.000)
+                            </label>
+                        </div>
+
+                        <div class="map-selection ${deliveryOption !== 'pickup' ? 'active' : ''}" id="mapSelection">
+                            <div class="location-input">
+                                <label style="font-weight: bold; margin-bottom: 5px; display: block;">Ubicación de Entrega:</label>
+                                <input type="text" id="deliveryAddress" placeholder="Ingresa tu dirección o búscala en el mapa" style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 8px;" oninput="handleAddressInput(this.value)">
+                                <p style="font-size: 0.9em; color: #666; margin-top: 8px;">Puedes escribir tu dirección o hacer clic en el mapa para seleccionar tu ubicación</p>
+                            </div>
+                            <iframe 
+                                id="deliveryMap"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3607.4687789642746!2d-56.43657962401155!3d-25.427703477585836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDI1JzM5LjciUyA1NsKwMjYnMDMuOCJX!5e0!3m2!1ses!2spy!4v1234567890123!5m2!1ses!2spy"
+                                allowfullscreen="" 
+                                loading="lazy"
+                                style="pointer-events: auto;">
+                            </iframe>
+                        </div>
+                    </div>
+
+                    <div class="payment-options">
+                        <label style="font-weight: bold; display: block; margin-bottom: 10px;">Método de Pago:</label>
+                        
+                        <div class="option-item">
+                            <input type="radio" name="payment" id="payment-cash" value="cash" ${paymentMethod === 'cash' ? 'checked' : ''} onchange="handlePaymentChange('cash')">
+                            <label for="payment-cash">
+                                <strong>Pagar en Efectivo</strong> (al recibir)
+                            </label>
+                        </div>
+
+                        <div class="option-item">
+                            <input type="radio" name="payment" id="payment-online" value="online" ${paymentMethod === 'online' ? 'checked' : ''} onchange="handlePaymentChange('online')">
+                            <label for="payment-online">
+                                <strong>Pago por Transferencia</strong>
+                            </label>
+                        </div>
+
+                        <div class="payment-amount ${paymentMethod === 'online' ? 'active' : ''}" id="paymentAmount">
+                            <label style="font-weight: bold; display: block; margin-top: 10px; margin-bottom: 8px;">Monto a Pagar:</label>
+                            <div class="option-item">
+                                <input type="radio" name="amount" id="amount-50" value="50" checked>
+                                <label for="amount-50">
+                                    <strong>50% Adelanto</strong> (Gs. ${(grandTotal * 0.5).toLocaleString()})
+                                </label>
+                            </div>
+                            <div class="option-item">
+                                <input type="radio" name="amount" id="amount-100" value="100">
+                                <label for="amount-100">
+                                    <strong>Pago Total</strong> (Gs. ${grandTotal.toLocaleString()})
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: #f9f9f9; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                        <div class="subtotal-row">
+                            <span>Subtotal Productos:</span>
+                            <span>Gs. ${productsTotal.toLocaleString()}</span>
+                        </div>
+                        ${cardTotal > 0 ? `<div class="subtotal-row"><span>Tarjetas Personalizadas:</span><span>Gs. ${cardTotal.toLocaleString()}</span></div>` : ''}
+                        ${deliveryCost > 0 ? `<div class="subtotal-row"><span>Costo de Delivery:</span><span>Gs. ${deliveryCost.toLocaleString()}</span></div>` : ''}
+                    </div>
+
+                    <div class="total-price">
+                        Total: Gs. ${grandTotal.toLocaleString()}
+                    </div>
+                    <button class="pay-btn" onclick="processPayment()">
+                        ${paymentMethod === 'cash' ? 'Confirmar Pedido' : 'Proceder al Pago'}
+                    </button>
+                </div>
+            `;
+
+            cartContent.innerHTML = cartHTML;
+
+            cart.forEach(item => {
+                if (item.withCard) {
+                    const wordCount = countWords(item.cardText);
+                    const counter = document.getElementById(`card-counter-${item.cartId}`);
+                    if (counter) {
+                        counter.textContent = `${wordCount}/200 palabras`;
+                        counter.classList.toggle('warning', wordCount > 200);
+                    }
+                }
+            });
+        }
+
+        function calculateDeliveryCost() {
+            switch(deliveryOption) {
+                case 'near': return 15000;
+                case 'medium': return 25000;
+                case 'far': return 35000;
+                default: return 0;
+            }
+        }
+
+        window.handleDeliveryChange = function(option) {
+            deliveryOption = option;
+            updateCart();
+        };
+
+        window.handlePaymentChange = function(method) {
+            paymentMethod = method;
+            updateCart();
+        };
+
+        window.handleAddressInput = function(value) {
+            deliveryLocation = value;
+        };
+
+        window.toggleCard = function(cartId) {
+            const item = cart.find(i => i.cartId === cartId);
+            if (item) {
+                item.withCard = !item.withCard;
+                if (!item.withCard) {
+                    item.cardText = '';
+                }
+                updateCart();
+            }
+        };
+
+        window.updateCard = function(cartId, text) {
+            const item = cart.find(i => i.cartId === cartId);
+            if (item) {
+                const wordCount = countWords(text);
+                if (wordCount <= 200) {
+                    item.cardText = text;
+                }
+                const counter = document.getElementById(`card-counter-${cartId}`);
+                if (counter) {
+                    counter.textContent = `${wordCount}/200 palabras`;
+                    counter.classList.toggle('warning', wordCount > 200);
+                }
+            }
+        };
+
+        window.removeFromCart = function(cartId) {
+            cart = cart.filter(item => item.cartId !== cartId);
+            updateCart();
+        };
+
+        window.toggleCart = function() {
+            const cartSidebar = document.getElementById('cartSidebar');
+            cartSidebar.classList.toggle('open');
+        };
+
+        window.processPayment = async function() {
+            const name = document.getElementById('customerName').value;
+            const phone = document.getElementById('customerPhone').value;
+
+            if (!name || !phone) {
+                alert('Por favor completa tu nombre y teléfono');
+                return;
+            }
+
+            if (deliveryOption !== 'pickup') {
+                const address = document.getElementById('deliveryAddress').value;
+                if (!address) {
+                    alert('Por favor ingresa la dirección de entrega');
+                    return;
+                }
+                deliveryLocation = address;
+            }
+
+            for (let item of cart) {
+                if (item.withCard && countWords(item.cardText) > 200) {
+                    alert('Una de las tarjetas excede el límite de 200 palabras');
+                    return;
+                }
+            }
+
+            let productsTotal = 0;
+            let cardTotal = 0;
+
+            cart.forEach(item => {
+                productsTotal += item.price;
+                if (item.withCard) cardTotal += 7000;
+            });
+
+            const deliveryCost = calculateDeliveryCost();
+            const grandTotal = productsTotal + cardTotal + deliveryCost;
+
+            let paymentAmount = grandTotal;
+            if (paymentMethod === 'online') {
+                const amountOption = document.querySelector('input[name="amount"]:checked');
+                if (amountOption && amountOption.value === '50') {
+                    paymentAmount = grandTotal * 0.5;
+                }
+            }
+
+            const deliveryText = deliveryOption === 'pickup' 
+                ? 'Retiro en sucursal' 
+                : `Delivery (${deliveryOption === 'near' ? 'Zona Céntrica' : deliveryOption === 'medium' ? 'Zona Media' : 'Zona Lejana'})`;
+
+            const orderData = {
+                customer: { 
+                    name, 
+                    phone, 
+                    deliveryAddress: deliveryLocation 
+                },
+                items: cart.map(item => ({
+                    name: item.name,
+                    price: item.price,
+                    withCard: item.withCard,
+                    cardText: item.cardText
+                })),
+                deliveryOption: deliveryOption,
+                deliveryLocation: deliveryLocation,
+                deliveryCost: deliveryCost,
+                paymentMethod: paymentMethod,
+                paymentAmount: paymentAmount,
+                productsTotal: productsTotal,
+                cardTotal: cardTotal,
+                grandTotal: grandTotal,
+                timestamp: serverTimestamp(),
+                status: 'pending'
+            };
+
+            try {
+                await addDoc(collection(db, 'orders'), orderData);
+                
+                let message = `🌻 *NUEVO PEDIDO - SUNFLOWERS* 🌻\n\n`;
+                message += `👤 *Cliente:* ${name}\n`;
+                message += `📱 *Teléfono:* ${phone}\n\n`;
+                
+                message += `🛍️ *PRODUCTOS:*\n`;
+                cart.forEach(item => {
+                    message += `\n• ${item.name}\n`;
+                    message += `  Precio: Gs. ${item.price.toLocaleString()}\n`;
+                    if (item.withCard) {
+                        message += `  ✉️ Con tarjeta personalizada (+Gs. 7.000)\n`;
+                        message += `  Texto: "${item.cardText}"\n`;
+                    }
+                });
+
+                message += `\n📦 *ENTREGA:*\n`;
+                message += `${deliveryText}\n`;
+                if (deliveryOption !== 'pickup') {
+                    message += `📍 Dirección: ${deliveryLocation}\n`;
+                    message += `Costo delivery: Gs. ${deliveryCost.toLocaleString()}\n`;
+                }
+
+                message += `\n💰 *RESUMEN DE COSTOS:*\n`;
+                message += `Productos: Gs. ${productsTotal.toLocaleString()}\n`;
+                if (cardTotal > 0) message += `Tarjetas: Gs. ${cardTotal.toLocaleString()}\n`;
+                if (deliveryCost > 0) message += `Delivery: Gs. ${deliveryCost.toLocaleString()}\n`;
+                message += `*TOTAL: Gs. ${grandTotal.toLocaleString()}*\n\n`;
+
+                message += `💳 *MÉTODO DE PAGO:*\n`;
+                if (paymentMethod === 'cash') {
+                    message += `Pago en efectivo (al recibir)\n`;
+                    message += `Monto a pagar: Gs. ${grandTotal.toLocaleString()}`;
+                } else {
+                    message += `Transferencia bancaria\n`;
+                    message += `Monto a pagar: Gs. ${paymentAmount.toLocaleString()}`;
+                    if (paymentAmount < grandTotal) {
+                        message += ` (50% adelanto)\n`;
+                        message += `Saldo restante: Gs. ${(grandTotal - paymentAmount).toLocaleString()}`;
+                    }
+                    message += `\n\n*DATOS PARA TRANSFERENCIA:*\n`;
+                    message += `🏦 Banco: Banco Regional\n`;
+                    message += `💳 Cuenta: 520604647\n`;
+                    message += `📱 Alias: 0972629430\n`;
+                    message += `👤 Titular: Laureano Galeano Martínez\n`;
+                    message += `🆔 CI: 4.161.580`;
+                }
+
+                const whatsappURL = `https://wa.me/595972629430?text=${encodeURIComponent(message)}`;
+                window.open(whatsappURL, '_blank');
+
+                cart = [];
+                deliveryOption = 'pickup';
+                deliveryLocation = '';
+                paymentMethod = 'online';
+                updateCart();
+                toggleCart();
+                
+                alert('¡Gracias por tu pedido! Serás redirigido a WhatsApp para confirmar.');
+            } catch (error) {
+                console.error('Error al procesar el pedido:', error);
+                alert('Hubo un error al procesar tu pedido. Por favor, intenta nuevamente.');
+            }
+        };
+
+        renderProducts();
+    </script>
+</body>
+</html>
