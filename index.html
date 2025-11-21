@@ -161,6 +161,13 @@
         }
         .map-mode-btn.active { background: #4CAF50; color: white; }
         .map-mode-btn.inactive { background: #ddd; color: #666; }
+        .my-location-btn {
+            padding: 8px 16px; border: none; border-radius: 8px; font-size: 0.85em;
+            cursor: pointer; white-space: nowrap; transition: all 0.3s ease;
+            background: #2196F3; color: white; display: flex; align-items: center; gap: 5px;
+        }
+        .my-location-btn:hover { background: #1976D2; transform: translateY(-1px); }
+        .my-location-btn:disabled { background: #ccc; cursor: not-allowed; }
         #mapClickArea {
             position: relative; width: 100%; height: 350px; border: 2px solid #ddd;
             border-radius: 10px; margin-top: 10px; overflow: hidden;
@@ -557,6 +564,56 @@
             }
         }
 
+        window.useMyLocation = async function() {
+            const btn = document.getElementById('myLocationBtn');
+            if (!btn) return;
+            
+            btn.disabled = true;
+            btn.innerHTML = '📍 Obteniendo ubicación...';
+            
+            if (!navigator.geolocation) {
+                alert('Tu navegador no soporta geolocalización');
+                btn.disabled = false;
+                btn.innerHTML = '📍 Mi Ubicación';
+                return;
+            }
+            
+            navigator.geolocation.getCurrentPosition(
+                async function(position) {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    const placeName = await reverseGeocode(lng, lat);
+                    handleLocationSelect(lng, lat, placeName);
+                    btn.disabled = false;
+                    btn.innerHTML = '📍 Mi Ubicación';
+                },
+                function(error) {
+                    let errorMessage = 'No se pudo obtener tu ubicación. ';
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMessage += 'Por favor, permite el acceso a tu ubicación en la configuración del navegador.';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMessage += 'La información de ubicación no está disponible.';
+                            break;
+                        case error.TIMEOUT:
+                            errorMessage += 'La solicitud de ubicación tardó demasiado tiempo.';
+                            break;
+                        default:
+                            errorMessage += 'Ocurrió un error desconocido.';
+                    }
+                    alert(errorMessage);
+                    btn.disabled = false;
+                    btn.innerHTML = '📍 Mi Ubicación';
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 0
+                }
+            );
+        };
+
         function setupMapModeButtons() {
             const btnNavigate = document.getElementById('mapModeNavigate');
             const btnSelect = document.getElementById('mapModeSelect');
@@ -759,8 +816,9 @@
                             <div class="location-input">
                                 <label style="font-weight: bold; margin-bottom: 5px; display: block;">Ubicación de Entrega:</label>
                                 <input type="text" id="deliveryAddress" value="${preservedLocation}" placeholder="Escribe la dirección o busca en el mapa" style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 8px;">
-                                <div style="display: flex; gap: 10px; margin-top: 8px; align-items: center;">
-                                    <p style="flex: 1; font-size: 0.9em; color: #666; margin: 0;">🖱️ Navega el mapa • 📍 Click para seleccionar • 🔍 Busca direcciones</p>
+                                <div style="display: flex; gap: 10px; margin-top: 8px; align-items: center; flex-wrap: wrap;">
+                                    <p style="flex: 1; font-size: 0.9em; color: #666; margin: 0; min-width: 200px;">🖱️ Navega el mapa • 📍 Click para seleccionar • 🔍 Busca direcciones</p>
+                                    <button type="button" id="myLocationBtn" class="my-location-btn" onclick="useMyLocation()">📍 Mi Ubicación</button>
                                     <button type="button" id="mapModeNavigate" class="map-mode-btn ${preservedMode === 'navigate' ? 'active' : 'inactive'}">✓ Navegación</button>
                                     <button type="button" id="mapModeSelect" class="map-mode-btn ${preservedMode === 'select' ? 'active' : 'inactive'}">Seleccionar</button>
                                 </div>
@@ -981,7 +1039,7 @@
                     return;
                 }
                 if (!deliveryCoordinates.lat || !deliveryCoordinates.lng) {
-                    alert('Por favor selecciona una ubicación en el mapa haciendo click en el botón "Seleccionar" y luego clickeando en el mapa');
+                    alert('Por favor selecciona una ubicación en el mapa haciendo click en el botón "Seleccionar" y luego clickeando en el mapa, o usa el botón "Mi Ubicación"');
                     return;
                 }
                 deliveryLocation = address;
@@ -1104,4 +1162,3 @@
     </script>
 </body>
 </html>
-
