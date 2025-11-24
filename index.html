@@ -18,18 +18,19 @@
             background-position: center;
             color: #333;
         }
-        .overlay { background: rgba(255, 255, 255, 0.95); min-height: 100vh; }
+        .overlay { background: transparent; min-height: 100vh; }
         header {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, rgba(240, 147, 251, 0.9) 0%, rgba(245, 87, 108, 0.9) 100%);
             padding: 15px 30px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             position: sticky; top: 0; z-index: 100;
             display: flex; justify-content: space-between; align-items: center;
+            backdrop-filter: blur(10px);
         }
         .logo { height: 60px; transition: transform 0.3s ease; }
         .logo:hover { transform: scale(1.1); }
         .cart-icon {
-            position: relative; cursor: pointer; background: white;
+            position: relative; cursor: pointer; background: rgba(255, 255, 255, 0.95);
             padding: 12px 20px; border-radius: 50px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease;
         }
@@ -42,7 +43,7 @@
             font-size: 12px; font-weight: bold;
         }
         .hero {
-            width: 100%; height: 500px; background-image: url('portada.jpg');
+            width: 100%; height: 600px; background-image: url('portada.jpg');
             background-size: cover; background-position: center;
             display: flex; align-items: center; justify-content: center;
             position: relative; margin-bottom: 50px;
@@ -58,6 +59,7 @@
         .section-title {
             font-size: 2.5em; color: #f5576c; text-align: center; margin-bottom: 40px;
             text-transform: uppercase; letter-spacing: 2px; position: relative; padding-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
         }
         .section-title::after {
             content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
@@ -65,10 +67,11 @@
         }
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
         .product-card {
-            background: white; border-radius: 20px; overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; cursor: pointer;
+            background: rgba(255, 255, 255, 0.9); border-radius: 20px; overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); transition: all 0.3s ease; cursor: pointer;
+            backdrop-filter: blur(10px);
         }
-        .product-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); }
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25); }
         .product-image { width: 100%; height: 280px; object-fit: cover; background: #f5f5f5; }
         .product-info { padding: 20px; }
         .product-name { font-size: 1.3em; font-weight: bold; margin-bottom: 10px; color: #333; }
@@ -81,8 +84,9 @@
         .add-to-cart-btn:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4); }
         .cart-sidebar {
             position: fixed; top: 0; right: -500px; width: 500px; height: 100vh;
-            background: white; box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.98); box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
             transition: right 0.3s ease; z-index: 1000; overflow-y: auto;
+            backdrop-filter: blur(10px);
         }
         .cart-sidebar.open { right: 0; }
         .cart-header {
@@ -117,14 +121,14 @@
         .form-group input, .form-group textarea {
             width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 10px; font-size: 1em;
         }
-        .delivery-options { background: #f9f9f9; padding: 15px; border-radius: 10px; margin-bottom: 15px; }
+        .delivery-options { background: rgba(249, 249, 249, 0.9); padding: 15px; border-radius: 10px; margin-bottom: 15px; }
         .option-item { margin: 10px 0; display: flex; align-items: flex-start; gap: 8px; }
         .option-item input[type="radio"] { margin-top: 4px; }
         .option-item label { flex: 1; cursor: pointer; }
         .map-selection { margin-top: 10px; display: none; }
         .map-selection.active { display: block; }
-        .location-input { margin-top: 10px; padding: 10px; background: #fff; border: 2px solid #ddd; border-radius: 10px; }
-        .payment-options { background: #f9f9f9; padding: 15px; border-radius: 10px; margin-bottom: 15px; }
+        .location-input { margin-top: 10px; padding: 10px; background: rgba(255, 255, 255, 0.95); border: 2px solid #ddd; border-radius: 10px; }
+        .payment-options { background: rgba(249, 249, 249, 0.9); padding: 15px; border-radius: 10px; margin-bottom: 15px; }
         .payment-amount { margin-top: 10px; display: none; }
         .payment-amount.active { display: block; }
         .customer-info-section { display: none; }
@@ -144,14 +148,44 @@
         }
         .map-container iframe { width: 100%; height: 450px; border: none; }
         .delivery-info {
-            background: white; padding: 30px; border-radius: 20px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1); margin-top: 40px; text-align: center;
+            background: rgba(255, 255, 255, 0.9); padding: 30px; border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); margin-top: 40px; text-align: center;
+            backdrop-filter: blur(10px);
         }
         .delivery-info h3 { color: #f5576c; margin-bottom: 20px; font-size: 1.8em; }
         .delivery-info p { font-size: 1.1em; margin: 10px 0; color: #666; }
+        .bank-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .bank-card {
+            background: linear-gradient(135deg, rgba(240, 147, 251, 0.95) 0%, rgba(245, 87, 108, 0.95) 100%);
+            padding: 25px;
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
+        .bank-card h4 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .bank-card p {
+            margin: 8px 0;
+            font-size: 1em;
+            color: white;
+        }
+        .bank-card strong {
+            display: inline-block;
+            min-width: 80px;
+        }
         .empty-cart { text-align: center; padding: 50px 20px; color: #999; }
         .payment-notice {
-            background: #fff3cd; border: 2px solid #ffc107; border-radius: 10px;
+            background: rgba(255, 243, 205, 0.95); border: 2px solid #ffc107; border-radius: 10px;
             padding: 15px; margin: 20px 0; color: #856404; font-size: 0.95em; line-height: 1.6;
         }
         .payment-notice strong { display: block; margin-bottom: 8px; font-size: 1.05em; color: #f5576c; }
@@ -176,7 +210,7 @@
         #mapClickArea.select-mode { cursor: crosshair; }
         #deliveryMap { width: 100%; height: 100%; }
         .coordinates-display {
-            margin-top: 10px; padding: 10px; background: #e8f5e9; border: 2px solid #4CAF50;
+            margin-top: 10px; padding: 10px; background: rgba(232, 245, 233, 0.95); border: 2px solid #4CAF50;
             border-radius: 8px; font-size: 0.9em; display: none;
         }
         .coordinates-display.active { display: block; }
@@ -188,6 +222,7 @@
             .cart-sidebar { width: 100%; right: -100%; }
             .hero h1 { font-size: 2.5em; }
             .products-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+            .bank-info-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -202,8 +237,8 @@
         </header>
         <div class="hero">
             <div class="hero-content">
-                <h1>Sunflowers 2025</h1>
-                <p style="font-size: 1.5em;">Regalos que florecen</p>
+                <h1></h1>
+                <p style="front-size: 1.5em;"></p>
             </div>
         </div>
         <div class="container">
@@ -220,6 +255,24 @@
                 <p><strong>Delivery Zona Céntrica:</strong> Gs. 15.000</p>
                 <p><strong>Tarjeta personalizada + porta tarjeta:</strong> Gs. 7.000</p>
                 <p style="margin-top: 20px; font-size: 0.95em;">Los pedidos se agendan con el pago de un adelanto del 50% del costo del producto elegido.</p>
+                
+                <div class="bank-info-grid">
+                    <div class="bank-card">
+                        <h4>🏦 Banco Itaú</h4>
+                        <p><strong>Alias:</strong> 0972629430 (Tel.)</p>
+                        <p><strong>Titular:</strong> Laureano Galeano Martínez</p>
+                        <p><strong>C.I. Nº:</strong> 4.161.580</p>
+                        <p><strong>Cuenta Nº:</strong> 520604647</p>
+                    </div>
+                    
+                    <div class="bank-card">
+                        <h4>🏦 Ueno Bank</h4>
+                        <p><strong>Alias:</strong> 4161580 (C.I.)</p>
+                        <p><strong>Titular:</strong> Laureano Galeano Martínez</p>
+                        <p><strong>C.I. Nº:</strong> 4.161.580</p>
+                        <p><strong>Cuenta Nº:</strong> 1801269</p>
+                    </div>
+                </div>
             </div>
             <div class="map-section">
                 <h2 class="section-title">Nuestra Ubicación</h2>
@@ -265,17 +318,53 @@
 
         const products = {
             bouquets: [
-                { id: 'b1', name: 'Bouquet Romántico', price: 150000, image: 'bouquet1.jpg' },
-                { id: 'b2', name: 'Bouquet Primavera', price: 180000, image: 'bouquet2.jpg' },
-                { id: 'b3', name: 'Bouquet Elegante', price: 200000, image: 'bouquet3.jpg' },
-                { id: 'b4', name: 'Bouquet Deluxe', price: 250000, image: 'bouquet4.jpg' }
-            ],
+                { id: 'b1', name: 'Sara', price: 35000, image: 'bouquet1.jpg' },
+                { id: 'b2', name: 'Sunbrigfh', price: 75000, image: 'bouquet2.jpg' },
+                { id: 'b3', name: 'Sunrise', price: 85000, image: 'bouquet3.jpg' },
+                { id: 'b4', name: 'Carrie', price: 90000, image: 'bouquet4.jpg' },
+{ id: 'b5', name: 'Scarlett', price: 110000, image: 'bouquet5.jpg' },
+{ id: 'b6', name: 'Sunlight', price: 110000, image: 'bouquet6.jpg' },
+{ id: 'b7', name: 'Ivón', price: 130000, image: 'bouquet7.jpg' },
+{ id: 'b8', name: 'Valentine s ', price: 150000, image: 'bouquet8.jpg' },
+{ id: 'b9', name: 'Pink Floyd', price: 150000, image: 'bouquet9.jpg' },
+{ id: 'b10', name: 'Sunshine', price: 160000, image: 'bouquet10.jpg' },
+{ id: 'b11', name: 'Angélica', price: 170000, image: 'bouquet11.jpg' },
+{ id: 'b12', name: 'Rosaura', price: 180000, image: 'bouquet12.jpg' },
+{ id: 'b13', name: 'Ana Karenina', price: 180000, image: 'bouquet13.jpg' },
+{ id: 'b14', name: 'Calisto', price: 200000, image: 'bouquet14.jpg' },
+{ id: 'b15', name: 'Prince', price: 210000, image: 'bouquet15.jpg' },
+{ id: 'b16', name: 'Violeta', price: 230000, image: 'bouquet16.jpg' },
+{ id: 'b17', name: 'Dakota', price: 230000, image: 'bouquet17.jpg' },
+{ id: 'b18', name: 'Miranda', price: 230000, image: 'bouquet18.jpg' },
+{ id: 'b19', name: 'Anabella', price: 230000, image: 'bouquet19.jpg' },
+{ id: 'b20', name: 'Helena', price: 250000, image: 'bouquet20.jpg' },
+{ id: 'b21', name: 'Primal', price: 250000, image: 'bouquet21.jpg' },
+{ id: 'b22', name: 'La Passion', price: 260000, image: 'bouquet22.jpg' },
+{ id: 'b23', name: 'Cinderella', price: 260000, image: 'bouquet23.jpg' },
+{ id: 'b24', name: 'Venus', price: 260000, image: 'bouquet24.jpg' },
+{ id: 'b25', name: 'Mondial', price: 260000, image: 'bouquet25.jpg' },
+{ id: 'b26', name: 'Danna', price: 260000, image: 'bouquet26.jpg' },
+{ id: 'b27', name: 'Spring', price: 280000, image: 'bouquet27.jpg' },
+{ id: 'b28', name: 'Afrodita', price: 330000, image: 'bouquet28.jpg' },
+{ id: 'b29', name: 'Sofía', price: 350000, image: 'bouquet29.jpg' },
+{ id: 'b30', name: 'Diana', price: 350000, image: 'bouquet30.jpg' },
+{ id: 'b31', name: 'Loren', price: 380000, image: 'bouquet31.jpg' },
+{ id: 'b32', name: 'Pandora', price: 290000, image: 'bouquet32.jpg' },
+{ id: 'b33', name: 'Victoria (20 rosas)', price: 420000, image: 'bouquet33.jpg' },
+{ id: 'b34', name: 'Antonella', price: 420000, image: 'bouquet34.jpg' },
+{ id: 'b35', name: 'Amanda', price: 510000, image: 'bouquet35.jpg' },
+{ id: 'b36', name: 'Suzanne', price: 730000, image: 'bouquet36.jpg' },
+],
             boxes: [
-                { id: 'x1', name: 'Box Sorpresa', price: 120000, image: 'box1.jpg' },
-                { id: 'x2', name: 'Box Amor', price: 160000, image: 'box2.jpg' },
-                { id: 'x3', name: 'Box Premium', price: 220000, image: 'box3.jpg' },
-                { id: 'x4', name: 'Box Especial', price: 280000, image: 'box4.jpg' }
-            ]
+                { id: 'x1', name: 'Lidia', price: 220000, image: 'box1.jpg' },
+                { id: 'x2', name: 'Sweet Love', price: 270000, image: 'box2.jpg' },
+                { id: 'x3', name: 'Romance', price: 320000, image: 'box3.jpg' },
+                { id: 'x4', name: 'Darling', price: 350000, image: 'box4.jpg' },
+{ id: 'x5', name: 'Zulema', price: 350000, image: 'box5.jpg' },
+{ id: 'x6', name: 'Susi Box', price: 420000, image: 'box6.jpg' },
+{ id: 'x7', name: 'Margaret', price: 420000, image: 'box7.jpg' },
+{ id: 'x8', name: 'Real Love', price: 510000, image: 'box8.jpg' }, 
+],
         };
 
         let cart = [];
@@ -434,9 +523,11 @@
                         accessToken: mapboxgl.accessToken,
                         mapboxgl: mapboxgl,
                         marker: false,
-                        placeholder: 'Buscar dirección en todo el mundo...',
+                        placeholder: 'Buscar lugares en Paraguay...',
                         language: 'es',
-                        limit: 10
+                        limit: 10,
+                        countries: 'PY',
+                        types: 'place,locality,neighborhood,address,poi'
                     });
 
                     const mapClickArea = document.getElementById('mapClickArea');
@@ -459,8 +550,7 @@
                     }
 
                     geocoder.on('result', function(e) {
-                        const coords = e.result.geometry.coordinates;
-                        const placeName = e.result.place_name;
+                        const coords = e.result.geometry.coordinates;const placeName = e.result.place_name;
                         handleLocationSelect(coords[0], coords[1], placeName);
                     });
 
@@ -732,6 +822,14 @@
             }
         }
 
+        function getPaymentNoticeText() {
+            if (paymentMethod === 'cash') {
+                return 'Su pedido será confirmado y programado para entrega. El pago se realizará en efectivo al momento de recibir el pedido.';
+            } else {
+                return 'El pago debe realizarse por separado mediante los datos de transferencia proporcionados en la web, en la sección "información de entrega" (Banco Itaú o Ueno Bank). Luego de enviar el comprobante y haber confirmado el impacto, su pedido estará en trámite para su entrega inmediata.';
+            }
+        }
+
         function updateCart() {
             const cartCount = document.getElementById('cartCount');
             const cartContent = document.getElementById('cartContent');
@@ -832,9 +930,9 @@
                     </div>
                     <div class="payment-notice">
                         <strong>⚠️ IMPORTANTE - Proceso de Pago:</strong>
-                        ${paymentMethod === 'online' ? 'El pago debe realizarse por separado mediante los datos de transferencia proporcionados. Luego de enviar el comprobante y haber confirmado el impacto, su pedido estará en trámite para su entrega inmediata.' : 'Su pedido será confirmado y programado para entrega. El pago se realizará en efectivo al momento de recibir el pedido.'}
+                        ${getPaymentNoticeText()}
                     </div>
-                    <div style="background: #f9f9f9; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                    <div style="background: rgba(249, 249, 249, 0.9); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
                         <div class="subtotal-row"><span>Subtotal Productos:</span><span>Gs. ${productsTotal.toLocaleString()}</span></div>
                         ${cardTotal > 0 ? `<div class="subtotal-row"><span>Tarjetas Personalizadas:</span><span>Gs. ${cardTotal.toLocaleString()}</span></div>` : ''}
                         ${deliveryCost > 0 ? `<div class="subtotal-row"><span>Costo de Delivery:</span><span>Gs. ${deliveryCost.toLocaleString()}</span></div>` : ''}
@@ -948,7 +1046,7 @@
             const deliveryCost = calculateDeliveryCost();
             const grandTotal = productsTotal + cardTotal + deliveryCost;
 
-            const subtotalContainer = document.querySelector('.checkout-section > div[style*="background: #f9f9f9"]');
+            const subtotalContainer = document.querySelector('.checkout-section > div[style*="background: rgba(249, 249, 249, 0.9)"]');
             if (subtotalContainer) {
                 let newHTML = `<div class="subtotal-row"><span>Subtotal Productos:</span><span>Gs. ${productsTotal.toLocaleString()}</span></div>`;
                 if (cardTotal > 0) newHTML += `<div class="subtotal-row"><span>Tarjetas Personalizadas:</span><span>Gs. ${cardTotal.toLocaleString()}</span></div>`;
@@ -964,6 +1062,11 @@
                 const amount100 = document.querySelector('label[for="amount-100"]');
                 if (amount50) amount50.innerHTML = `<strong>50% Adelanto</strong> (Gs. ${(grandTotal * 0.5).toLocaleString()})`;
                 if (amount100) amount100.innerHTML = `<strong>Pago Total</strong> (Gs. ${grandTotal.toLocaleString()})`;
+            }
+
+            const paymentNotice = document.querySelector('.payment-notice');
+            if (paymentNotice) {
+                paymentNotice.innerHTML = `<strong>⚠️ IMPORTANTE - Proceso de Pago:</strong>${getPaymentNoticeText()}`;
             }
         }
 
@@ -997,6 +1100,17 @@
                 cashInfo.classList.remove('active');
                 onlineInfo.classList.add('active');
             }
+            
+            const paymentNotice = document.querySelector('.payment-notice');
+            if (paymentNotice) {
+                paymentNotice.innerHTML = `<strong>⚠️ IMPORTANTE - Proceso de Pago:</strong>${getPaymentNoticeText()}`;
+            }
+            
+            const payBtn = document.querySelector('.pay-btn');
+            if (payBtn) {
+                payBtn.textContent = method === 'cash' ? 'Confirmar Pedido' : 'Proceder al Pago';
+            }
+            
             updateTotals();
         };
 
@@ -1131,7 +1245,7 @@
                 } else {
                     message += `Transferencia bancaria\nMonto a pagar: Gs. ${paymentAmount.toLocaleString()}`;
                     if (paymentAmount < grandTotal) message += ` (50% adelanto)\nSaldo restante: Gs. ${(grandTotal - paymentAmount).toLocaleString()}`;
-                    message += `\n\n*DATOS PARA TRANSFERENCIA:*\n🏦 Banco: Banco Regional\n💳 Cuenta: 520604647\n📱 Alias: 0972629430\n👤 Titular: Laureano Galeano Martínez\n🆔 CI: 4.161.580`;
+                    message += `\n\n*DATOS PARA TRANSFERENCIA:*\n\n🏦 *Banco Itaú*\nAlias: 0972629430 (Tel.)\nTitular: Laureano Galeano Martínez\nCI: 4.161.580\nCuenta: 520604647\n\n🏦 *Ueno Bank*\nAlias: 4161580 (C.I.)\nTitular: Laureano Galeano Martínez\nCI: 4.161.580\nCuenta: 1801269`;
                 }
 
                 const whatsappURL = `https://wa.me/595976461032?text=${encodeURIComponent(message)}`;
