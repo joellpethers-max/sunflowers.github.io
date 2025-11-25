@@ -2,1277 +2,2260 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Sunflowers - Catálogo 2025</title>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        :root {
+            --primary-color: #d4a574;
+            --secondary-color: #8b6f47;
+            --accent-color: #e8c4a0;
+            --dark-bg: #2c2416;
+            --light-cream: #f9f5f0;
+            --text-dark: #3a3a3a;
+            --text-light: #666;
+            --success: #6b8e23;
+            --danger: #c9302c;
+        }
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: url('fondo.jpg');
-            background-size: cover;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #fef9f3 0%, #fceee3 50%, #f9e6d5 100%);
             background-attachment: fixed;
-            background-position: center;
-            color: #333;
+            color: var(--text-dark);
+            line-height: 1.6;
+            position: relative;
+            -webkit-overflow-scrolling: touch;
         }
-        .overlay { background: transparent; min-height: 100vh; }
+        
+        /* Patrón de fondo decorativo con flores sutiles */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(212, 165, 116, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(139, 111, 71, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(232, 196, 160, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* Patrón de pétalos flotantes */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 100px,
+                    rgba(212, 165, 116, 0.01) 100px,
+                    rgba(212, 165, 116, 0.01) 200px
+                );
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* Header */
         header {
-            background: linear-gradient(135deg, rgba(240, 147, 251, 0.9) 0%, rgba(245, 87, 108, 0.9) 100%);
-            padding: 15px 30px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            position: sticky; top: 0; z-index: 100;
-            display: flex; justify-content: space-between; align-items: center;
-            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--secondary-color) 100%);
+            padding: 20px 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        .logo { height: 60px; transition: transform 0.3s ease; }
-        .logo:hover { transform: scale(1.1); }
-        .cart-icon {
-            position: relative; cursor: pointer; background: rgba(255, 255, 255, 0.95);
-            padding: 12px 20px; border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); transition: all 0.3s ease;
+        
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .cart-icon:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); }
-        .cart-icon span { font-size: 24px; }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            height: 70px;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.2));
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .brand-text {
+            color: var(--accent-color);
+            font-size: 1.8em;
+            font-weight: normal;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .cart-button {
+            position: relative;
+            background: var(--accent-color);
+            color: var(--dark-bg);
+            padding: 15px 25px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 165, 116, 0.3);
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        .cart-button:active {
+            transform: scale(0.95);
+        }
+        
+        .cart-button:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 165, 116, 0.5);
+        }
+        
         .cart-count {
-            position: absolute; top: -5px; right: -5px; background: #ff4757; color: white;
-            border-radius: 50%; width: 25px; height: 25px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 12px; font-weight: bold;
-        }
-        .hero {
-            width: 100%; height: 600px; background-image: url('portada.jpg');
-            background-size: cover; background-position: center;
-            display: flex; align-items: center; justify-content: center;
-            position: relative; margin-bottom: 50px;
-        }
-        .hero::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.3);
-        }
-        .hero-content { position: relative; text-align: center; color: white; z-index: 1; }
-        .hero h1 { font-size: 4em; text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); margin-bottom: 20px; }
-        .container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
-        .section { margin-bottom: 60px; }
-        .section-title {
-            font-size: 2.5em; color: #f5576c; text-align: center; margin-bottom: 40px;
-            text-transform: uppercase; letter-spacing: 2px; position: relative; padding-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
-        }
-        .section-title::after {
-            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-            width: 100px; height: 4px; background: linear-gradient(90deg, #f093fb, #f5576c); border-radius: 2px;
-        }
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
-        .product-card {
-            background: rgba(255, 255, 255, 0.9); border-radius: 20px; overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); transition: all 0.3s ease; cursor: pointer;
-            backdrop-filter: blur(10px);
-        }
-        .product-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25); }
-        .product-image { width: 100%; height: 280px; object-fit: cover; background: #f5f5f5; }
-        .product-info { padding: 20px; }
-        .product-name { font-size: 1.3em; font-weight: bold; margin-bottom: 10px; color: #333; }
-        .product-price { font-size: 1.5em; color: #f5576c; font-weight: bold; margin-bottom: 15px; }
-        .add-to-cart-btn {
-            width: 100%; padding: 12px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white; border: none; border-radius: 25px; font-size: 1em;
-            font-weight: bold; cursor: pointer; transition: all 0.3s ease;
-        }
-        .add-to-cart-btn:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4); }
-        .cart-sidebar {
-            position: fixed; top: 0; right: -500px; width: 500px; height: 100vh;
-            background: rgba(255, 255, 255, 0.98); box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
-            transition: right 0.3s ease; z-index: 1000; overflow-y: auto;
-            backdrop-filter: blur(10px);
-        }
-        .cart-sidebar.open { right: 0; }
-        .cart-header {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;
-            padding: 20px; display: flex; justify-content: space-between; align-items: center;
-        }
-        .close-cart { background: none; border: none; color: white; font-size: 28px; cursor: pointer; }
-        .cart-content { padding: 20px; }
-        .cart-item { border-bottom: 1px solid #eee; padding: 15px 0; position: relative; }
-        .cart-item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 5px; }
-        .cart-item-name { font-weight: bold; flex: 1; }
-        .remove-item-btn {
-            background: #ff4757; color: white; border: none; border-radius: 50%;
-            width: 28px; height: 28px; font-size: 18px; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: all 0.3s ease; margin-left: 10px;
-        }
-        .remove-item-btn:hover { background: #ff3838; transform: scale(1.1); }
-        .cart-item-price { color: #f5576c; margin-bottom: 10px; }
-        .note-section { margin-top: 10px; }
-        .note-checkbox { margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-        .note-textarea {
-            width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 10px;
-            resize: vertical; min-height: 80px; display: none; font-family: inherit;
-        }
-        .note-textarea.active { display: block; }
-        .word-counter { font-size: 0.85em; color: #666; text-align: right; margin-top: 5px; }
-        .word-counter.warning { color: #ff4757; }
-        .checkout-section { margin-top: 30px; padding-top: 20px; border-top: 2px solid #eee; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
-        .form-group input, .form-group textarea {
-            width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 10px; font-size: 1em;
-        }
-        .delivery-options { background: rgba(249, 249, 249, 0.9); padding: 15px; border-radius: 10px; margin-bottom: 15px; }
-        .option-item { margin: 10px 0; display: flex; align-items: flex-start; gap: 8px; }
-        .option-item input[type="radio"] { margin-top: 4px; }
-        .option-item label { flex: 1; cursor: pointer; }
-        .map-selection { margin-top: 10px; display: none; }
-        .map-selection.active { display: block; }
-        .location-input { margin-top: 10px; padding: 10px; background: rgba(255, 255, 255, 0.95); border: 2px solid #ddd; border-radius: 10px; }
-        .payment-options { background: rgba(249, 249, 249, 0.9); padding: 15px; border-radius: 10px; margin-bottom: 15px; }
-        .payment-amount { margin-top: 10px; display: none; }
-        .payment-amount.active { display: block; }
-        .customer-info-section { display: none; }
-        .customer-info-section.active { display: block; }
-        .total-price { font-size: 1.8em; color: #f5576c; font-weight: bold; text-align: right; margin: 20px 0; }
-        .subtotal-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 1em; }
-        .pay-btn {
-            width: 100%; padding: 15px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white; border: none; border-radius: 25px; font-size: 1.2em;
-            font-weight: bold; cursor: pointer; transition: all 0.3s ease;
-        }
-        .pay-btn:hover { transform: scale(1.05); box-shadow: 0 5px 20px rgba(245, 87, 108, 0.4); }
-        .map-section { margin: 60px auto; text-align: center; }
-        .map-container {
-            max-width: 800px; margin: 30px auto; border-radius: 20px; overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-        }
-        .map-container iframe { width: 100%; height: 450px; border: none; }
-        .delivery-info {
-            background: rgba(255, 255, 255, 0.9); padding: 30px; border-radius: 20px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); margin-top: 40px; text-align: center;
-            backdrop-filter: blur(10px);
-        }
-        .delivery-info h3 { color: #f5576c; margin-bottom: 20px; font-size: 1.8em; }
-        .delivery-info p { font-size: 1.1em; margin: 10px 0; color: #666; }
-        .bank-info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-        .bank-card {
-            background: linear-gradient(135deg, rgba(240, 147, 251, 0.95) 0%, rgba(245, 87, 108, 0.95) 100%);
-            padding: 25px;
-            border-radius: 15px;
+            background: var(--danger);
             color: white;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
-        }
-        .bank-card h4 {
-            font-size: 1.3em;
-            margin-bottom: 15px;
-            text-align: center;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85em;
             font-weight: bold;
         }
-        .bank-card p {
-            margin: 8px 0;
+        
+        /* Hero Section */
+        .hero {
+            width: 100%;
+            height: 70vh;
+            min-height: 500px;
+            background-image: url('portada.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: scroll;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 80px;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(44, 36, 22, 0.7) 0%, rgba(139, 111, 71, 0.5) 100%);
+        }
+        
+        .hero-content {
+            position: relative;
+            text-align: center;
+            color: white;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 4.5em;
+            font-weight: normal;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            letter-spacing: 3px;
+        }
+        
+        .hero p {
+            font-size: 1.3em;
+            color: var(--accent-color);
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Section */
+        .section {
+            margin-bottom: 100px;
+            position: relative;
+        }
+        
+        /* Decoración floral en las secciones */
+        .section::before {
+            content: '✿';
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3em;
+            color: rgba(212, 165, 116, 0.1);
+            z-index: 0;
+        }
+        
+        .section-title {
+            font-size: 3em;
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 60px;
+            font-weight: normal;
+            letter-spacing: 3px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2em;
+            color: var(--primary-color);
+        }
+        
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .product-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+        
+        /* Efecto de brillo sutil en las cards */
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transition: left 0.5s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .product-card:hover::before {
+            left: 100%;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(139, 111, 71, 0.2);
+            border-color: var(--primary-color);
+        }
+        
+        .product-image-container {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #fef9f3 0%, #fceee3 100%);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.08);
+        }
+        
+        .product-info {
+            padding: 25px;
+            background: white;
+            position: relative;
+        }
+        
+        .product-name {
+            font-size: 1.5em;
+            font-weight: normal;
+            margin-bottom: 12px;
+            color: var(--dark-bg);
+            letter-spacing: 1px;
+        }
+        
+        .product-price {
+            font-size: 1.8em;
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
             font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        .add-to-cart-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .add-to-cart-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .add-to-cart-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .add-to-cart-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(139, 111, 71, 0.4);
+        }
+        
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -550px;
+            width: 550px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
+            transition: right 0.4s ease;
+            z-index: 1000;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .cart-sidebar.open {
+            right: 0;
+        }
+        
+        .cart-header {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .cart-header h2 {
+            font-size: 1.8em;
+            font-weight: normal;
+            letter-spacing: 2px;
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 32px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            -webkit-user-select: none;
+            user-select: none;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .close-cart:active {
+            transform: scale(0.9);
+        }
+        
+        .close-cart:hover {
+            transform: rotate(90deg);
+        }
+        
+        .cart-content {
+            padding: 30px;
+            background: linear-gradient(to bottom, #ffffff 0%, #fef9f3 100%);
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-light);
+        }
+        
+        .empty-cart p:first-child {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        
+        .empty-cart p:last-child {
+            font-size: 4em;
+            opacity: 0.3;
+        }
+        
+        /* Cart Item */
+        .cart-item {
+            border-bottom: 2px solid rgba(212, 165, 116, 0.2);
+            padding: 25px 0;
+            position: relative;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cart-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        
+        .cart-item-name {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: var(--dark-bg);
+            flex: 1;
+        }
+        
+        .remove-item-btn {
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        .remove-item-btn:active {
+            transform: scale(0.9);
+        }
+        
+        .remove-item-btn:hover {
+            background: #a02622;
+            transform: scale(1.1);
+        }
+        
+        .cart-item-price {
+            color: var(--primary-color);
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .note-section {
+            margin-top: 15px;
+            background: linear-gradient(135deg, #fef9f3 0%, #fceee3 100%);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+        
+        .note-checkbox {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        .note-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .note-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--accent-color);
+            border-radius: 10px;
+            resize: vertical;
+            min-height: 90px;
+            display: none;
+            font-family: 'Georgia', serif;
+            font-size: 0.95em;
+            background: white;
+        }
+        
+        .note-textarea.active {
+            display: block;
+        }
+        
+        .word-counter {
+            font-size: 0.85em;
+            color: var(--text-light);
+            text-align: right;
+            margin-top: 8px;
+        }
+        
+        .word-counter.warning {
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        /* Checkout Section */
+        .checkout-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid var(--accent-color);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--dark-bg);
+            font-size: 0.95em;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--accent-color);
+            border-radius: 10px;
+            font-size: 1em;
+            font-family: 'Georgia', serif;
+            transition: border-color 0.3s ease;
+            background: white;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(212, 165, 116, 0.2);
+        }
+        
+        .options-box {
+            background: linear-gradient(135deg, #fef9f3 0%, #fceee3 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid var(--accent-color);
+        }
+        
+        .options-box > label {
+            display: block;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: var(--dark-bg);
+            font-size: 1.1em;
+        }
+        
+        .option-item {
+            margin: 12px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .option-item input[type="radio"] {
+            margin-top: 4px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .option-item label {
+            flex: 1;
+            cursor: pointer;
+            line-height: 1.5;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        .customer-info-section {
+            display: none;
+        }
+        
+        .customer-info-section.active {
+            display: block;
+        }
+        
+        .payment-amount {
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .payment-amount.active {
+            display: block;
+        }
+        
+        /* Map Selection */
+        .map-selection {
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .map-selection.active {
+            display: block;
+        }
+        
+        .location-input {
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border: 2px solid var(--accent-color);
+            border-radius: 12px;
+        }
+        
+        .location-input label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+            color: var(--dark-bg);
+        }
+        
+        .location-input input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--accent-color);
+            border-radius: 8px;
+            font-size: 1em;
+        }
+        
+        .map-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .map-controls p {
+            flex: 1;
+            font-size: 0.9em;
+            color: var(--text-light);
+            margin: 0;
+            min-width: 200px;
+        }
+        
+        .map-mode-btn,
+        .my-location-btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9em;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        .map-mode-btn:active,
+        .my-location-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .map-mode-btn.active {
+            background: var(--success);
             color: white;
         }
-        .bank-card strong {
-            display: inline-block;
-            min-width: 80px;
+        
+        .map-mode-btn.inactive {
+            background: #e0e0e0;
+            color: var(--text-light);
         }
-        .empty-cart { text-align: center; padding: 50px 20px; color: #999; }
-        .payment-notice {
-            background: rgba(255, 243, 205, 0.95); border: 2px solid #ffc107; border-radius: 10px;
-            padding: 15px; margin: 20px 0; color: #856404; font-size: 0.95em; line-height: 1.6;
-        }
-        .payment-notice strong { display: block; margin-bottom: 8px; font-size: 1.05em; color: #f5576c; }
-        .map-mode-btn {
-            padding: 8px 16px; border: none; border-radius: 8px; font-size: 0.85em;
-            cursor: pointer; white-space: nowrap; transition: all 0.3s ease;
-        }
-        .map-mode-btn.active { background: #4CAF50; color: white; }
-        .map-mode-btn.inactive { background: #ddd; color: #666; }
+        
         .my-location-btn {
-            padding: 8px 16px; border: none; border-radius: 8px; font-size: 0.85em;
-            cursor: pointer; white-space: nowrap; transition: all 0.3s ease;
-            background: #2196F3; color: white; display: flex; align-items: center; gap: 5px;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
-        .my-location-btn:hover { background: #1976D2; transform: translateY(-1px); }
-        .my-location-btn:disabled { background: #ccc; cursor: not-allowed; }
+        
+        .my-location-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-1px);
+        }
+        
+        .my-location-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
         #mapClickArea {
-            position: relative; width: 100%; height: 350px; border: 2px solid #ddd;
-            border-radius: 10px; margin-top: 10px; overflow: hidden;
+            position: relative;
+            width: 100%;
+            height: 380px;
+            border: 2px solid var(--accent-color);
+            border-radius: 12px;
+            margin-top: 15px;
+            overflow: hidden;
+            touch-action: pan-x pan-y;
         }
-        #mapClickArea.navigate-mode { cursor: grab; }
-        #mapClickArea.select-mode { cursor: crosshair; }
-        #deliveryMap { width: 100%; height: 100%; }
+        
+        #mapClickArea.navigate-mode {
+            cursor: grab;
+        }
+        
+        #mapClickArea.select-mode {
+            cursor: crosshair;
+        }
+        
+        #deliveryMap {
+            width: 100%;
+            height: 100%;
+        }
+        
         .coordinates-display {
-            margin-top: 10px; padding: 10px; background: rgba(232, 245, 233, 0.95); border: 2px solid #4CAF50;
-            border-radius: 8px; font-size: 0.9em; display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: #e8f5e9;
+            border: 2px solid var(--success);
+            border-radius: 10px;
+            font-size: 0.9em;
+            display: none;
         }
-        .coordinates-display.active { display: block; }
-        .coordinates-display strong { color: #2e7d32; display: block; margin-bottom: 5px; }
-        .coordinates-display div { margin: 3px 0; color: #424242; }
-        .mapboxgl-ctrl-geocoder { max-width: none; width: 100%; margin-bottom: 10px; }
-        .geocoder-container { margin-bottom: 10px; }
-        @media (max-width: 768px) {
-            .cart-sidebar { width: 100%; right: -100%; }
-            .hero h1 { font-size: 2.5em; }
-            .products-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
-            .bank-info-grid { grid-template-columns: 1fr; }
+        
+        .coordinates-display.active {
+            display: block;
         }
-    </style>
+        
+        .coordinates-display strong {
+            color: var(--success);
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+        
+        .coordinates-display div {
+            margin: 5px 0;
+            color: var(--text-dark);
+        }
+        
+        .geocoder-container {
+            margin-bottom: 12px;
+        }
+        
+        .mapboxgl-ctrl-geocoder {
+            max-width: none;
+            width: 100%;
+        }
+        
+        /* Payment Notice */
+        .payment-notice {
+            background: linear-gradient(135deg, #fff9e6 0%, #ffedd5 100%);
+            border: 2px solid #ffd700;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+            color: #856404;
+            font-size: 0.95em;
+            line-height: 1.7;
+        }
+        
+        .payment-notice strong {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            color: var(--dark-bg);
+        }
+        
+        /* Totals */
+        .totals-box {
+            background: linear-gradient(135deg, #fef9f3 0%, #fceee3 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid var(--accent-color);
+        }
+        
+        .subtotal-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 1.05em;
+            color: var(--text-dark);
+        }
+        
+        .total-price {
+            font-size: 2em;
+            color: var(--primary-color);
+            font-weight: bold;
+            text-align: right;
+            margin: 25px 0;
+            padding-top: 20px;
+            border-top: 3px solid var(--accent-color);
+        }
+        
+        .pay-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        .pay-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .pay-btn:hover::before {
+            width: 500px;
+            height: 500px;
+        }
+        
+        .pay-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .pay-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(139, 111, 71, 0.4);
+        }
+        
+        /* Delivery Info Section */
+        .delivery-info {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            margin-top: 60px;
+            text-align: center;
+            border: 1px solid var(--accent-color);
+            backdrop-filter: blur(10px);
+        }
+        
+        .delivery-info h3 {
+            color: var(--secondary-color);
+            margin-bottom: 30px;
+            font-size: 2.2em;
+            font-weight: normal;
+            letter-spacing: 2px;
+        }
+        
+        .delivery-info p {
+            font-size: 1.15em;
+            margin: 15px 0;
+            color: var(--text-dark);
+        }
+        
+        .bank-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            margin-top: 40px;
+        }
+        
+        .bank-card {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--secondary-color) 100%);
+            padding: 35px;
+border-radius: 15px;
+color: white;
+box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+transition: transform 0.3s ease;
+}
+    .bank-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .bank-card h4 {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+        text-align: center;
+        font-weight: normal;
+        letter-spacing: 1px;
+        color: var(--accent-color);
+    }
+    
+    .bank-card p {
+        margin: 10px 0;
+        font-size: 1.05em;
+        color: white;
+    }
+    
+    .bank-card strong {
+        display: inline-block;
+        min-width: 90px;
+        color: var(--accent-color);
+    }
+    
+    /* Map Section */
+    .map-section {
+        margin: 80px auto;
+        text-align: center;
+    }
+    
+    .map-container {
+        max-width: 900px;
+        margin: 40px auto;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        border: 2px solid var(--accent-color);
+    }
+    
+    .map-container iframe {
+        width: 100%;
+        height: 500px;
+        border: none;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .cart-sidebar {
+            width: 100%;
+            right: -100%;
+        }
+        
+        .hero {
+            background-attachment: scroll;
+        }
+        
+        .hero h1 {
+            font-size: 2.5em;
+        }
+        
+        .products-grid {
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        
+        .bank-info-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .section-title {
+            font-size: 2.2em;
+        }
+        
+        .header-container {
+            padding: 0 15px;
+        }
+        
+        .brand-text {
+            font-size: 1.3em;
+        }
+        
+        #mapClickArea {
+            height: 300px;
+        }
+    }
+    
+    /* iOS specific fixes */
+    @supports (-webkit-touch-callout: none) {
+        body {
+            background-attachment: scroll;
+        }
+        
+        .hero {
+            background-attachment: scroll;
+        }
+        
+        input,
+        textarea,
+        select {
+            font-size: 16px !important;
+        }
+    }
+</style>
 </head>
 <body>
-    <div class="overlay">
-        <header>
-            <img src="logo.png" alt="Sunflowers Logo" class="logo">
-            <div class="cart-icon" onclick="toggleCart()">
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="logo.png" alt="Sunflowers Logo" class="logo">
+                <div class="brand-text">SUNFLOWERS</div>
+            </div>
+            <button class="cart-button" onclick="toggleCart()">
                 <span>🛒</span>
+                <span>Carrito</span>
                 <div class="cart-count" id="cartCount">0</div>
-            </div>
-        </header>
-        <div class="hero">
-            <div class="hero-content">
-                <h1></h1>
-                <p style="front-size: 1.5em;"></p>
-            </div>
+            </button>
         </div>
-        <div class="container">
-            <div class="section" id="bouquets">
-                <h2 class="section-title">Bouquets</h2>
-                <div class="products-grid" id="bouquetsGrid"></div>
+    </header>
+<div class="hero">
+    <div class="hero-content">
+        <h1>Catálogo</h1>
+        <p>Belleza natural, momentos especiales</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="section" id="bouquets">
+        <h2 class="section-title">Bouquets</h2>
+        <div class="products-grid" id="bouquetsGrid"></div>
+    </div>
+
+    <div class="section" id="boxes">
+        <h2 class="section-title">Boxes</h2>
+        <div class="products-grid" id="boxesGrid"></div>
+    </div>
+
+    <div class="delivery-info">
+        <h3>Información de Entrega</h3>
+        <p><strong>Delivery Zona Céntrica:</strong> Gs. 15.000</p>
+        <p><strong>Tarjeta personalizada + porta tarjeta:</strong> Gs. 7.000</p>
+        <p style="margin-top: 25px; font-size: 0.95em;">Los pedidos se agendan con el pago de un adelanto del 50% del costo del producto elegido.</p>
+        
+        <div class="bank-info-grid">
+            <div class="bank-card">
+                <h4>🏦 Banco Itaú</h4>
+                <p><strong>Alias:</strong> 0972629430 (Tel.)</p>
+                <p><strong>Titular:</strong> Laureano Galeano Martínez</p>
+                <p><strong>C.I. Nº:</strong> 4.161.580</p>
+                <p><strong>Cuenta Nº:</strong> 520604647</p>
             </div>
-            <div class="section" id="boxes">
-                <h2 class="section-title">Boxes</h2>
-                <div class="products-grid" id="boxesGrid"></div>
-            </div>
-            <div class="delivery-info">
-                <h3>Información de Entrega</h3>
-                <p><strong>Delivery Zona Céntrica:</strong> Gs. 15.000</p>
-                <p><strong>Tarjeta personalizada + porta tarjeta:</strong> Gs. 7.000</p>
-                <p style="margin-top: 20px; font-size: 0.95em;">Los pedidos se agendan con el pago de un adelanto del 50% del costo del producto elegido.</p>
-                
-                <div class="bank-info-grid">
-                    <div class="bank-card">
-                        <h4>🏦 Banco Itaú</h4>
-                        <p><strong>Alias:</strong> 0972629430 (Tel.)</p>
-                        <p><strong>Titular:</strong> Laureano Galeano Martínez</p>
-                        <p><strong>C.I. Nº:</strong> 4.161.580</p>
-                        <p><strong>Cuenta Nº:</strong> 520604647</p>
-                    </div>
-                    
-                    <div class="bank-card">
-                        <h4>🏦 Ueno Bank</h4>
-                        <p><strong>Alias:</strong> 4161580 (C.I.)</p>
-                        <p><strong>Titular:</strong> Laureano Galeano Martínez</p>
-                        <p><strong>C.I. Nº:</strong> 4.161.580</p>
-                        <p><strong>Cuenta Nº:</strong> 1801269</p>
-                    </div>
-                </div>
-            </div>
-            <div class="map-section">
-                <h2 class="section-title">Nuestra Ubicación</h2>
-                <div class="map-container">
-                    <iframe src="https://www.google.com/maps?q=-25.4464578,-56.4491767&output=embed" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                </div>
-            </div>
-        </div>
-        <div class="cart-sidebar" id="cartSidebar">
-            <div class="cart-header">
-                <h2>Mi Carrito</h2>
-                <button class="close-cart" onclick="toggleCart()">×</button>
-            </div>
-            <div class="cart-content" id="cartContent">
-                <div class="empty-cart">
-                    <p>Tu carrito está vacío</p>
-                    <p style="font-size: 3em;">🛒</p>
-                </div>
+            
+            <div class="bank-card">
+                <h4>🏦 Ueno Bank</h4>
+                <p><strong>Alias:</strong> 4161580 (C.I.)</p>
+                <p><strong>Titular:</strong> Laureano Galeano Martínez</p>
+                <p><strong>C.I. Nº:</strong> 4.161.580</p>
+                <p><strong>Cuenta Nº:</strong> 1801269</p>
             </div>
         </div>
     </div>
 
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-        import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js';
+    <div class="map-section">
+        <h2 class="section-title">Nuestra Ubicación</h2>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps?q=-25.4464578,-56.4491767&output=embed" width="600" height="450" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+</div>
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBDRELXPWePmtZ-R6dGJKbE1OhUqt-gLe8",
-            authDomain: "sunflowers-b59ab.firebaseapp.com",
-            projectId: "sunflowers-b59ab",
-            storageBucket: "sunflowers-b59ab.appspot.app",
-            messagingSenderId: "224773276578",
-            appId: "1:224773276578:web:c66d85cf4797b4911268fb",
-            measurementId: "G-7KF45KLQZW"
-        };
+<div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+        <h2>Mi Carrito</h2>
+        <button class="close-cart" onclick="toggleCart()">×</button>
+    </div>
+    <div class="cart-content" id="cartContent">
+        <div class="empty-cart">
+            <p>Tu carrito está vacío</p>
+            <p>🛒</p>
+        </div>
+    </div>
+</div>
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const analytics = getAnalytics(app);
+<script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+    import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js';
 
-        mapboxgl.accessToken = 'pk.eyJ1Ijoiam9lbGxwZXRoZXJzIiwiYSI6ImNtaTgya2hsdzA3bnMyaXB4azF3cmlzcmMifQ.o9sgn4JZHStZAbrY8sLAug';
+    const firebaseConfig = {
+        apiKey: "AIzaSyBDRELXPWePmtZ-R6dGJKbE1OhUqt-gLe8",
+        authDomain: "sunflowers-b59ab.firebaseapp.com",
+        projectId: "sunflowers-b59ab",
+        storageBucket: "sunflowers-b59ab.firebasestorage.app",
+        messagingSenderId: "224773276578",
+        appId: "1:224773276578:web:c66d85cf4797b4911268fb",
+        measurementId: "G-7KF45KLQZW"
+    };
 
-        const products = {
-            bouquets: [
-                { id: 'b1', name: 'Sara', price: 35000, image: 'bouquet1.jpg' },
-                { id: 'b2', name: 'Sunbrigfh', price: 75000, image: 'bouquet2.jpg' },
-                { id: 'b3', name: 'Sunrise', price: 85000, image: 'bouquet3.jpg' },
-                { id: 'b4', name: 'Carrie', price: 90000, image: 'bouquet4.jpg' },
-{ id: 'b5', name: 'Scarlett', price: 110000, image: 'bouquet5.jpg' },
-{ id: 'b6', name: 'Sunlight', price: 110000, image: 'bouquet6.jpg' },
-{ id: 'b7', name: 'Ivón', price: 130000, image: 'bouquet7.jpg' },
-{ id: 'b8', name: 'Valentine s ', price: 150000, image: 'bouquet8.jpg' },
-{ id: 'b9', name: 'Pink Floyd', price: 150000, image: 'bouquet9.jpg' },
-{ id: 'b10', name: 'Sunshine', price: 160000, image: 'bouquet10.jpg' },
-{ id: 'b11', name: 'Angélica', price: 170000, image: 'bouquet11.jpg' },
-{ id: 'b12', name: 'Rosaura', price: 180000, image: 'bouquet12.jpg' },
-{ id: 'b13', name: 'Ana Karenina', price: 180000, image: 'bouquet13.jpg' },
-{ id: 'b14', name: 'Calisto', price: 200000, image: 'bouquet14.jpg' },
-{ id: 'b15', name: 'Prince', price: 210000, image: 'bouquet15.jpg' },
-{ id: 'b16', name: 'Violeta', price: 230000, image: 'bouquet16.jpg' },
-{ id: 'b17', name: 'Dakota', price: 230000, image: 'bouquet17.jpg' },
-{ id: 'b18', name: 'Miranda', price: 230000, image: 'bouquet18.jpg' },
-{ id: 'b19', name: 'Anabella', price: 230000, image: 'bouquet19.jpg' },
-{ id: 'b20', name: 'Helena', price: 250000, image: 'bouquet20.jpg' },
-{ id: 'b21', name: 'Primal', price: 250000, image: 'bouquet21.jpg' },
-{ id: 'b22', name: 'La Passion', price: 260000, image: 'bouquet22.jpg' },
-{ id: 'b23', name: 'Cinderella', price: 260000, image: 'bouquet23.jpg' },
-{ id: 'b24', name: 'Venus', price: 260000, image: 'bouquet24.jpg' },
-{ id: 'b25', name: 'Mondial', price: 260000, image: 'bouquet25.jpg' },
-{ id: 'b26', name: 'Danna', price: 260000, image: 'bouquet26.jpg' },
-{ id: 'b27', name: 'Spring', price: 280000, image: 'bouquet27.jpg' },
-{ id: 'b28', name: 'Afrodita', price: 330000, image: 'bouquet28.jpg' },
-{ id: 'b29', name: 'Sofía', price: 350000, image: 'bouquet29.jpg' },
-{ id: 'b30', name: 'Diana', price: 350000, image: 'bouquet30.jpg' },
-{ id: 'b31', name: 'Loren', price: 380000, image: 'bouquet31.jpg' },
-{ id: 'b32', name: 'Pandora', price: 290000, image: 'bouquet32.jpg' },
-{ id: 'b33', name: 'Victoria (20 rosas)', price: 420000, image: 'bouquet33.jpg' },
-{ id: 'b34', name: 'Antonella', price: 420000, image: 'bouquet34.jpg' },
-{ id: 'b35', name: 'Amanda', price: 510000, image: 'bouquet35.jpg' },
-{ id: 'b36', name: 'Suzanne', price: 730000, image: 'bouquet36.jpg' },
-],
-            boxes: [
-                { id: 'x1', name: 'Lidia', price: 220000, image: 'box1.jpg' },
-                { id: 'x2', name: 'Sweet Love', price: 270000, image: 'box2.jpg' },
-                { id: 'x3', name: 'Romance', price: 320000, image: 'box3.jpg' },
-                { id: 'x4', name: 'Darling', price: 350000, image: 'box4.jpg' },
-{ id: 'x5', name: 'Zulema', price: 350000, image: 'box5.jpg' },
-{ id: 'x6', name: 'Susi Box', price: 420000, image: 'box6.jpg' },
-{ id: 'x7', name: 'Margaret', price: 420000, image: 'box7.jpg' },
-{ id: 'x8', name: 'Real Love', price: 510000, image: 'box8.jpg' }, 
-],
-        };
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const analytics = getAnalytics(app);
 
-        let cart = [];
-        let deliveryOption = 'pickup';
-        let deliveryLocation = '';
-        let deliveryCoordinates = { lat: null, lng: null };
-        let deliveryPlusCode = '';
-        let deliveryGoogleMapsLink = '';
-        let paymentMethod = 'cash';
-        let mapInteractionMode = 'navigate';
-        let mapboxMap = null;
-        let selectedMarker = null;
-        let mapInitialized = false;
-        let geocoder = null;
+    mapboxgl.accessToken = 'pk.eyJ1Ijoiam9lbGxwZXRoZXJzIiwiYSI6ImNtaTgya2hsdzA3bnMyaXB4azF3cmlzcmMifQ.o9sgn4JZHStZAbrY8sLAug';
 
-        let customerData = {
-            cash: { name: '', phone: '' },
-            online: { accountHolder: '', accountCI: '', accountNumber: '', accountPhone: '' }
-        };
+    const products = {
+        bouquets: [
+            { id: 'b1', name: 'Sara', price: 35000, image: 'bouquet1.jpg' },
+            { id: 'b2', name: 'Sunbrigfh', price: 75000, image: 'bouquet2.jpg' },
+            { id: 'b3', name: 'Sunrise', price: 85000, image: 'bouquet3.jpg' },
+            { id: 'b4', name: 'Carrie', price: 90000, image: 'bouquet4.jpg' },
+            { id: 'b5', name: 'Scarlett', price: 110000, image: 'bouquet5.jpg' },
+            { id: 'b6', name: 'Sunlight', price: 110000, image: 'bouquet6.jpg' },
+            { id: 'b7', name: 'Ivón', price: 130000, image: 'bouquet7.jpg' },
+            { id: 'b8', name: 'Valentine s ', price: 150000, image: 'bouquet8.jpg' },
+            { id: 'b9', name: 'Pink Floyd', price: 150000, image: 'bouquet9.jpg' },
+            { id: 'b10', name: 'Sunshine', price: 160000, image: 'bouquet10.jpg' },
+            { id: 'b11', name: 'Angélica', price: 170000, image: 'bouquet11.jpg' },
+            { id: 'b12', name: 'Rosaura', price: 180000, image: 'bouquet12.jpg' },
+            { id: 'b13', name: 'Ana Karenina', price: 180000, image: 'bouquet13.jpg' },
+            { id: 'b14', name: 'Calisto', price: 200000, image: 'bouquet14.jpg' },
+            { id: 'b15', name: 'Prince', price: 210000, image: 'bouquet15.jpg' },
+            { id: 'b16', name: 'Violeta', price: 230000, image: 'bouquet16.jpg' },
+            { id: 'b17', name: 'Dakota', price: 230000, image: 'bouquet17.jpg' },
+            { id: 'b18', name: 'Miranda', price: 230000, image: 'bouquet18.jpg' },
+            { id: 'b19', name: 'Anabella', price: 230000, image: 'bouquet19.jpg' },
+            { id: 'b20', name: 'Helena', price: 250000, image: 'bouquet20.jpg' },
+            { id: 'b21', name: 'Primal', price: 250000, image: 'bouquet21.jpg' },
+            { id: 'b22', name: 'La Passion', price: 260000, image: 'bouquet22.jpg' },
+            { id: 'b23', name: 'Cinderella', price: 260000, image: 'bouquet23.jpg' },
+            { id: 'b24', name: 'Venus', price: 260000, image: 'bouquet24.jpg' },
+            { id: 'b25', name: 'Mondial', price: 260000, image: 'bouquet26.jpg' },
+            { id: 'b26', name: 'Danna', price: 260000, image: 'bouquet26.jpg' },
+            { id: 'b27', name: 'Spring', price: 280000, image: 'bouquet27.jpg' },
+            { id: 'b28', name: 'Afrodita', price: 330000, image: 'bouquet28.jpg' },
+            { id: 'b29', name: 'Sofía', price: 350000, image: 'bouquet29.jpg' },
+            { id: 'b30', name: 'Diana', price: 350000, image: 'bouquet30.jpg' },
+            { id: 'b31', name: 'Loren', price: 380000, image: 'bouquet31.jpg' },
+            { id: 'b32', name: 'Pandora', price: 290000, image: 'bouquet32.jpg' },
+            { id: 'b33', name: 'Victoria (20 rosas)', price: 420000, image: 'bouquet33.jpg' },
+            { id: 'b34', name: 'Antonella', price: 420000, image: 'bouquet34.jpg' },
+            { id: 'b35', name: 'Amanda', price: 510000, image: 'bouquet35.jpg' },
+            { id: 'b36', name: 'Suzanne', price: 730000, image: 'bouquet36.jpg' },
+        ],
+        boxes: [
+            { id: 'x1', name: 'Lidia', price: 220000, image: 'box1.jpg' },
+            { id: 'x2', name: 'Sweet Love', price: 270000, image: 'box2.jpg' },
+            { id: 'x3', name: 'Romance', price: 320000, image: 'box3.jpg' },
+            { id: 'x4', name: 'Darling', price: 350000, image: 'box4.jpg' },
+            { id: 'x5', name: 'Zulema', price: 350000, image: 'box5.jpg' },
+            { id: 'x6', name: 'Susi Box', price: 420000, image: 'box6.jpg' },
+            { id: 'x7', name: 'Margaret', price: 420000, image: 'box7.jpg' },
+            { id: 'x8', name: 'Real Love', price: 510000, image: 'box8.jpg' }, 
+        ],
+    };
 
-        function decimalToDMS(decimal, isLatitude) {
-            const absolute = Math.abs(decimal);
-            const degrees = Math.floor(absolute);
-            const minutesDecimal = (absolute - degrees) * 60;
-            const minutes = Math.floor(minutesDecimal);
-            const seconds = ((minutesDecimal - minutes) * 60).toFixed(1);
-            const direction = isLatitude ? (decimal >= 0 ? 'N' : 'S') : (decimal >= 0 ? 'E' : 'W');
-            return `${degrees}°${minutes}'${seconds}"${direction}`;
+    let cart = [];
+    let deliveryOption = 'pickup';
+    let deliveryLocation = '';
+    let deliveryCoordinates = { lat: null, lng: null };
+    let deliveryPlusCode = '';
+    let deliveryGoogleMapsLink = '';
+    let paymentMethod = 'cash';
+    let mapInteractionMode = 'navigate';
+    let mapboxMap = null;
+    let selectedMarker = null;
+    let mapInitialized = false;
+    let geocoder = null;
+
+    let customerData = {
+        cash: { name: '', phone: '' },
+        online: { accountHolder: '', accountCI: '', accountNumber: '', accountPhone: '' }
+    };
+
+    // Detección de iOS
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    
+    function decimalToDMS(decimal, isLatitude) {
+        const absolute = Math.abs(decimal);
+        const degrees = Math.floor(absolute);
+        const minutesDecimal = (absolute - degrees) * 60;
+        const minutes = Math.floor(minutesDecimal);
+        const seconds = ((minutesDecimal - minutes) * 60).toFixed(1);
+        const direction = isLatitude ? (decimal >= 0 ? 'N' : 'S') : (decimal >= 0 ? 'E' : 'W');
+        return `${degrees}°${minutes}'${seconds}"${direction}`;
+    }
+
+    function generatePlusCode(lat, lng) {
+        const latChar = 'CFGHJMPQRVWX';
+        const lngChar = '23456789CFGHJMPQRVWX';
+        const latIndex = Math.floor((lat + 90) / 20) % latChar.length;
+        const lngIndex = Math.floor((lng + 180) / 20) % lngChar.length;
+        const localLat = Math.floor(((lat + 90) % 20) * 20);
+        const localLng = Math.floor(((lng + 180) % 20) * 20);
+        const localLatChar1 = latChar[Math.floor(localLat / 20) % latChar.length];
+        const localLatChar2 = latChar[localLat % latChar.length];
+        const localLngChar1 = lngChar[Math.floor(localLng / 20) % lngChar.length];
+        const localLngChar2 = lngChar[localLng % lngChar.length];
+        return `${localLatChar1}${localLatChar2}${localLngChar1}${localLngChar2}+${latChar[latIndex]}${lngChar[lngIndex]}`;
+    }
+
+    async function reverseGeocode(lng, lat) {
+        try {
+            const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${mapboxgl.accessToken}&language=es`);
+            const data = await response.json();
+            if (data.features && data.features.length > 0) {
+                return data.features[0].place_name;
+            }
+            return '';
+        } catch (error) {
+            console.error('Error en geocodificación inversa:', error);
+            return '';
         }
+    }
 
-        function generatePlusCode(lat, lng) {
-            const latChar = 'CFGHJMPQRVWX';
-            const lngChar = '23456789CFGHJMPQRVWX';
-            const latIndex = Math.floor((lat + 90) / 20) % latChar.length;
-            const lngIndex = Math.floor((lng + 180) / 20) % lngChar.length;
-            const localLat = Math.floor(((lat + 90) % 20) * 20);
-            const localLng = Math.floor(((lng + 180) % 20) * 20);
-            const localLatChar1 = latChar[Math.floor(localLat / 20) % latChar.length];
-            const localLatChar2 = latChar[localLat % latChar.length];
-            const localLngChar1 = lngChar[Math.floor(localLng / 20) % lngChar.length];
-            const localLngChar2 = lngChar[localLng % lngChar.length];
-            return `${localLatChar1}${localLatChar2}${localLngChar1}${localLngChar2}+${latChar[latIndex]}${lngChar[lngIndex]}`;
-        }
-
-        async function reverseGeocode(lng, lat) {
+    function destroyMap() {
+        console.log('Destruyendo mapa...');
+        
+        if (selectedMarker) {
             try {
-                const response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${mapboxgl.accessToken}&language=es`);
-                const data = await response.json();
-                if (data.features && data.features.length > 0) {
-                    return data.features[0].place_name;
+                selectedMarker.remove();
+            } catch (e) {
+                console.warn('Error removiendo marker:', e);
+            }
+            selectedMarker = null;
+        }
+        
+        if (geocoder) {
+            try {
+                geocoder.clear();
+                const geocoderEl = document.querySelector('.geocoder-container');
+                if (geocoderEl && geocoderEl.parentNode) {
+                    geocoderEl.parentNode.removeChild(geocoderEl);
                 }
-                return '';
-            } catch (error) {
-                console.error('Error en geocodificación inversa:', error);
-                return '';
+            } catch (e) {
+                console.warn('Error removiendo geocoder:', e);
+            }
+            geocoder = null;
+        }
+        
+        if (mapboxMap) {
+            try {
+                mapboxMap.off('click');
+                mapboxMap.off('load');
+                mapboxMap.off('touchend');
+                mapboxMap.remove();
+            } catch (e) {
+                console.warn('Error removiendo mapa:', e);
+            }
+            mapboxMap = null;
+        }
+        
+        const mapContainer = document.getElementById('deliveryMap');
+        if (mapContainer) {
+            mapContainer.innerHTML = '';
+        }
+        
+        mapInitialized = false;
+        mapInteractionMode = 'navigate';
+        console.log('Mapa destruido completamente');
+    }
+
+    function initializeMap() {
+        console.log('Iniciando mapa...');
+        
+        const mapElement = document.getElementById('deliveryMap');
+        if (!mapElement) {
+            console.error('Elemento del mapa no encontrado');
+            setTimeout(() => initializeMap(), 200);
+            return;
+        }
+        
+        if (mapInitialized && mapboxMap) {
+            console.log('Mapa ya existe, verificando estado...');
+            try {
+                const container = mapboxMap.getContainer();
+                if (container && container.parentNode && document.getElementById('deliveryMap') === container) {
+                    console.log('Mapa funcionando correctamente');
+                    setupMapModeButtons();
+                    return;
+                } else {
+                    console.warn('Contenedor del mapa no coincide, recreando...');
+                }
+            } catch (e) {
+                console.warn('Mapa en mal estado, recreando...', e);
             }
         }
 
-        function destroyMap() {
-            console.log('Destruyendo mapa...');
-            
-            if (selectedMarker) {
-                try {
-                    selectedMarker.remove();
-                } catch (e) {
-                    console.warn('Error removiendo marker:', e);
-                }
-                selectedMarker = null;
-            }
-            
-            if (geocoder) {
-                try {
-                    geocoder.clear();
-                    const geocoderEl = document.querySelector('.geocoder-container');
-                    if (geocoderEl && geocoderEl.parentNode) {
-                        geocoderEl.parentNode.removeChild(geocoderEl);
-                    }
-                } catch (e) {
-                    console.warn('Error removiendo geocoder:', e);
-                }
-                geocoder = null;
-            }
-            
-            if (mapboxMap) {
-                try {
-                    mapboxMap.off('click');
-                    mapboxMap.off('load');
-                    mapboxMap.remove();
-                } catch (e) {
-                    console.warn('Error removiendo mapa:', e);
-                }
-                mapboxMap = null;
-            }
-            
-            const mapContainer = document.getElementById('deliveryMap');
-            if (mapContainer) {
-                mapContainer.innerHTML = '';
-            }
-            
-            mapInitialized = false;
-            mapInteractionMode = 'navigate';
-            console.log('Mapa destruido completamente');
-        }
+        console.log('Destruyendo mapa anterior si existe...');
+        destroyMap();
 
-        function initializeMap() {
-            console.log('Iniciando mapa...');
-            
-            const mapElement = document.getElementById('deliveryMap');
-            if (!mapElement) {
-                console.error('Elemento del mapa no encontrado');
-                setTimeout(() => initializeMap(), 200);
+        setTimeout(() => {
+            const mapDiv = document.getElementById('deliveryMap');
+            if (!mapDiv) {
+                console.error('deliveryMap no encontrado después de timeout');
                 return;
             }
             
-            if (mapInitialized && mapboxMap) {
-                console.log('Mapa ya existe, verificando estado...');
-                try {
-                    const container = mapboxMap.getContainer();
-                    if (container && container.parentNode && document.getElementById('deliveryMap') === container) {
-                        console.log('Mapa funcionando correctamente');
-                        setupMapModeButtons();
-                        return;
-                    } else {
-                        console.warn('Contenedor del mapa no coincide, recreando...');
-                    }
-                } catch (e) {
-                    console.warn('Mapa en mal estado, recreando...', e);
-                }
-            }
+            try {
+                console.log('Creando nueva instancia del mapa...');
+                const centerPosition = [-56.434392, -25.427703];
+                
+                mapboxMap = new mapboxgl.Map({
+                    container: 'deliveryMap',
+                    style: 'mapbox://styles/mapbox/streets-v12',
+                    center: centerPosition,
+                    zoom: 14,
+                    attributionControl: true,
+                    touchPitch: false,
+                    touchZoomRotate: true
+                });
 
-            console.log('Destruyendo mapa anterior si existe...');
-            destroyMap();
+                mapboxMap.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
-            setTimeout(() => {
-                const mapDiv = document.getElementById('deliveryMap');
-                if (!mapDiv) {
-                    console.error('deliveryMap no encontrado después de timeout');
+                geocoder = new MapboxGeocoder({
+                    accessToken: mapboxgl.accessToken,
+                    mapboxgl: mapboxgl,
+                    marker: false,
+                    placeholder: 'Buscar lugares en Paraguay...',
+                    language: 'es',
+                    limit: 10,
+                    countries: 'PY',
+                    types: 'place,locality,neighborhood,address,poi'
+                });
+
+                const mapClickArea = document.getElementById('mapClickArea');
+                if (!mapClickArea) {
+                    console.error('mapClickArea no encontrado');
                     return;
                 }
-                
-                try {
-                    console.log('Creando nueva instancia del mapa...');
-                    const centerPosition = [-56.434392, -25.427703];
-                    
-                    mapboxMap = new mapboxgl.Map({
-                        container: 'deliveryMap',
-                        style: 'mapbox://styles/mapbox/streets-v12',
-                        center: centerPosition,
-                        zoom: 14,
-                        attributionControl: true
-                    });
 
-                    mapboxMap.addControl(new mapboxgl.NavigationControl(), 'top-right');
-
-                    geocoder = new MapboxGeocoder({
-                        accessToken: mapboxgl.accessToken,
-                        mapboxgl: mapboxgl,
-                        marker: false,
-                        placeholder: 'Buscar lugares en Paraguay...',
-                        language: 'es',
-                        limit: 10,
-                        countries: 'PY',
-                        types: 'place,locality,neighborhood,address,poi'
-                    });
-
-                    const mapClickArea = document.getElementById('mapClickArea');
-                    if (!mapClickArea) {
-                        console.error('mapClickArea no encontrado');
-                        return;
-                    }
-
-                    const existingGeocoder = mapClickArea.querySelector('.geocoder-container');
-                    if (existingGeocoder) {
-                        existingGeocoder.remove();
-                    }
-
-                    const geocoderContainer = document.createElement('div');
-                    geocoderContainer.className = 'geocoder-container';
-                    const currentMapDiv = document.getElementById('deliveryMap');
-                    if (currentMapDiv) {
-                        mapClickArea.insertBefore(geocoderContainer, currentMapDiv);
-                        geocoderContainer.appendChild(geocoder.onAdd(mapboxMap));
-                    }
-
-                    geocoder.on('result', function(e) {
-                        const coords = e.result.geometry.coordinates;const placeName = e.result.place_name;
-                        handleLocationSelect(coords[0], coords[1], placeName);
-                    });
-
-                    mapboxMap.on('load', function() {
-                        console.log('✓ Mapa cargado exitosamente');
-                        mapInitialized = true;
-                        setupMapModeButtons();
-                        
-                        if (deliveryCoordinates.lat && deliveryCoordinates.lng) {
-                            console.log('Restaurando ubicación previa:', deliveryCoordinates);
-                            setTimeout(() => {
-                                handleLocationSelect(
-                                    deliveryCoordinates.lng, 
-                                    deliveryCoordinates.lat, 
-                                    deliveryLocation,
-                                    true
-                                );
-                            }, 100);
-                        }
-                    });
-
-                    mapboxMap.on('click', function(e) {
-                        if (mapInteractionMode === 'select') {
-                            handleMapClick(e.lngLat);
-                        }
-                    });
-
-                    console.log('✓ Mapa inicializado correctamente');
-                } catch (error) {
-                    console.error('Error inicializando mapa:', error);
-                    mapInitialized = false;
-                    setTimeout(() => {
-                        console.log('Reintentando inicialización del mapa...');
-                        initializeMap();
-                    }, 500);
+                const existingGeocoder = mapClickArea.querySelector('.geocoder-container');
+                if (existingGeocoder) {
+                    existingGeocoder.remove();
                 }
-            }, 250);
-        }
 
-        async function handleMapClick(lngLat) {
-            const clickedLng = lngLat.lng;
-            const clickedLat = lngLat.lat;
-            const placeName = await reverseGeocode(clickedLng, clickedLat);
-            handleLocationSelect(clickedLng, clickedLat, placeName);
-        }
-
-        function handleLocationSelect(lng, lat, placeName, updateInput = true) {
-            if (!mapboxMap) {
-                console.error('Mapa no disponible');
-                return;
-            }
-            
-            deliveryCoordinates = { lat: lat, lng: lng };
-            
-            if (selectedMarker) {
-                selectedMarker.remove();
-            }
-            
-            selectedMarker = new mapboxgl.Marker({ color: '#f5576c', draggable: false })
-                .setLngLat([lng, lat])
-                .addTo(mapboxMap);
-
-            mapboxMap.flyTo({ center: [lng, lat], zoom: 16, essential: true, duration: 1000 });
-            
-            const latDMS = decimalToDMS(lat, true);
-            const lngDMS = decimalToDMS(lng, false);
-            const dmsCoordinates = `${latDMS} ${lngDMS}`;
-            const decimalCoordinates = `${lat.toFixed(7)}, ${lng.toFixed(7)}`;
-            
-            deliveryPlusCode = generatePlusCode(lat, lng);
-            deliveryGoogleMapsLink = `https://www.google.com/maps?q=${lat},${lng}`;
-            deliveryLocation = placeName || dmsCoordinates;
-            
-            const addressInput = document.getElementById('deliveryAddress');
-            if (addressInput && updateInput) {
-                addressInput.value = placeName || dmsCoordinates;
-                addressInput.style.borderColor = '#4CAF50';
-                addressInput.style.backgroundColor = '#e8f5e9';
-                addressInput.style.fontWeight = 'bold';
-                setTimeout(() => {
-                    addressInput.style.borderColor = '#ddd';
-                    addressInput.style.backgroundColor = 'white';
-                    addressInput.style.fontWeight = 'normal';
-                }, 2000);
-            }
-            
-            const coordDisplay = document.getElementById('coordinatesDisplay');
-            const coordDMS = document.getElementById('coordDMS');
-            const coordDecimal = document.getElementById('coordDecimal');
-            const coordPlusCode = document.getElementById('coordPlusCode');
-            const coordLink = document.getElementById('coordLink');
-            const coordPlace = document.getElementById('coordPlace');
-            
-            if (coordDisplay) {
-                coordDisplay.classList.add('active');
-                if (coordPlace) coordPlace.textContent = `Lugar: ${placeName || 'Ubicación seleccionada'}`;
-                if (coordDMS) coordDMS.textContent = `DMS: ${dmsCoordinates}`;
-                if (coordDecimal) coordDecimal.textContent = `Decimal: ${decimalCoordinates}`;
-                if (coordPlusCode) coordPlusCode.textContent = `Plus Code: ${deliveryPlusCode}`;
-                if (coordLink) coordLink.innerHTML = `Link: <a href="${deliveryGoogleMapsLink}" target="_blank" style="color: #2196F3; text-decoration: underline;">Ver en Google Maps</a>`;
-            }
-        }
-
-        window.useMyLocation = async function() {
-            const btn = document.getElementById('myLocationBtn');
-            if (!btn) return;
-            
-            btn.disabled = true;
-            btn.innerHTML = '📍 Obteniendo ubicación...';
-            
-            if (!navigator.geolocation) {
-                alert('Tu navegador no soporta geolocalización');
-                btn.disabled = false;
-                btn.innerHTML = '📍 Mi Ubicación';
-                return;
-            }
-            
-            navigator.geolocation.getCurrentPosition(
-                async function(position) {
-                    const lat = position.coords.latitude;
-                    const lng = position.coords.longitude;
-                    const placeName = await reverseGeocode(lng, lat);
-                    handleLocationSelect(lng, lat, placeName);
-                    btn.disabled = false;
-                    btn.innerHTML = '📍 Mi Ubicación';
-                },
-                function(error) {
-                    let errorMessage = 'No se pudo obtener tu ubicación. ';
-                    switch(error.code) {
-                        case error.PERMISSION_DENIED:
-                            errorMessage += 'Por favor, permite el acceso a tu ubicación en la configuración del navegador.';
-                            break;
-                        case error.POSITION_UNAVAILABLE:
-                            errorMessage += 'La información de ubicación no está disponible.';
-                            break;
-                        case error.TIMEOUT:
-                            errorMessage += 'La solicitud de ubicación tardó demasiado tiempo.';
-                            break;
-                        default:
-                            errorMessage += 'Ocurrió un error desconocido.';
-                    }
-                    alert(errorMessage);
-                    btn.disabled = false;
-                    btn.innerHTML = '📍 Mi Ubicación';
-                },
-                {
-                    enableHighAccuracy: true,
-                    timeout: 10000,
-                    maximumAge: 0
+                const geocoderContainer = document.createElement('div');
+                geocoderContainer.className = 'geocoder-container';
+                const currentMapDiv = document.getElementById('deliveryMap');
+                if (currentMapDiv) {
+                    mapClickArea.insertBefore(geocoderContainer, currentMapDiv);
+                    geocoderContainer.appendChild(geocoder.onAdd(mapboxMap));
                 }
-            );
-        };
 
-        function setupMapModeButtons() {
-            const btnNavigate = document.getElementById('mapModeNavigate');
-            const btnSelect = document.getElementById('mapModeSelect');
-            const mapClickArea = document.getElementById('mapClickArea');
-            
-            if (!btnNavigate || !btnSelect || !mapClickArea) {
-                return;
-            }
-
-            btnNavigate.onclick = function(e) {
-                e.preventDefault();
-                mapInteractionMode = 'navigate';
-                btnNavigate.classList.remove('inactive');
-                btnNavigate.classList.add('active');
-                btnSelect.classList.remove('active');
-                btnSelect.classList.add('inactive');
-                mapClickArea.classList.remove('select-mode');
-                mapClickArea.classList.add('navigate-mode');
-            };
-
-            btnSelect.onclick = function(e) {
-                e.preventDefault();
-                mapInteractionMode = 'select';
-                btnSelect.classList.remove('inactive');
-                btnSelect.classList.add('active');
-                btnNavigate.classList.remove('active');
-                btnNavigate.classList.add('inactive');
-                mapClickArea.classList.remove('navigate-mode');
-                mapClickArea.classList.add('select-mode');
-            };
-        }
-
-        function renderProducts() {
-            const bouquetsGrid = document.getElementById('bouquetsGrid');
-            const boxesGrid = document.getElementById('boxesGrid');
-            products.bouquets.forEach(product => {
-                bouquetsGrid.innerHTML += createProductCard(product);
-            });
-            products.boxes.forEach(product => {
-                boxesGrid.innerHTML += createProductCard(product);
-            });
-        }
-
-        function createProductCard(product) {
-            return `
-                <div class="product-card">
-                    <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22280%22%3E%3Crect fill=%22%23f5f5f5%22 width=%22280%22 height=%22280%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2220%22%3E${product.name}%3C/text%3E%3C/svg%3E'">
-                    <div class="product-info">
-                        <div class="product-name">${product.name}</div>
-                        <div class="product-price">Gs. ${product.price.toLocaleString()}</div>
-                        <button class="add-to-cart-btn" onclick="addToCart('${product.id}')">Agregar al carrito</button>
-                    </div>
-                </div>
-            `;
-        }
-
-        window.addToCart = function(productId) {
-            const allProducts = [...products.bouquets, ...products.boxes];
-            const product = allProducts.find(p => p.id === productId);
-            if (product) {
-                const cartIsOpen = document.getElementById('cartSidebar').classList.contains('open');
-                const needsMapReinit = cartIsOpen && deliveryOption !== 'pickup' && mapInitialized;
-                
-                cart.push({
-                    ...product,
-                    cartId: Date.now() + Math.random(),
-                    withCard: false,
-                    cardText: ''
+                geocoder.on('result', function(e) {
+                    const coords = e.result.geometry.coordinates;
+                    const placeName = e.result.place_name;
+                    handleLocationSelect(coords[0], coords[1], placeName);
                 });
-                
-                if (needsMapReinit) {
-                    console.log('Carrito abierto, preservando estado del mapa...');
-                    const preservedCoords = { ...deliveryCoordinates };
-                    const preservedLocation = deliveryLocation;
-                    const preservedMode = mapInteractionMode;
+
+                mapboxMap.on('load', function() {
+                    console.log('✓ Mapa cargado exitosamente');
+                    mapInitialized = true;
+                    setupMapModeButtons();
                     
-                    updateCart();
-                    
-                    setTimeout(() => {
-                        if (preservedCoords.lat && preservedCoords.lng) {
-                            console.log('Restaurando ubicación después de agregar producto...');
+                    if (deliveryCoordinates.lat && deliveryCoordinates.lng) {
+                        console.log('Restaurando ubicación previa:', deliveryCoordinates);
+                        setTimeout(() => {
                             handleLocationSelect(
-                                preservedCoords.lng,
-                                preservedCoords.lat,
-                                preservedLocation,
+                                deliveryCoordinates.lng, 
+                                deliveryCoordinates.lat, 
+                                deliveryLocation,
                                 true
                             );
-                        }
-                        if (preservedMode === 'select') {
-                            const btnSelect = document.getElementById('mapModeSelect');
-                            if (btnSelect) btnSelect.click();
-                        }
-                    }, 400);
-                } else {
-                    updateCart();
-                }
-                
-                const cartIcon = document.querySelector('.cart-icon');
-                cartIcon.style.transform = 'scale(1.2)';
-                setTimeout(() => {
-                    cartIcon.style.transform = 'scale(1)';
-                }, 200);
-            }
-        };
-
-        function countWords(text) {
-            return text.trim().split(/\s+/).filter(word => word.length > 0).length;
-        }
-
-        function calculateDeliveryCost() {
-            switch(deliveryOption) {
-                case 'near': return 15000;
-                case 'medium': return 25000;
-                case 'far': return 35000;
-                default: return 0;
-            }
-        }
-
-        function getPaymentNoticeText() {
-            if (paymentMethod === 'cash') {
-                return 'Su pedido será confirmado y programado para entrega. El pago se realizará en efectivo al momento de recibir el pedido.';
-            } else {
-                return 'El pago debe realizarse por separado mediante los datos de transferencia proporcionados en la web, en la sección "información de entrega" (Banco Itaú o Ueno Bank). Luego de enviar el comprobante y haber confirmado el impacto, su pedido estará en trámite para su entrega inmediata.';
-            }
-        }
-
-        function updateCart() {
-            const cartCount = document.getElementById('cartCount');
-            const cartContent = document.getElementById('cartContent');
-            cartCount.textContent = cart.length;
-
-            if (cart.length === 0) {
-                cartContent.innerHTML = `<div class="empty-cart"><p>Tu carrito está vacío</p><p style="font-size: 3em;">🛒</p></div>`;
-                destroyMap();
-                return;
-            }
-
-            const shouldPreserveMap = deliveryOption !== 'pickup';
-            const preservedCoords = shouldPreserveMap && deliveryCoordinates.lat ? { ...deliveryCoordinates } : null;
-            const preservedLocation = shouldPreserveMap ? deliveryLocation : '';
-            const preservedMode = shouldPreserveMap ? mapInteractionMode : 'navigate';
-
-            console.log('UpdateCart - Preservando:', { preservedCoords, preservedLocation, preservedMode, shouldPreserveMap });
-
-            let cartHTML = '<div>';
-            let productsTotal = 0;
-
-            cart.forEach(item => {
-                productsTotal += item.price;
-                cartHTML += `
-                    <div class="cart-item">
-                        <div class="cart-item-header">
-                            <div class="cart-item-name">${item.name}</div>
-                            <button class="remove-item-btn" onclick="removeFromCart(${item.cartId})">×</button>
-                        </div>
-                        <div class="cart-item-price">Gs. ${item.price.toLocaleString()}</div>
-                        <div class="note-section">
-                            <label class="note-checkbox">
-                                <input type="checkbox" class="card-checkbox" data-cart-id="${item.cartId}" ${item.withCard ? 'checked' : ''}>
-                                <span>Agregar tarjeta personalizada (+Gs. 7.000)</span>
-                            </label>
-                            <textarea class="note-textarea card-text-input ${item.withCard ? 'active' : ''}" data-cart-id="${item.cartId}" placeholder="Escribe tu mensaje para la tarjeta aquí... (máx. 200 palabras)">${item.cardText}</textarea>
-                            <div class="word-counter" style="${item.withCard ? '' : 'display:none;'}">${countWords(item.cardText)}/200 palabras</div>
-                        </div>
-                    </div>
-                `;
-            });
-
-            const cardTotal = cart.reduce((sum, item) => sum + (item.withCard ? 7000 : 0), 0);
-            const deliveryCost = calculateDeliveryCost();
-            const grandTotal = productsTotal + cardTotal + deliveryCost;
-
-            cartHTML += `</div>
-                <div class="checkout-section">
-                    <div class="payment-options">
-                        <label style="font-weight: bold; display: block; margin-bottom: 10px;">Método de Pago:</label>
-                        <div class="option-item">
-                            <input type="radio" name="payment" id="payment-cash" value="cash" ${paymentMethod === 'cash' ? 'checked' : ''} onchange="changePaymentMethod('cash')">
-                            <label for="payment-cash"><strong>Pagar en Efectivo</strong> (al recibir)</label>
-                        </div>
-                        <div class="option-item">
-                            <input type="radio" name="payment" id="payment-online" value="online" ${paymentMethod === 'online' ? 'checked' : ''} onchange="changePaymentMethod('online')">
-                            <label for="payment-online"><strong>Pago por Transferencia</strong></label>
-                        </div>
-                    </div>
-                    <div class="customer-info-section ${paymentMethod === 'cash' ? 'active' : ''}" id="cashCustomerInfo">
-                        <div class="form-group"><label>Nombre y Apellido:</label><input type="text" id="customerName" value="${customerData.cash.name}" required></div>
-                        <div class="form-group"><label>Número de Teléfono:</label><input type="tel" id="customerPhone" value="${customerData.cash.phone}" required></div>
-                    </div>
-                    <div class="customer-info-section ${paymentMethod === 'online' ? 'active' : ''}" id="onlineCustomerInfo">
-                        <div class="payment-amount active">
-                            <label style="font-weight: bold; display: block; margin-bottom: 8px;">Monto a Pagar:</label>
-                            <div class="option-item"><input type="radio" name="amount" id="amount-50" value="50" checked><label for="amount-50"><strong>50% Adelanto</strong> (Gs. ${(grandTotal * 0.5).toLocaleString()})</label></div>
-                            <div class="option-item"><input type="radio" name="amount" id="amount-100" value="100"><label for="amount-100"><strong>Pago Total</strong> (Gs. ${grandTotal.toLocaleString()})</label></div>
-                        </div>
-                        <div class="form-group"><label>Titular de la Cuenta:</label><input type="text" id="accountHolder" value="${customerData.online.accountHolder}" required></div>
-                        <div class="form-group"><label>CI:</label><input type="text" id="accountCI" value="${customerData.online.accountCI}" required></div>
-                        <div class="form-group"><label>Número de Cuenta:</label><input type="text" id="accountNumber" value="${customerData.online.accountNumber}" required></div>
-                        <div class="form-group"><label>Número de Teléfono:</label><input type="tel" id="accountPhone" value="${customerData.online.accountPhone}" required></div>
-                    </div>
-                    <div class="delivery-options">
-                        <label style="font-weight: bold; display: block; margin-bottom: 10px;">Opciones de Entrega:</label>
-                        <div class="option-item"><input type="radio" name="delivery" id="delivery-pickup" value="pickup" ${deliveryOption === 'pickup' ? 'checked' : ''} onchange="changeDeliveryOption('pickup')"><label for="delivery-pickup"><strong>Retirar en Sucursal</strong> (Sin costo)</label></div>
-                        <div class="option-item"><input type="radio" name="delivery" id="delivery-near" value="near" ${deliveryOption === 'near' ? 'checked' : ''} onchange="changeDeliveryOption('near')"><label for="delivery-near"><strong>Delivery Zona Céntrica</strong> (+Gs. 15.000)</label></div>
-                        <div class="option-item"><input type="radio" name="delivery" id="delivery-medium" value="medium" ${deliveryOption === 'medium' ? 'checked' : ''} onchange="changeDeliveryOption('medium')"><label for="delivery-medium"><strong>Delivery Zona Media</strong> (+Gs. 25.000)</label></div>
-                        <div class="option-item"><input type="radio" name="delivery" id="delivery-far" value="far" ${deliveryOption === 'far' ? 'checked' : ''} onchange="changeDeliveryOption('far')"><label for="delivery-far"><strong>Delivery Zona Lejana</strong> (+Gs. 35.000)</label></div>
-                        <div class="map-selection ${deliveryOption !== 'pickup' ? 'active' : ''}" id="mapSelection">
-                            <div class="location-input">
-                                <label style="font-weight: bold; margin-bottom: 5px; display: block;">Ubicación de Entrega:</label>
-                                <input type="text" id="deliveryAddress" value="${preservedLocation}" placeholder="Escribe la dirección o busca en el mapa" style="width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 8px;">
-                                <div style="display: flex; gap: 10px; margin-top: 8px; align-items: center; flex-wrap: wrap;">
-                                    <p style="flex: 1; font-size: 0.9em; color: #666; margin: 0; min-width: 200px;">🖱️ Navega el mapa • 📍 Click para seleccionar • 🔍 Busca direcciones</p>
-                                    <button type="button" id="myLocationBtn" class="my-location-btn" onclick="useMyLocation()">📍 Mi Ubicación</button>
-                                    <button type="button" id="mapModeNavigate" class="map-mode-btn ${preservedMode === 'navigate' ? 'active' : 'inactive'}">✓ Navegación</button>
-                                    <button type="button" id="mapModeSelect" class="map-mode-btn ${preservedMode === 'select' ? 'active' : 'inactive'}">Seleccionar</button>
-                                </div>
-                            </div>
-                            <div id="mapClickArea" class="${preservedMode === 'select' ? 'select-mode' : 'navigate-mode'}"><div id="deliveryMap"></div></div>
-                            <div class="coordinates-display ${preservedCoords ? 'active' : ''}" id="coordinatesDisplay">
-                                <strong>📍 Ubicación Seleccionada:</strong>
-                                <div id="coordPlace"></div><div id="coordDMS"></div><div id="coordDecimal"></div><div id="coordPlusCode"></div><div id="coordLink"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="payment-notice">
-                        <strong>⚠️ IMPORTANTE - Proceso de Pago:</strong>
-                        ${getPaymentNoticeText()}
-                    </div>
-                    <div style="background: rgba(249, 249, 249, 0.9); padding: 15px; border-radius: 10px; margin-bottom: 15px;">
-                        <div class="subtotal-row"><span>Subtotal Productos:</span><span>Gs. ${productsTotal.toLocaleString()}</span></div>
-                        ${cardTotal > 0 ? `<div class="subtotal-row"><span>Tarjetas Personalizadas:</span><span>Gs. ${cardTotal.toLocaleString()}</span></div>` : ''}
-                        ${deliveryCost > 0 ? `<div class="subtotal-row"><span>Costo de Delivery:</span><span>Gs. ${deliveryCost.toLocaleString()}</span></div>` : ''}
-                    </div>
-                    <div class="total-price">Total: Gs. ${grandTotal.toLocaleString()}</div>
-                    <button class="pay-btn" onclick="processPayment()">${paymentMethod === 'cash' ? 'Confirmar Pedido' : 'Proceder al Pago'}</button>
-                </div>
-            `;
-
-            cartContent.innerHTML = cartHTML;
-            
-            setupInputListeners();
-            setupCardCheckboxes();
-            
-            if (shouldPreserveMap) {
-                console.log('Inicializando mapa con delivery activo...');
-                
-                if (preservedCoords && preservedCoords.lat && preservedCoords.lng) {
-                    deliveryCoordinates = preservedCoords;
-                    deliveryLocation = preservedLocation;
-                    mapInteractionMode = preservedMode;
-                }
-                
-                setTimeout(() => {
-                    initializeMap();
-                }, 300);
-            }
-        }
-
-        function setupInputListeners() {
-            const customerNameInput = document.getElementById('customerName');
-            const customerPhoneInput = document.getElementById('customerPhone');
-            if (customerNameInput) customerNameInput.addEventListener('input', e => {
-                customerData.cash.name = e.target.value;
-            });
-            if (customerPhoneInput) customerPhoneInput.addEventListener('input', e => {
-                customerData.cash.phone = e.target.value;
-            });
-            
-            const accountHolderInput = document.getElementById('accountHolder');
-            const accountCIInput = document.getElementById('accountCI');
-            const accountNumberInput = document.getElementById('accountNumber');
-            const accountPhoneInput = document.getElementById('accountPhone');
-            if (accountHolderInput) accountHolderInput.addEventListener('input', e => {
-                customerData.online.accountHolder = e.target.value;
-            });
-            if (accountCIInput) accountCIInput.addEventListener('input', e => {
-                customerData.online.accountCI = e.target.value;
-            });
-            if (accountNumberInput) accountNumberInput.addEventListener('input', e => {
-                customerData.online.accountNumber = e.target.value;
-            });
-            if (accountPhoneInput) accountPhoneInput.addEventListener('input', e => {
-                customerData.online.accountPhone = e.target.value;
-            });
-        }
-
-        function setupCardCheckboxes() {
-            const cartContentEl = document.getElementById('cartContent');
-            
-            cartContentEl.addEventListener('change', function(e) {
-                if (e.target.classList.contains('card-checkbox')) {
-                    const cartId = parseFloat(e.target.getAttribute('data-cart-id'));
-                    const item = cart.find(i => i.cartId === cartId);
-                    if (item) {
-                        item.withCard = e.target.checked;
-                        if (!item.withCard) item.cardText = '';
-                        const textarea = cartContentEl.querySelector(`textarea[data-cart-id="${cartId}"]`);
-                        const counter = textarea ? textarea.nextElementSibling : null;
-                        if (textarea) {
-                            if (item.withCard) {
-                                textarea.classList.add('active');
-                                textarea.style.display = 'block';
-                            } else {
-                                textarea.classList.remove('active');
-                                textarea.style.display = 'none';
-                                textarea.value = '';
-                            }
-                        }
-                        if (counter && counter.classList.contains('word-counter')) {
-                            counter.style.display = item.withCard ? 'block' : 'none';
-                        }
-                        updateTotals();
+                        }, 100);
                     }
-                }
-            });
-            
-            cartContentEl.addEventListener('input', function(e) {
-                if (e.target.classList.contains('card-text-input')) {
-                    const cartId = parseFloat(e.target.getAttribute('data-cart-id'));
-                    const item = cart.find(i => i.cartId === cartId);
-                    if (item) {
-                        item.cardText = e.target.value;
-                        const wordCount = countWords(e.target.value);
-                        const counter = e.target.nextElementSibling;
-                        if (counter && counter.classList.contains('word-counter')) {
-                            counter.textContent = `${wordCount}/200 palabras`;
-                            counter.classList.toggle('warning', wordCount > 200);
-                        }
-                    }
-                }
-            });
-        }
-
-        function updateTotals() {
-            let productsTotal = 0;
-            cart.forEach(item => {
-                productsTotal += item.price;
-            });
-            const cardTotal = cart.reduce((sum, item) => sum + (item.withCard ? 7000 : 0), 0);
-            const deliveryCost = calculateDeliveryCost();
-            const grandTotal = productsTotal + cardTotal + deliveryCost;
-
-            const subtotalContainer = document.querySelector('.checkout-section > div[style*="background: rgba(249, 249, 249, 0.9)"]');
-            if (subtotalContainer) {
-                let newHTML = `<div class="subtotal-row"><span>Subtotal Productos:</span><span>Gs. ${productsTotal.toLocaleString()}</span></div>`;
-                if (cardTotal > 0) newHTML += `<div class="subtotal-row"><span>Tarjetas Personalizadas:</span><span>Gs. ${cardTotal.toLocaleString()}</span></div>`;
-                if (deliveryCost > 0) newHTML += `<div class="subtotal-row"><span>Costo de Delivery:</span><span>Gs. ${deliveryCost.toLocaleString()}</span></div>`;
-                subtotalContainer.innerHTML = newHTML;
-            }
-            
-            const totalEl = document.querySelector('.total-price');
-            if (totalEl) totalEl.textContent = `Total: Gs. ${grandTotal.toLocaleString()}`;
-            
-            if (paymentMethod === 'online') {
-                const amount50 = document.querySelector('label[for="amount-50"]');
-                const amount100 = document.querySelector('label[for="amount-100"]');
-                if (amount50) amount50.innerHTML = `<strong>50% Adelanto</strong> (Gs. ${(grandTotal * 0.5).toLocaleString()})`;
-                if (amount100) amount100.innerHTML = `<strong>Pago Total</strong> (Gs. ${grandTotal.toLocaleString()})`;
-            }
-
-            const paymentNotice = document.querySelector('.payment-notice');
-            if (paymentNotice) {
-                paymentNotice.innerHTML = `<strong>⚠️ IMPORTANTE - Proceso de Pago:</strong>${getPaymentNoticeText()}`;
-            }
-        }
-
-        window.changeDeliveryOption = function(option) {
-            console.log('Cambiando delivery a:', option);
-            deliveryOption = option;
-            const mapSelection = document.getElementById('mapSelection');
-            
-            if (option === 'pickup') {
-                mapSelection.classList.remove('active');
-                setTimeout(() => destroyMap(), 100);
-            } else {
-                mapSelection.classList.add('active');
-                setTimeout(() => {
-                    console.log('Inicializando mapa después de cambio...');
-                    initializeMap();
-                }, 300);
-            }
-            updateTotals();
-        };
-
-        window.changePaymentMethod = function(method) {
-            paymentMethod = method;
-            const cashInfo = document.getElementById('cashCustomerInfo');
-            const onlineInfo = document.getElementById('onlineCustomerInfo');
-            
-            if (method === 'cash') {
-                cashInfo.classList.add('active');
-                onlineInfo.classList.remove('active');
-            } else {
-                cashInfo.classList.remove('active');
-                onlineInfo.classList.add('active');
-            }
-            
-            const paymentNotice = document.querySelector('.payment-notice');
-            if (paymentNotice) {
-                paymentNotice.innerHTML = `<strong>⚠️ IMPORTANTE - Proceso de Pago:</strong>${getPaymentNoticeText()}`;
-            }
-            
-            const payBtn = document.querySelector('.pay-btn');
-            if (payBtn) {
-                payBtn.textContent = method === 'cash' ? 'Confirmar Pedido' : 'Proceder al Pago';
-            }
-            
-            updateTotals();
-        };
-
-        window.removeFromCart = function(cartId) {
-            cart = cart.filter(item => item.cartId !== cartId);
-            updateCart();
-        };
-
-        window.toggleCart = function() {
-            document.getElementById('cartSidebar').classList.toggle('open');
-        };
-
-        window.processPayment = async function() {
-            let orderCustomerData = {};
-            
-            if (paymentMethod === 'cash') {
-                const name = document.getElementById('customerName')?.value || '';
-                const phone = document.getElementById('customerPhone')?.value || '';
-                if (!name || !phone) {
-                    alert('Por favor completa todos los datos requeridos');
-                    return;
-                }
-                orderCustomerData = { name, phone };
-            } else {
-                const holder = document.getElementById('accountHolder')?.value || '';
-                const ci = document.getElementById('accountCI')?.value || '';
-                const accountNumber = document.getElementById('accountNumber')?.value || '';
-                const phone = document.getElementById('accountPhone')?.value || '';
-                if (!holder || !ci || !accountNumber || !phone) {
-                    alert('Por favor completa todos los datos bancarios');
-                    return;
-                }
-                orderCustomerData = { accountHolder: holder, accountCI: ci, accountNumber, accountPhone: phone };
-            }
-
-            if (deliveryOption !== 'pickup') {
-                const address = document.getElementById('deliveryAddress')?.value || '';
-                if (!address) {
-                    alert('Por favor selecciona o escribe la ubicación de entrega');
-                    return;
-                }
-                if (!deliveryCoordinates.lat || !deliveryCoordinates.lng) {
-                    alert('Por favor selecciona una ubicación en el mapa haciendo click en el botón "Seleccionar" y luego clickeando en el mapa, o usa el botón "Mi Ubicación"');
-                    return;
-                }
-                deliveryLocation = address;
-            }
-
-            for (let item of cart) {
-                if (item.withCard && countWords(item.cardText) > 200) {
-                    alert('Una de las tarjetas excede el límite de 200 palabras.');
-                    return;
-                }
-            }
-
-            let productsTotal = 0, cardTotal = 0;
-            cart.forEach(item => {
-                productsTotal += item.price;
-                if (item.withCard) cardTotal += 7000;
-            });
-            const deliveryCost = calculateDeliveryCost();
-            const grandTotal = productsTotal + cardTotal + deliveryCost;
-
-            let paymentAmount = grandTotal;
-            if (paymentMethod === 'online') {
-                const amountOption = document.querySelector('input[name="amount"]:checked');
-                if (amountOption && amountOption.value === '50') paymentAmount = grandTotal * 0.5;
-            }
-
-            const deliveryText = deliveryOption === 'pickup' ? 'Retiro en sucursal' : `Delivery (${deliveryOption === 'near' ? 'Zona Céntrica' : deliveryOption === 'medium' ? 'Zona Media' : 'Zona Lejana'})`;
-
-            const orderData = {
-                customer: orderCustomerData,
-                deliveryAddress: deliveryLocation,
-                deliveryCoordinates,
-                deliveryPlusCode,
-                deliveryGoogleMapsLink,
-                items: cart.map(item => ({
-                    name: item.name,
-                    price: item.price,
-                    withCard: item.withCard,
-                    cardText: item.cardText
-                })),
-                deliveryOption,
-                deliveryCost,
-                paymentMethod,
-                paymentAmount,
-                productsTotal,
-                cardTotal,
-                grandTotal,
-                timestamp: serverTimestamp(),
-                status: 'pending'
-            };
-
-            try {
-                await addDoc(collection(db, 'orders'), orderData);
-                
-                let message = `🌻 *NUEVO PEDIDO - SUNFLOWERS* 🌻\n\n`;
-                
-                if (paymentMethod === 'cash') {
-                    message += `👤 *Datos del Cliente:*\nNombre: ${orderCustomerData.name}\n📱 Teléfono: ${orderCustomerData.phone}\n\n`;
-                } else {
-                    message += `👤 *Datos Bancarios del Cliente:*\nTitular: ${orderCustomerData.accountHolder}\nCI: ${orderCustomerData.accountCI}\nCuenta: ${orderCustomerData.accountNumber}\n📱 Teléfono: ${orderCustomerData.accountPhone}\n\n`;
-                }
-                
-                message += `🛍️ *PRODUCTOS:*\n`;
-                cart.forEach(item => {
-                    message += `\n• ${item.name}\n  Precio: Gs. ${item.price.toLocaleString()}\n`;
-                    if (item.withCard) message += `  ✉️ Con tarjeta personalizada (+Gs. 7.000)\n  Texto: "${item.cardText}"\n`;
                 });
 
-                message += `\n📦 *ENTREGA:*\n${deliveryText}\n`;
-                
-                if (deliveryOption !== 'pickup') {
-                    message += `\n📍 *UBICACIÓN:*\nDirección: ${deliveryLocation}\n`;
-                    if (deliveryCoordinates.lat && deliveryCoordinates.lng) {
-                        const latDMS = decimalToDMS(deliveryCoordinates.lat, true);
-                        const lngDMS = decimalToDMS(deliveryCoordinates.lng, false);
-                        message += `Coordenadas DMS: ${latDMS} ${lngDMS}\nCoordenadas: ${deliveryCoordinates.lat.toFixed(7)}, ${deliveryCoordinates.lng.toFixed(7)}\nPlus Code: ${deliveryPlusCode}\n🔗 Google Maps: ${deliveryGoogleMapsLink}\n`;
+                // Eventos para click y touch
+                mapboxMap.on('click', function(e) {
+                    if (mapInteractionMode === 'select') {
+                        handleMapClick(e.lngLat);
                     }
-                    message += `Costo delivery: Gs. ${deliveryCost.toLocaleString()}\n`;
+                });
+                
+                if (isIOS) {
+                    mapboxMap.on('touchend', function(e) {
+                        if (mapInteractionMode === 'select' && e.originalEvent.touches.length === 0) {
+                            const point = e.point;
+                            const lngLat = mapboxMap.unproject(point);
+                            handleMapClick(lngLat);
+                        }
+                    });
                 }
 
-                message += `\n💰 *RESUMEN DE COSTOS:*\nProductos: Gs. ${productsTotal.toLocaleString()}\n`;
-                if (cardTotal > 0) message += `Tarjetas: Gs. ${cardTotal.toLocaleString()}\n`;
-                if (deliveryCost > 0) message += `Delivery: Gs. ${deliveryCost.toLocaleString()}\n`;
-                message += `*TOTAL: Gs. ${grandTotal.toLocaleString()}*\n\n`;
-
-                message += `💳 *MÉTODO DE PAGO:*\n`;
-                if (paymentMethod === 'cash') {
-                    message += `Pago en efectivo (al recibir)\nMonto a pagar: Gs. ${grandTotal.toLocaleString()}`;
-                } else {
-                    message += `Transferencia bancaria\nMonto a pagar: Gs. ${paymentAmount.toLocaleString()}`;
-                    if (paymentAmount < grandTotal) message += ` (50% adelanto)\nSaldo restante: Gs. ${(grandTotal - paymentAmount).toLocaleString()}`;
-                    message += `\n\n*DATOS PARA TRANSFERENCIA:*\n\n🏦 *Banco Itaú*\nAlias: 0972629430 (Tel.)\nTitular: Laureano Galeano Martínez\nCI: 4.161.580\nCuenta: 520604647\n\n🏦 *Ueno Bank*\nAlias: 4161580 (C.I.)\nTitular: Laureano Galeano Martínez\nCI: 4.161.580\nCuenta: 1801269`;
-                }
-
-                const whatsappURL = `https://wa.me/595976461032?text=${encodeURIComponent(message)}`;
-                window.open(whatsappURL, '_blank');
-
-                cart = [];
-                deliveryOption = 'pickup';
-                deliveryLocation = '';
-                deliveryCoordinates = { lat: null, lng: null };
-                deliveryPlusCode = '';
-                deliveryGoogleMapsLink = '';
-                paymentMethod = 'cash';
-                customerData = {
-                    cash: { name: '', phone: '' },
-                    online: { accountHolder: '', accountCI: '', accountNumber: '', accountPhone: '' }
-                };
-                destroyMap();
-                updateCart();
-                toggleCart();
-                alert('¡Gracias por tu pedido! Serás redirigido a WhatsApp para confirmar.');
+                console.log('✓ Mapa inicializado correctamente');
             } catch (error) {
-                console.error('Error al procesar el pedido:', error);
-                alert('Hubo un error al procesar tu pedido. Por favor, intenta nuevamente.');
+                console.error('Error inicializando mapa:', error);
+                mapInitialized = false;
+                setTimeout(() => {
+                    console.log('Reintentando inicialización del mapa...');
+                    initializeMap();
+                }, 500);
             }
+        }, 250);
+    }
+
+    async function handleMapClick(lngLat) {
+        const clickedLng = lngLat.lng;
+        const clickedLat = lngLat.lat;
+        const placeName = await reverseGeocode(clickedLng, clickedLat);
+        handleLocationSelect(clickedLng, clickedLat, placeName);
+    }
+
+    function handleLocationSelect(lng, lat, placeName, updateInput = true) {
+        if (!mapboxMap) {
+            console.error('Mapa no disponible');
+            return;
+        }
+        
+        deliveryCoordinates = { lat: lat, lng: lng };
+        
+        if (selectedMarker) {
+            selectedMarker.remove();
+        }
+        
+        selectedMarker = new mapboxgl.Marker({ color: '#d4a574', draggable: false })
+            .setLngLat([lng, lat])
+            .addTo(mapboxMap);
+
+        mapboxMap.flyTo({ center: [lng, lat], zoom: 16, essential: true, duration: 1000 });
+        
+        const latDMS = decimalToDMS(lat, true);
+        const lngDMS = decimalToDMS(lng, false);
+        const dmsCoordinates = `${latDMS} ${lngDMS}`;
+        const decimalCoordinates = `${lat.toFixed(7)}, ${lng.toFixed(7)}`;
+        
+        deliveryPlusCode = generatePlusCode(lat, lng);
+        deliveryGoogleMapsLink = `https://www.google.com/maps?q=${lat},${lng}`;
+        deliveryLocation = placeName || dmsCoordinates;
+        
+        const addressInput = document.getElementById('deliveryAddress');
+        if (addressInput && updateInput) {
+            addressInput.value = placeName || dmsCoordinates;
+            addressInput.style.borderColor = '#6b8e23';
+            addressInput.style.backgroundColor = '#e8f5e9';
+            addressInput.style.fontWeight = 'bold';
+            setTimeout(() => {
+                addressInput.style.borderColor = '#e8c4a0';
+                addressInput.style.backgroundColor = 'white';
+                addressInput.style.fontWeight = 'normal';
+            }, 2000);
+        }
+        
+        const coordDisplay = document.getElementById('coordinatesDisplay');
+        const coordDMS = document.getElementById('coordDMS');
+        const coordDecimal = document.getElementById('coordDecimal');
+        const coordPlusCode = document.getElementById('coordPlusCode');
+        const coordLink = document.getElementById('coordLink');
+        const coordPlace = document.getElementById('coordPlace');
+        
+        if (coordDisplay) {
+            coordDisplay.classList.add('active');
+            if (coordPlace) coordPlace.textContent = `Lugar: ${placeName || 'Ubicación seleccionada'}`;
+            if (coordDMS) coordDMS.textContent = `DMS: ${dmsCoordinates}`;
+            if (coordDecimal) coordDecimal.textContent = `Decimal: ${decimalCoordinates}`;
+            if (coordPlusCode) coordPlusCode.textContent = `Plus Code: ${deliveryPlusCode}`;
+            if (coordLink) coordLink.innerHTML = `Link: <a href="${deliveryGoogleMapsLink}" target="_blank" style="color: #d4a574; text-decoration: underline;">Ver en Google Maps</a>`;
+        }
+    }
+
+    window.useMyLocation = async function() {
+        const btn = document.getElementById('myLocationBtn');
+        if (!btn) return;
+        
+        btn.disabled = true;
+        btn.innerHTML = '📍 Obteniendo ubicación...';
+        
+        if (!navigator.geolocation) {
+            alert('Tu navegador no soporta geolocalización');
+            btn.disabled = false;
+            btn.innerHTML = '📍 Mi Ubicación';
+            return;
+        }
+        
+        navigator.geolocation.getCurrentPosition(
+            async function(position) {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                const placeName = await reverseGeocode(lng, lat);
+                handleLocationSelect(lng, lat, placeName);
+                btn.disabled = false;
+                btn.innerHTML = '📍 Mi Ubicación';
+            },
+            function(error) {
+                let errorMessage = 'No se pudo obtener tu ubicación. ';
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        errorMessage += 'Por favor, permite el acceso a tu ubicación en la configuración del navegador.';
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        errorMessage += 'La información de ubicación no está disponible.';
+                        break;
+                    case error.TIMEOUT:
+                        errorMessage += 'La solicitud de ubicación tardó demasiado tiempo.';
+                        break;
+                    default:
+                        errorMessage += 'Ocurrió un error desconocido.';
+                }
+                alert(errorMessage);
+                btn.disabled = false;
+                btn.innerHTML = '📍 Mi Ubicación';
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+            }
+        );
+    };
+
+    function setupMapModeButtons() {
+        const btnNavigate = document.getElementById('mapModeNavigate');
+        const btnSelect = document.getElementById('mapModeSelect');
+        const mapClickArea = document.getElementById('mapClickArea');
+        
+        if (!btnNavigate || !btnSelect || !mapClickArea) {
+            return;
+        }
+
+        btnNavigate.onclick = function(e) {
+            e.preventDefault();
+            mapInteractionMode = 'navigate';
+            btnNavigate.classList.remove('inactive');
+            btnNavigate.classList.add('active');
+            btnSelect.classList.remove('active');
+            btnSelect.classList.add('inactive');
+            mapClickArea.classList.remove('select-mode');
+            mapClickArea.classList.add('navigate-mode');
         };
 
-        renderProducts();
-    </script>
+        btnSelect.onclick = function(e) {
+            e.preventDefault();
+            mapInteractionMode = 'select';
+            btnSelect.classList.remove('inactive');
+            btnSelect.classList.add('active');
+            btnNavigate.classList.remove('active');
+            btnNavigate.classList.add('inactive');
+            mapClickArea.classList.remove('navigate-mode');
+            mapClickArea.classList.add('select-mode');
+        };
+    }
+
+    function renderProducts() {
+        const bouquetsGrid = document.getElementById('bouquetsGrid');
+        const boxesGrid = document.getElementById('boxesGrid');
+        products.bouquets.forEach(product => {
+            bouquetsGrid.innerHTML += createProductCard(product);
+        });
+        products.boxes.forEach(product => {
+            boxesGrid.innerHTML += createProductCard(product);
+        });
+    }
+
+    function createProductCard(product) {
+        return `
+            <div class="product-card">
+                <div class="product-image-container">
+                    <img src="${product.image}" alt="${product.name}" class="product-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22320%22%3E%3Crect fill=%22%23fef9f3%22 width=%22320%22 height=%22320%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23d4a574%22 font-size=%2224%22 font-family=%22Georgia%22%3E${product.name}%3C/text%3E%3C/svg%3E'">
+</div>
+<div class="product-info">
+<div class="product-name">${product.name}</div>
+<div class="product-price">Gs. ${product.price.toLocaleString()}</div>
+<button class="add-to-cart-btn" onclick="addToCart('${product.id}')">Agregar</button>
+</div>
+</div>
+`;
+}
+    window.addToCart = function(productId) {
+        const allProducts = [...products.bouquets, ...products.boxes];
+        const product = allProducts.find(p => p.id === productId);
+        if (product) {
+            const cartIsOpen = document.getElementById('cartSidebar').classList.contains('open');
+            const needsMapReinit = cartIsOpen && deliveryOption !== 'pickup' && mapInitialized;
+            
+            cart.push({
+                ...product,
+                cartId: Date.now() + Math.random(),
+                withCard: false,
+                cardText: ''
+            });
+            
+            if (needsMapReinit) {
+                console.log('Carrito abierto, preservando estado del mapa...');
+                const preservedCoords = { ...deliveryCoordinates };
+                const preservedLocation = deliveryLocation;
+                const preservedMode = mapInteractionMode;
+                
+                updateCart();
+                
+                setTimeout(() => {
+                    if (preservedCoords.lat && preservedCoords.lng) {
+                        console.log('Restaurando ubicación después de agregar producto...');
+                        handleLocationSelect(
+                            preservedCoords.lng,
+                            preservedCoords.lat,
+                            preservedLocation,
+                            true
+                        );
+                    }
+                    if (preservedMode === 'select') {
+                        const btnSelect = document.getElementById('mapModeSelect');
+                        if (btnSelect) btnSelect.click();
+                    }
+                }, 400);
+            } else {
+                updateCart();
+            }
+            
+            const cartButton = document.querySelector('.cart-button');
+            cartButton.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                cartButton.style.transform = 'scale(1)';
+            }, 200);
+        }
+    };
+
+    function countWords(text) {
+        return text.trim().split(/\s+/).filter(word => word.length > 0).length;
+    }
+
+    function calculateDeliveryCost() {
+        switch(deliveryOption) {
+            case 'near': return 15000;
+            case 'medium': return 25000;
+            case 'far': return 35000;
+            default: return 0;
+        }
+    }
+
+    function getPaymentNoticeText() {
+        if (paymentMethod === 'cash') {
+            return 'Su pedido será confirmado y programado para entrega. El pago se realizará en efectivo al momento de recibir el pedido.';
+        } else {
+            return 'El pago debe realizarse por separado mediante los datos de transferencia proporcionados en la web, en la sección "información de entrega" (Banco Itaú o Ueno Bank). Luego de enviar el comprobante y haber confirmado el impacto, su pedido estará en trámite para su entrega inmediata.';
+        }
+    }
+
+    function updateCart() {
+        const cartCount = document.getElementById('cartCount');
+        const cartContent = document.getElementById('cartContent');
+        cartCount.textContent = cart.length;
+
+        if (cart.length === 0) {
+            cartContent.innerHTML = `<div class="empty-cart"><p>Tu carrito está vacío</p><p>🛒</p></div>`;
+            destroyMap();
+            return;
+        }
+
+        const shouldPreserveMap = deliveryOption !== 'pickup';
+        const preservedCoords = shouldPreserveMap && deliveryCoordinates.lat ? { ...deliveryCoordinates } : null;
+        const preservedLocation = shouldPreserveMap ? deliveryLocation : '';
+        const preservedMode = shouldPreserveMap ? mapInteractionMode : 'navigate';
+
+        console.log('UpdateCart - Preservando:', { preservedCoords, preservedLocation, preservedMode, shouldPreserveMap });
+
+        let cartHTML = '<div>';
+        let productsTotal = 0;
+
+        cart.forEach(item => {
+            productsTotal += item.price;
+            cartHTML += `
+                <div class="cart-item">
+                    <div class="cart-item-header">
+                        <div class="cart-item-name">${item.name}</div>
+                        <button class="remove-item-btn" onclick="removeFromCart(${item.cartId})">×</button>
+                    </div>
+                    <div class="cart-item-price">Gs. ${item.price.toLocaleString()}</div>
+                    <div class="note-section">
+                        <label class="note-checkbox">
+                            <input type="checkbox" class="card-checkbox" data-cart-id="${item.cartId}" ${item.withCard ? 'checked' : ''}>
+                            <span>Agregar tarjeta personalizada (+Gs. 7.000)</span>
+                        </label>
+                        <textarea class="note-textarea card-text-input ${item.withCard ? 'active' : ''}" data-cart-id="${item.cartId}" placeholder="Escribe tu mensaje para la tarjeta aquí... (máx. 200 palabras)">${item.cardText}</textarea>
+                        <div class="word-counter" style="${item.withCard ? '' : 'display:none;'}">${countWords(item.cardText)}/200 palabras</div>
+                    </div>
+                </div>
+            `;
+        });
+
+        const cardTotal = cart.reduce((sum, item) => sum + (item.withCard ? 7000 : 0), 0);
+        const deliveryCost = calculateDeliveryCost();
+        const grandTotal = productsTotal + cardTotal + deliveryCost;
+
+        cartHTML += `</div>
+            <div class="checkout-section">
+                <div class="options-box">
+                    <label>Método de Pago:</label>
+                    <div class="option-item">
+                        <input type="radio" name="payment" id="payment-cash" value="cash" ${paymentMethod === 'cash' ? 'checked' : ''} onchange="changePaymentMethod('cash')">
+                        <label for="payment-cash"><strong>Pagar en Efectivo</strong> (al recibir)</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="payment" id="payment-online" value="online" ${paymentMethod === 'online' ? 'checked' : ''} onchange="changePaymentMethod('online')">
+                        <label for="payment-online"><strong>Pago por Transferencia</strong></label>
+                    </div>
+                </div>
+                
+                <div class="customer-info-section ${paymentMethod === 'cash' ? 'active' : ''}" id="cashCustomerInfo">
+                    <div class="form-group">
+                        <label>Nombre y Apellido:</label>
+                        <input type="text" id="customerName" value="${customerData.cash.name}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Número de Teléfono:</label>
+                        <input type="tel" id="customerPhone" value="${customerData.cash.phone}" required>
+                    </div>
+                </div>
+                
+                <div class="customer-info-section ${paymentMethod === 'online' ? 'active' : ''}" id="onlineCustomerInfo">
+                    <div class="payment-amount active">
+                        <label style="font-weight: bold; display: block; margin-bottom: 10px;">Monto a Pagar:</label>
+                        <div class="option-item">
+                            <input type="radio" name="amount" id="amount-50" value="50" checked>
+                            <label for="amount-50"><strong>50% Adelanto</strong> (Gs. ${(grandTotal * 0.5).toLocaleString()})</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" name="amount" id="amount-100" value="100">
+                            <label for="amount-100"><strong>Pago Total</strong> (Gs. ${grandTotal.toLocaleString()})</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Titular de la Cuenta:</label>
+                        <input type="text" id="accountHolder" value="${customerData.online.accountHolder}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>CI:</label>
+                        <input type="text" id="accountCI" value="${customerData.online.accountCI}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Número de Cuenta:</label>
+                        <input type="text" id="accountNumber" value="${customerData.online.accountNumber}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Número de Teléfono:</label>
+                        <input type="tel" id="accountPhone" value="${customerData.online.accountPhone}" required>
+                    </div>
+                </div>
+                
+                <div class="options-box">
+                    <label>Opciones de Entrega:</label>
+                    <div class="option-item">
+                        <input type="radio" name="delivery" id="delivery-pickup" value="pickup" ${deliveryOption === 'pickup' ? 'checked' : ''} onchange="changeDeliveryOption('pickup')">
+                        <label for="delivery-pickup"><strong>Retirar en Sucursal</strong> (Sin costo)</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="delivery" id="delivery-near" value="near" ${deliveryOption === 'near' ? 'checked' : ''} onchange="changeDeliveryOption('near')">
+                        <label for="delivery-near"><strong>Delivery Zona Céntrica</strong> (+Gs. 15.000)</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="delivery" id="delivery-medium" value="medium" ${deliveryOption === 'medium' ? 'checked' : ''} onchange="changeDeliveryOption('medium')">
+                        <label for="delivery-medium"><strong>Delivery Zona Media</strong> (+Gs. 25.000)</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="delivery" id="delivery-far" value="far" ${deliveryOption === 'far' ? 'checked' : ''} onchange="changeDeliveryOption('far')">
+                        <label for="delivery-far"><strong>Delivery Zona Lejana</strong> (+Gs. 35.000)</label>
+                    </div>
+                    
+                    <div class="map-selection ${deliveryOption !== 'pickup' ? 'active' : ''}" id="mapSelection">
+                        <div class="location-input">
+                            <label>Ubicación de Entrega:</label>
+                            <input type="text" id="deliveryAddress" value="${preservedLocation}" placeholder="Escribe la dirección o busca en el mapa">
+                            <div class="map-controls">
+                                <p>🖱️ Navega el mapa • 📍 Click para seleccionar • 🔍 Busca direcciones</p>
+                                <button type="button" id="myLocationBtn" class="my-location-btn" onclick="useMyLocation()">📍 Mi Ubicación</button>
+                                <button type="button" id="mapModeNavigate" class="map-mode-btn ${preservedMode === 'navigate' ? 'active' : 'inactive'}">✓ Navegación</button>
+                                <button type="button" id="mapModeSelect" class="map-mode-btn ${preservedMode === 'select' ? 'active' : 'inactive'}">Seleccionar</button>
+                            </div>
+                        </div>
+                        <div id="mapClickArea" class="${preservedMode === 'select' ? 'select-mode' : 'navigate-mode'}">
+                            <div id="deliveryMap"></div>
+                        </div>
+                        <div class="coordinates-display ${preservedCoords ? 'active' : ''}" id="coordinatesDisplay">
+                            <strong>📍 Ubicación Seleccionada:</strong>
+                            <div id="coordPlace"></div>
+                            <div id="coordDMS"></div>
+                            <div id="coordDecimal"></div>
+                            <div id="coordPlusCode"></div>
+                            <div id="coordLink"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="payment-notice">
+                    <strong>⚠️ IMPORTANTE - Proceso de Pago:</strong>
+                    ${getPaymentNoticeText()}
+                </div>
+                
+                <div class="totals-box">
+                    <div class="subtotal-row">
+                        <span>Subtotal Productos:</span>
+                        <span>Gs. ${productsTotal.toLocaleString()}</span>
+                    </div>
+                    ${cardTotal > 0 ? `
+                    <div class="subtotal-row">
+                        <span>Tarjetas Personalizadas:</span>
+                        <span>Gs. ${cardTotal.toLocaleString()}</span>
+                    </div>
+                    ` : ''}
+                    ${deliveryCost > 0 ? `
+                    <div class="subtotal-row">
+                        <span>Costo de Delivery:</span>
+                        <span>Gs. ${deliveryCost.toLocaleString()}</span>
+                    </div>
+                    ` : ''}
+                </div>
+                
+                <div class="total-price">Total: Gs. ${grandTotal.toLocaleString()}</div>
+                
+                <button class="pay-btn" onclick="processPayment()">
+                    ${paymentMethod === 'cash' ? 'Confirmar Pedido' : 'Proceder al Pago'}
+                </button>
+            </div>
+        `;
+
+        cartContent.innerHTML = cartHTML;
+        
+        setupInputListeners();
+        setupCardCheckboxes();
+        
+        if (shouldPreserveMap) {
+            console.log('Inicializando mapa con delivery activo...');
+            
+            if (preservedCoords && preservedCoords.lat && preservedCoords.lng) {
+                deliveryCoordinates = preservedCoords;
+                deliveryLocation = preservedLocation;
+                mapInteractionMode = preservedMode;
+            }
+            
+            setTimeout(() => {
+                initializeMap();
+            }, 300);
+        }
+    }
+
+    function setupInputListeners() {
+        const customerNameInput = document.getElementById('customerName');
+        const customerPhoneInput = document.getElementById('customerPhone');
+        if (customerNameInput) customerNameInput.addEventListener('input', e => {
+            customerData.cash.name = e.target.value;
+        });
+        if (customerPhoneInput) customerPhoneInput.addEventListener('input', e => {
+            customerData.cash.phone = e.target.value;
+        });
+        
+        const accountHolderInput = document.getElementById('accountHolder');
+        const accountCIInput = document.getElementById('accountCI');
+        const accountNumberInput = document.getElementById('accountNumber');
+        const accountPhoneInput = document.getElementById('accountPhone');
+        if (accountHolderInput) accountHolderInput.addEventListener('input', e => {
+            customerData.online.accountHolder = e.target.value;
+        });
+        if (accountCIInput) accountCIInput.addEventListener('input', e => {
+            customerData.online.accountCI = e.target.value;
+        });
+        if (accountNumberInput) accountNumberInput.addEventListener('input', e => {
+            customerData.online.accountNumber = e.target.value;
+        });
+        if (accountPhoneInput) accountPhoneInput.addEventListener('input', e => {
+            customerData.online.accountPhone = e.target.value;
+        });
+    }
+
+    function setupCardCheckboxes() {
+        const cartContentEl = document.getElementById('cartContent');
+        
+        cartContentEl.addEventListener('change', function(e) {
+            if (e.target.classList.contains('card-checkbox')) {
+                const cartId = parseFloat(e.target.getAttribute('data-cart-id'));
+                const item = cart.find(i => i.cartId === cartId);
+                if (item) {
+                    item.withCard = e.target.checked;
+                    if (!item.withCard) item.cardText = '';
+                    const textarea = cartContentEl.querySelector(`textarea[data-cart-id="${cartId}"]`);
+                    const counter = textarea ? textarea.nextElementSibling : null;
+                    if (textarea) {
+                        if (item.withCard) {
+                            textarea.classList.add('active');
+                            textarea.style.display = 'block';
+                        } else {
+                            textarea.classList.remove('active');
+                            textarea.style.display = 'none';
+                            textarea.value = '';
+                        }
+                    }
+                    if (counter && counter.classList.contains('word-counter')) {
+                        counter.style.display = item.withCard ? 'block' : 'none';
+                    }
+                    updateTotals();
+                }
+            }
+        });
+        
+        cartContentEl.addEventListener('input', function(e) {
+            if (e.target.classList.contains('card-text-input')) {
+                const cartId = parseFloat(e.target.getAttribute('data-cart-id'));
+                const item = cart.find(i => i.cartId === cartId);
+                if (item) {
+                    item.cardText = e.target.value;
+                    const wordCount = countWords(e.target.value);
+                    const counter = e.target.nextElementSibling;
+                    if (counter && counter.classList.contains('word-counter')) {
+                        counter.textContent = `${wordCount}/200 palabras`;
+                        counter.classList.toggle('warning', wordCount > 200);
+                    }
+                }
+            }
+        });
+    }
+
+    function updateTotals() {
+        let productsTotal = 0;
+        cart.forEach(item => {
+            productsTotal += item.price;
+        });
+        const cardTotal = cart.reduce((sum, item) => sum + (item.withCard ? 7000 : 0), 0);
+        const deliveryCost = calculateDeliveryCost();
+        const grandTotal = productsTotal + cardTotal + deliveryCost;
+
+        const totalsBox = document.querySelector('.totals-box');
+        if (totalsBox) {
+            let newHTML = `
+                <div class="subtotal-row">
+                    <span>Subtotal Productos:</span>
+                    <span>Gs. ${productsTotal.toLocaleString()}</span>
+                </div>
+            `;
+            if (cardTotal > 0) {
+                newHTML += `
+                <div class="subtotal-row">
+                    <span>Tarjetas Personalizadas:</span>
+                    <span>Gs. ${cardTotal.toLocaleString()}</span>
+                </div>
+                `;
+            }
+            if (deliveryCost > 0) {
+                newHTML += `
+                <div class="subtotal-row">
+                    <span>Costo de Delivery:</span>
+                    <span>Gs. ${deliveryCost.toLocaleString()}</span>
+                </div>
+                `;
+            }
+            totalsBox.innerHTML = newHTML;
+        }
+        
+        const totalEl = document.querySelector('.total-price');
+        if (totalEl) totalEl.textContent = `Total: Gs. ${grandTotal.toLocaleString()}`;
+        
+        if (paymentMethod === 'online') {
+            const amount50 = document.querySelector('label[for="amount-50"]');
+            const amount100 = document.querySelector('label[for="amount-100"]');
+            if (amount50) amount50.innerHTML = `<strong>50% Adelanto</strong> (Gs. ${(grandTotal * 0.5).toLocaleString()})`;
+            if (amount100) amount100.innerHTML = `<strong>Pago Total</strong> (Gs. ${grandTotal.toLocaleString()})`;
+        }
+
+        const paymentNotice = document.querySelector('.payment-notice');
+        if (paymentNotice) {
+            paymentNotice.innerHTML = `<strong>⚠️ IMPORTANTE - Proceso de Pago:</strong>${getPaymentNoticeText()}`;
+        }
+    }
+
+    window.changeDeliveryOption = function(option) {
+        console.log('Cambiando delivery a:', option);
+        deliveryOption = option;
+        const mapSelection = document.getElementById('mapSelection');
+        
+        if (option === 'pickup') {
+            mapSelection.classList.remove('active');
+            setTimeout(() => destroyMap(), 100);
+        } else {
+            mapSelection.classList.add('active');
+            setTimeout(() => {
+                console.log('Inicializando mapa después de cambio...');
+                initializeMap();
+            }, 300);
+        }
+        updateTotals();
+    };
+
+    window.changePaymentMethod = function(method) {
+        paymentMethod = method;
+        const cashInfo = document.getElementById('cashCustomerInfo');
+        const onlineInfo = document.getElementById('onlineCustomerInfo');
+        
+        if (method === 'cash') {
+            cashInfo.classList.add('active');
+            onlineInfo.classList.remove('active');
+        } else {
+            cashInfo.classList.remove('active');
+            onlineInfo.classList.add('active');
+        }
+        
+        const paymentNotice = document.querySelector('.payment-notice');
+        if (paymentNotice) {
+            paymentNotice.innerHTML = `<strong>⚠️ IMPORTANTE - Proceso de Pago:</strong>${getPaymentNoticeText()}`;
+        }
+        
+        const payBtn = document.querySelector('.pay-btn');
+        if (payBtn) {
+            payBtn.textContent = method === 'cash' ? 'Confirmar Pedido' : 'Proceder al Pago';
+        }
+        
+        updateTotals();
+    };
+
+    window.removeFromCart = function(cartId) {
+        cart = cart.filter(item => item.cartId !== cartId);
+        updateCart();
+    };
+
+    window.toggleCart = function() {
+        document.getElementById('cartSidebar').classList.toggle('open');
+    };
+
+    window.processPayment = async function() {
+        let orderCustomerData = {};
+        
+        if (paymentMethod === 'cash') {
+            const name = document.getElementById('customerName')?.value || '';
+            const phone = document.getElementById('customerPhone')?.value || '';
+            if (!name || !phone) {
+                alert('Por favor completa todos los datos requeridos');
+                return;
+            }
+            orderCustomerData = { name, phone };
+        } else {
+            const holder = document.getElementById('accountHolder')?.value || '';
+            const ci = document.getElementById('accountCI')?.value || '';
+            const accountNumber = document.getElementById('accountNumber')?.value || '';
+            const phone = document.getElementById('accountPhone')?.value || '';
+            if (!holder || !ci || !accountNumber || !phone) {
+                alert('Por favor completa todos los datos bancarios');
+                return;
+            }
+            orderCustomerData = { accountHolder: holder, accountCI: ci, accountNumber, accountPhone: phone };
+        }
+
+        if (deliveryOption !== 'pickup') {
+            const address = document.getElementById('deliveryAddress')?.value || '';
+            if (!address) {
+                alert('Por favor selecciona o escribe la ubicación de entrega');
+                return;
+            }
+            if (!deliveryCoordinates.lat || !deliveryCoordinates.lng) {
+                alert('Por favor selecciona una ubicación en el mapa haciendo click en el botón "Seleccionar" y luego clickeando en el mapa, o usa el botón "Mi Ubicación"');
+                return;
+            }
+            deliveryLocation = address;
+        }
+
+        for (let item of cart) {
+            if (item.withCard && countWords(item.cardText) > 200) {
+                alert('Una de las tarjetas excede el límite de 200 palabras.');
+                return;
+            }
+        }
+
+        let productsTotal = 0, cardTotal = 0;
+        cart.forEach(item => {
+            productsTotal += item.price;
+            if (item.withCard) cardTotal += 7000;
+        });
+        const deliveryCost = calculateDeliveryCost();
+        const grandTotal = productsTotal + cardTotal + deliveryCost;
+
+        let paymentAmount = grandTotal;
+        if (paymentMethod === 'online') {
+            const amountOption = document.querySelector('input[name="amount"]:checked');
+            if (amountOption && amountOption.value === '50') paymentAmount = grandTotal * 0.5;
+        }
+
+        const deliveryText = deliveryOption === 'pickup' ? 'Retiro en sucursal' : `Delivery (${deliveryOption === 'near' ? 'Zona Céntrica' : deliveryOption === 'medium' ? 'Zona Media' : 'Zona Lejana'})`;
+
+        const orderData = {
+            customer: orderCustomerData,
+            deliveryAddress: deliveryLocation,
+            deliveryCoordinates,
+            deliveryPlusCode,
+            deliveryGoogleMapsLink,
+            items: cart.map(item => ({
+                name: item.name,
+                price: item.price,
+                withCard: item.withCard,
+                cardText: item.cardText
+            })),
+            deliveryOption,
+            deliveryCost,
+            paymentMethod,
+            paymentAmount,
+            productsTotal,
+            cardTotal,
+            grandTotal,
+            timestamp: serverTimestamp(),
+            status: 'pending'
+        };
+
+        try {
+            await addDoc(collection(db, 'orders'), orderData);
+            
+            let message = `🌻 *NUEVO PEDIDO - SUNFLOWERS* 🌻\n\n`;
+            
+            if (paymentMethod === 'cash') {
+                message += `👤 *Datos del Cliente:*\nNombre: ${orderCustomerData.name}\n📱 Teléfono: ${orderCustomerData.phone}\n\n`;
+            } else {
+                message += `👤 *Datos Bancarios del Cliente:*\nTitular: ${orderCustomerData.accountHolder}\nCI: ${orderCustomerData.accountCI}\nCuenta: ${orderCustomerData.accountNumber}\n📱 Teléfono: ${orderCustomerData.accountPhone}\n\n`;
+            }
+            
+            message += `🛍️ *PRODUCTOS:*\n`;
+            cart.forEach(item => {
+                message += `\n• ${item.name}\n  Precio: Gs. ${item.price.toLocaleString()}\n`;
+                if (item.withCard) message += `  ✉️ Con tarjeta personalizada (+Gs. 7.000)\n  Texto: "${item.cardText}"\n`;
+            });
+
+            message += `\n📦 *ENTREGA:*\n${deliveryText}\n`;
+            
+            if (deliveryOption !== 'pickup') {
+                message += `\n📍 *UBICACIÓN:*\nDirección: ${deliveryLocation}\n`;
+                if (deliveryCoordinates.lat && deliveryCoordinates.lng) {
+                    const latDMS = decimalToDMS(deliveryCoordinates.lat, true);
+                    const lngDMS = decimalToDMS(deliveryCoordinates.lng, false);
+                    message += `Coordenadas DMS: ${latDMS} ${lngDMS}\nCoordenadas: ${deliveryCoordinates.lat.toFixed(7)}, ${deliveryCoordinates.lng.toFixed(7)}\nPlus Code: ${deliveryPlusCode}\n🔗 Google Maps: ${deliveryGoogleMapsLink}\n`;
+                }
+                message += `Costo delivery: Gs. ${deliveryCost.toLocaleString()}\n`;
+            }
+
+            message += `\n💰 *RESUMEN DE COSTOS:*\nProductos: Gs. ${productsTotal.toLocaleString()}\n`;
+            if (cardTotal > 0) message += `Tarjetas: Gs. ${cardTotal.toLocaleString()}\n`;
+            if (deliveryCost > 0) message += `Delivery: Gs. ${deliveryCost.toLocaleString()}\n`;
+            message += `*TOTAL: Gs. ${grandTotal.toLocaleString()}*\n\n`;
+
+            message += `💳 *MÉTODO DE PAGO:*\n`;
+            if (paymentMethod === 'cash') {
+                message += `Pago en efectivo (al recibir)\nMonto a pagar: Gs. ${grandTotal.toLocaleString()}`;
+            } else {
+                message += `Transferencia bancaria\nMonto a pagar: Gs. ${paymentAmount.toLocaleString()}`;
+                if (paymentAmount < grandTotal) message += ` (50% adelanto)\nSaldo restante: Gs. ${(grandTotal - paymentAmount).toLocaleString()}`;
+                message += `\n\n*DATOS PARA TRANSFERENCIA:*\n\n🏦 *Banco Itaú*\nAlias: 0972629430 (Tel.)\nTitular: Laureano Galeano Martínez\nCI: 4.161.580\nCuenta: 520604647\n\n🏦 *Ueno Bank*\nAlias: 4161580 (C.I.)\nTitular: Laureano Galeano Martínez\nCI: 4.161.580\nCuenta: 1801269`;
+            }
+
+            // Redirección mejorada para iOS
+            const whatsappNumber = '595976461032';
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Intentar diferentes métodos para abrir WhatsApp
+            if (isIOS) {
+                // Para iOS, usar el esquema de URL específico
+                const whatsappURL = `whatsapp://send?phone=${whatsappNumber}&text=${encodedMessage}`;
+                const fallbackURL = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
+                
+                // Intentar abrir con el esquema whatsapp://
+                window.location.href = whatsappURL;
+                
+                // Fallback después de 1 segundo si no abrió
+                setTimeout(() => {
+                    window.location.href = fallbackURL;
+                }, 1000);
+            } else {
+                // Para Android y desktop
+                const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+                window.open(whatsappURL, '_blank');
+            }
+
+            cart = [];
+            deliveryOption = 'pickup';
+            deliveryLocation = '';
+            deliveryCoordinates = { lat: null, lng: null };
+            deliveryPlusCode = '';
+            deliveryGoogleMapsLink = '';
+paymentMethod = 'cash';
+customerData = {
+cash: { name: '', phone: '' },
+online: { accountHolder: '', accountCI: '', accountNumber: '', accountPhone: '' }
+};
+destroyMap();
+updateCart();
+toggleCart();
+            alert('¡Gracias por tu pedido! Serás redirigido a WhatsApp para confirmar.');
+        } catch (error) {
+            console.error('Error al procesar el pedido:', error);
+            alert('Hubo un error al procesar tu pedido. Por favor, intenta nuevamente.');
+        }
+    };
+
+    renderProducts();
+</script>
 </body>
 </html>
