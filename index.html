@@ -78,10 +78,10 @@
             z-index: 0;
         }
         
-        /* Header */
+        /* Header - MEJORADO */
         header {
             background: linear-gradient(135deg, var(--dark-bg) 0%, var(--secondary-color) 100%);
-            padding: 15px 0;
+            padding: 12px 0;
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
@@ -91,24 +91,24 @@
         .header-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 12px;
-            flex: 0 1 auto;
+            gap: 10px;
+            flex: 1 1 auto;
             min-width: 0;
-            max-width: 60%;
+            overflow: hidden;
         }
         
         .logo {
-            height: 60px;
+            height: 55px;
             transition: transform 0.3s ease;
             filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.2));
             flex-shrink: 0;
@@ -120,19 +120,20 @@
         
         .brand-text {
             color: var(--accent-color);
-            font-size: 1.5em;
+            font-size: 1.3em;
             font-weight: normal;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            flex-shrink: 1;
         }
         
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             flex-shrink: 0;
         }
 /* Botón de Redes Sociales */
@@ -143,18 +144,18 @@
         .social-toggle {
             background: var(--accent-color);
             color: var(--dark-bg);
-            padding: 12px 16px;
+            padding: 10px 14px;
             border-radius: 50%;
             border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3em;
+            font-size: 1.2em;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(212, 165, 116, 0.3);
-            width: 50px;
-            height: 50px;
+            width: 46px;
+            height: 46px;
             -webkit-user-select: none;
             user-select: none;
         }
@@ -228,14 +229,14 @@
             position: relative;
             background: var(--accent-color);
             color: var(--dark-bg);
-            padding: 12px 20px;
+            padding: 10px 16px;
             border-radius: 50px;
             border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.95em;
+            gap: 6px;
+            font-size: 0.9em;
             font-weight: bold;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(212, 165, 116, 0.3);
@@ -258,12 +259,12 @@
             background: var(--danger);
             color: white;
             border-radius: 50%;
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.85em;
+            font-size: 0.8em;
             font-weight: bold;
         }
 /* Hero Section */
@@ -373,11 +374,11 @@
         
         .product-card {
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
             transition: all 0.4s ease;
-            border: 1px solid rgba(212, 165, 116, 0.2);
+            border: 2px solid rgba(212, 165, 116, 0.2);
             backdrop-filter: blur(10px);
             position: relative;
         }
@@ -411,12 +412,41 @@
             border-color: var(--primary-color);
         }
         
+        /* MEJORADO: Contenedor de imagen con bordes decorativos */
         .product-image-container {
             position: relative;
             width: 100%;
-            height: 280px;
+            height: 320px;
             overflow: hidden;
             background: linear-gradient(135deg, #fef9f3 0%, #fceee3 100%);
+            border-radius: 18px 18px 0 0;
+            padding: 15px;
+        }
+        
+        /* Marco decorativo interno */
+        .product-image-container::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 2px solid rgba(212, 165, 116, 0.2);
+            border-radius: 12px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* Esquinas decorativas */
+        .product-image-container::after {
+            content: '✿';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.2em;
+            color: rgba(212, 165, 116, 0.3);
+            z-index: 2;
+            pointer-events: none;
         }
         
         .product-image {
@@ -425,17 +455,20 @@
             object-fit: contain;
             object-position: center;
             transition: transform 0.4s ease;
-            padding: 10px;
+            position: relative;
+            z-index: 0;
+            border-radius: 10px;
         }
         
         .product-card:hover .product-image {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
         
         .product-info {
             padding: 20px;
             background: white;
             position: relative;
+            border-radius: 0 0 18px 18px;
         }
         
         .product-name {
@@ -1135,7 +1168,8 @@
             height: 450px;
             border: none;
         }
-/* Responsive */
+
+        /* Responsive - MEJORADO */
         @media (max-width: 768px) {
             .cart-sidebar {
                 width: 100%;
@@ -1163,12 +1197,8 @@
             }
             
             .product-image-container {
-                height: 260px;
-            }
-            
-            .product-image {
-                object-fit: contain;
-                padding: 8px;
+                height: 280px;
+                padding: 12px;
             }
             
             .bank-info-grid {
@@ -1179,42 +1209,44 @@
                 font-size: 2em;
             }
             
+            /* Header responsive mejorado */
             .header-container {
-                padding: 0 12px;
-                gap: 8px;
+                padding: 0 10px;
+                gap: 6px;
             }
             
             .logo-container {
-                gap: 8px;
-                max-width: 55%;
+                gap: 6px;
+                flex: 0 1 auto;
+                max-width: none;
             }
             
             .brand-text {
-                font-size: 1.1em;
+                font-size: 1em;
                 letter-spacing: 1px;
             }
             
             .logo {
-                height: 50px;
+                height: 48px;
             }
             
             .cart-button {
-                padding: 10px 15px;
-                font-size: 0.9em;
-                gap: 6px;
+                padding: 9px 14px;
+                font-size: 0.85em;
+                gap: 5px;
             }
             
             .cart-count {
-                width: 20px;
-                height: 20px;
-                font-size: 0.8em;
+                width: 19px;
+                height: 19px;
+                font-size: 0.75em;
             }
             
             .social-toggle {
-                width: 45px;
-                height: 45px;
-                padding: 10px;
-                font-size: 1.2em;
+                width: 44px;
+                height: 44px;
+                padding: 9px;
+                font-size: 1.15em;
             }
             
             .social-dropdown {
@@ -1266,30 +1298,35 @@
             }
             
             .product-image-container {
-                height: 300px;
-            }
-            
-            .product-image {
-                object-fit: contain;
-                padding: 10px;
+                height: 320px;
+                padding: 15px;
             }
             
             .section-title {
                 font-size: 1.6em;
             }
             
+            /* Header ultra-responsive */
             .logo-container {
-                gap: 6px;
-                max-width: 50%;
+                gap: 5px;
             }
             
             .brand-text {
-                font-size: 0.95em;
+                font-size: 0.85em;
                 letter-spacing: 0.5px;
             }
             
+            .logo {
+                height: 44px;
+            }
+            
             .header-actions {
-                gap: 6px;
+                gap: 5px;
+            }
+            
+            .cart-button {
+                padding: 8px 12px;
+                font-size: 0.8em;
             }
             
             .cart-button span:nth-child(2) {
@@ -1297,8 +1334,8 @@
             }
             
             .social-toggle {
-                width: 42px;
-                height: 42px;
+                width: 40px;
+                height: 40px;
                 font-size: 1.1em;
             }
             
@@ -1309,6 +1346,32 @@
             .pay-btn {
                 font-size: 1.1em;
                 padding: 14px;
+            }
+        }
+        
+        /* Breakpoint adicional para pantallas muy pequeñas */
+        @media (max-width: 360px) {
+            .header-container {
+                padding: 0 8px;
+            }
+            
+            .brand-text {
+                font-size: 0.75em;
+                letter-spacing: 0.3px;
+            }
+            
+            .logo {
+                height: 40px;
+            }
+            
+            .cart-button {
+                padding: 7px 10px;
+            }
+            
+            .social-toggle {
+                width: 38px;
+                height: 38px;
+                font-size: 1em;
             }
         }
         
@@ -1540,7 +1603,8 @@
 
         // Detección de iOS
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-// Función para toggle del menú social
+
+        // Función para toggle del menú social
         window.toggleSocialMenu = function() {
             const dropdown = document.getElementById('socialDropdown');
             const overlay = document.getElementById('overlay');
@@ -1554,8 +1618,7 @@
             dropdown.classList.remove('active');
             overlay.classList.remove('active');
         };
-        
-        function decimalToDMS(decimal, isLatitude) {
+function decimalToDMS(decimal, isLatitude) {
             const absolute = Math.abs(decimal);
             const degrees = Math.floor(absolute);
             const minutesDecimal = (absolute - degrees) * 60;
@@ -1592,7 +1655,8 @@
                 return '';
             }
         }
-function destroyMap() {
+
+        function destroyMap() {
             console.log('Destruyendo mapa...');
             
             if (selectedMarker) {
@@ -1638,8 +1702,7 @@ function destroyMap() {
             mapInteractionMode = 'navigate';
             console.log('Mapa destruido completamente');
         }
-
-        function initializeMap() {
+function initializeMap() {
             console.log('Iniciando mapa...');
             
             const mapElement = document.getElementById('deliveryMap');
@@ -1781,7 +1844,8 @@ function destroyMap() {
             const placeName = await reverseGeocode(clickedLng, clickedLat);
             handleLocationSelect(clickedLng, clickedLat, placeName);
         }
-function handleLocationSelect(lng, lat, placeName, updateInput = true) {
+
+        function handleLocationSelect(lng, lat, placeName, updateInput = true) {
             if (!mapboxMap) {
                 console.error('Mapa no disponible');
                 return;
@@ -2571,8 +2635,7 @@ window.processPayment = async function() {
                 alert('Hubo un error al procesar tu pedido. Por favor, intenta nuevamente.');
             }
         };
-
-        // Inicializar productos al cargar la página
+// Inicializar productos al cargar la página
         renderProducts();
         
         // Cerrar menú social al hacer scroll
