@@ -95,15 +95,16 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
         }
         
         .logo-container {
             display: flex;
             align-items: center;
             gap: 12px;
-            flex: 1;
+            flex: 0 1 auto;
             min-width: 0;
+            max-width: 60%;
         }
         
         .logo {
@@ -124,6 +125,8 @@
             letter-spacing: 2px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .header-actions {
@@ -132,8 +135,7 @@
             gap: 10px;
             flex-shrink: 0;
         }
-        
-        /* Botón de Redes Sociales */
+/* Botón de Redes Sociales */
         .social-menu {
             position: relative;
         }
@@ -420,12 +422,14 @@
         .product-image {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            object-position: center;
             transition: transform 0.4s ease;
+            padding: 10px;
         }
         
         .product-card:hover .product-image {
-            transform: scale(1.08);
+            transform: scale(1.05);
         }
         
         .product-info {
@@ -494,8 +498,7 @@
             transform: scale(1.05);
             box-shadow: 0 5px 20px rgba(139, 111, 71, 0.4);
         }
-        
-        /* Cart Sidebar */
+/* Cart Sidebar */
         .cart-sidebar {
             position: fixed;
             top: 0;
@@ -578,7 +581,8 @@
             font-size: 3.5em;
             opacity: 0.3;
         }
-/* Cart Item */
+
+        /* Cart Item */
         .cart-item {
             border-bottom: 2px solid rgba(212, 165, 116, 0.2);
             padding: 20px 0;
@@ -701,8 +705,7 @@
             color: var(--danger);
             font-weight: bold;
         }
-        
-        /* Checkout Section */
+/* Checkout Section */
         .checkout-section {
             margin-top: 30px;
             padding-top: 25px;
@@ -1132,8 +1135,7 @@
             height: 450px;
             border: none;
         }
-        
-        /* Responsive */
+/* Responsive */
         @media (max-width: 768px) {
             .cart-sidebar {
                 width: 100%;
@@ -1161,7 +1163,12 @@
             }
             
             .product-image-container {
-                height: 240px;
+                height: 260px;
+            }
+            
+            .product-image {
+                object-fit: contain;
+                padding: 8px;
             }
             
             .bank-info-grid {
@@ -1173,11 +1180,17 @@
             }
             
             .header-container {
-                padding: 0 15px;
+                padding: 0 12px;
+                gap: 8px;
+            }
+            
+            .logo-container {
+                gap: 8px;
+                max-width: 55%;
             }
             
             .brand-text {
-                font-size: 1.2em;
+                font-size: 1.1em;
                 letter-spacing: 1px;
             }
             
@@ -1252,16 +1265,31 @@
                 grid-template-columns: 1fr;
             }
             
+            .product-image-container {
+                height: 300px;
+            }
+            
+            .product-image {
+                object-fit: contain;
+                padding: 10px;
+            }
+            
             .section-title {
                 font-size: 1.6em;
             }
             
+            .logo-container {
+                gap: 6px;
+                max-width: 50%;
+            }
+            
             .brand-text {
-                font-size: 1em;
+                font-size: 0.95em;
+                letter-spacing: 0.5px;
             }
             
             .header-actions {
-                gap: 8px;
+                gap: 6px;
             }
             
             .cart-button span:nth-child(2) {
@@ -1420,8 +1448,7 @@
             </div>
         </div>
     </div>
-
-    <script type="module">
+<script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
         import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
         import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js';
@@ -1565,8 +1592,7 @@
                 return '';
             }
         }
-
-        function destroyMap() {
+function destroyMap() {
             console.log('Destruyendo mapa...');
             
             if (selectedMarker) {
@@ -1893,8 +1919,7 @@ function handleLocationSelect(lng, lat, placeName, updateInput = true) {
                 mapClickArea.classList.add('select-mode');
             };
         }
-
-        function renderProducts() {
+function renderProducts() {
             const bouquetsGrid = document.getElementById('bouquetsGrid');
             const boxesGrid = document.getElementById('boxesGrid');
             products.bouquets.forEach(product => {
@@ -2089,8 +2114,7 @@ function updateCart() {
                             <input type="tel" id="accountPhone" value="${customerData.online.accountPhone}" required>
                         </div>
                     </div>
-                    
-                    <div class="options-box">
+<div class="options-box">
                         <label>Opciones de Entrega:</label>
                         <div class="option-item">
                             <input type="radio" name="delivery" id="delivery-pickup" value="pickup" ${deliveryOption === 'pickup' ? 'checked' : ''} onchange="changeDeliveryOption('pickup')">
@@ -2311,8 +2335,7 @@ function setupInputListeners() {
                 paymentNotice.innerHTML = `<strong>⚠️ IMPORTANTE - Proceso de Pago:</strong>${getPaymentNoticeText()}`;
             }
         }
-
-        window.changeDeliveryOption = function(option) {
+window.changeDeliveryOption = function(option) {
             console.log('Cambiando delivery a:', option);
             deliveryOption = option;
             const mapSelection = document.getElementById('mapSelection');
@@ -2494,8 +2517,7 @@ window.processPayment = async function() {
                     if (paymentAmount < grandTotal) message += ` (50% adelanto)\nSaldo restante: Gs. ${(grandTotal - paymentAmount).toLocaleString()}`;
                     message += `\n\n*DATOS PARA TRANSFERENCIA:*\n\n🏦 *Banco Itaú*\nAlias: 0972629430 (Tel.)\nTitular: Laureano Galeano Martínez\nCI: 4.161.580\nCuenta: 520604647\n\n🏦 *Ueno Bank*\nAlias: 4161580 (C.I.)\nTitular: Laureano Galeano Martínez\nCI: 4.161.580\nCuenta: 1801269`;
                 }
-
-                // Redirección mejorada multiplataforma
+// Redirección mejorada multiplataforma
                 const whatsappNumber = '595976461032';
                 const encodedMessage = encodeURIComponent(message);
                 
