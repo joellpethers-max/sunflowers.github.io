@@ -1429,11 +1429,11 @@
                         🌐
                     </button>
                     <div class="social-dropdown" id="socialDropdown">
-                        <a href="https://www.instagram.com/sunflowers_oviedo?igsh=amE1MHdpM2l4Z2g5" target="_blank" rel="noopener noreferrer" class="social-link instagram">
+                        <a href="#" onclick="openSocialLink('instagram'); return false;" class="social-link instagram">
                             <span class="social-icon">📷</span>
                             <span>Instagram</span>
                         </a>
-                        <a href="https://www.facebook.com/share/1AFRjhh1tm/" target="_blank" rel="noopener noreferrer" class="social-link facebook">
+                        <a href="#" onclick="openSocialLink('facebook'); return false;" class="social-link facebook">
                             <span class="social-icon">📘</span>
                             <span>Facebook</span>
                         </a>
@@ -1604,6 +1604,73 @@
         // Detección de iOS
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
+        // NUEVA FUNCIÓN: Abrir enlaces de redes sociales (funciona en Android e iOS)
+        window.openSocialLink = function(platform) {
+            const urls = {
+                instagram: 'https://www.instagram.com/sunflowers_oviedo?igsh=amE1MHdpM2l4Z2g5',
+                facebook: 'https://www.facebook.com/share/1AFRjhh1tm/'
+            };
+            
+            const url = urls[platform];
+            if (!url) return;
+            
+            // Cerrar el menú social
+            closeSocialMenu();
+            
+            // Detectar si es móvil
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
+            
+            if (isMobile) {
+                if (platform === 'instagram') {
+                    // Para Instagram en móviles
+                    if (isIOS) {
+                        // iOS: intentar abrir la app primero
+                        const instagramAppURL = 'instagram://user?username=sunflowers_oviedo';
+                        window.location.href = instagramAppURL;
+                        
+                        // Fallback al navegador después de 1.5 segundos
+                        setTimeout(() => {
+                            window.location.href = url;
+                        }, 1500);
+                    } else {
+                        // Android: intentar intent primero
+                        const intentURL = 'intent://instagram.com/_u/sunflowers_oviedo/#Intent;package=com.instagram.android;scheme=https;end';
+                        window.location.href = intentURL;
+                        
+                        // Fallback
+                        setTimeout(() => {
+                            window.location.href = url;
+                        }, 1500);
+                    }
+                } else if (platform === 'facebook') {
+                    // Para Facebook en móviles
+                    if (isIOS) {
+                        // iOS: intentar abrir la app primero
+                        const facebookAppURL = 'fb://profile/61566588072846'; // ID de la página
+                        window.location.href = facebookAppURL;
+                        
+                        // Fallback
+                        setTimeout(() => {
+                            window.location.href = url;
+                        }, 1500);
+                    } else {
+                        // Android: intentar intent primero
+                        const intentURL = 'intent://facebook.com/share/1AFRjhh1tm/#Intent;package=com.facebook.katana;scheme=https;end';
+                        window.location.href = intentURL;
+                        
+                        // Fallback
+                        setTimeout(() => {
+                            window.location.href = url;
+                        }, 1500);
+                    }
+                }
+            } else {
+                // Para desktop, abrir en nueva pestaña
+                window.open(url, '_blank', 'noopener,noreferrer');
+            }
+        };
+
         // Función para toggle del menú social
         window.toggleSocialMenu = function() {
             const dropdown = document.getElementById('socialDropdown');
@@ -1618,7 +1685,8 @@
             dropdown.classList.remove('active');
             overlay.classList.remove('active');
         };
-function decimalToDMS(decimal, isLatitude) {
+
+        function decimalToDMS(decimal, isLatitude) {
             const absolute = Math.abs(decimal);
             const degrees = Math.floor(absolute);
             const minutesDecimal = (absolute - degrees) * 60;
@@ -1702,7 +1770,8 @@ function decimalToDMS(decimal, isLatitude) {
             mapInteractionMode = 'navigate';
             console.log('Mapa destruido completamente');
         }
-function initializeMap() {
+
+        function initializeMap() {
             console.log('Iniciando mapa...');
             
             const mapElement = document.getElementById('deliveryMap');
@@ -1983,7 +2052,8 @@ function initializeMap() {
                 mapClickArea.classList.add('select-mode');
             };
         }
-function renderProducts() {
+
+        function renderProducts() {
             const bouquetsGrid = document.getElementById('bouquetsGrid');
             const boxesGrid = document.getElementById('boxesGrid');
             products.bouquets.forEach(product => {
@@ -2078,7 +2148,8 @@ function renderProducts() {
                 return 'El pago debe realizarse por separado mediante los datos de transferencia proporcionados en la web, en la sección "información de entrega" (Banco Itaú o Ueno Bank). Luego de enviar el comprobante y haber confirmado el impacto, su pedido estará en trámite para su entrega inmediata.';
             }
         }
-function updateCart() {
+
+        function updateCart() {
             const cartCount = document.getElementById('cartCount');
             const cartContent = document.getElementById('cartContent');
             cartCount.textContent = cart.length;
@@ -2178,7 +2249,8 @@ function updateCart() {
                             <input type="tel" id="accountPhone" value="${customerData.online.accountPhone}" required>
                         </div>
                     </div>
-<div class="options-box">
+                    
+                    <div class="options-box">
                         <label>Opciones de Entrega:</label>
                         <div class="option-item">
                             <input type="radio" name="delivery" id="delivery-pickup" value="pickup" ${deliveryOption === 'pickup' ? 'checked' : ''} onchange="changeDeliveryOption('pickup')">
@@ -2273,7 +2345,8 @@ function updateCart() {
                 }, 300);
             }
         }
-function setupInputListeners() {
+
+        function setupInputListeners() {
             const customerNameInput = document.getElementById('customerName');
             const customerPhoneInput = document.getElementById('customerPhone');
             if (customerNameInput) customerNameInput.addEventListener('input', e => {
@@ -2399,7 +2472,8 @@ function setupInputListeners() {
                 paymentNotice.innerHTML = `<strong>⚠️ IMPORTANTE - Proceso de Pago:</strong>${getPaymentNoticeText()}`;
             }
         }
-window.changeDeliveryOption = function(option) {
+
+        window.changeDeliveryOption = function(option) {
             console.log('Cambiando delivery a:', option);
             deliveryOption = option;
             const mapSelection = document.getElementById('mapSelection');
@@ -2457,7 +2531,8 @@ window.changeDeliveryOption = function(option) {
                 closeSocialMenu();
             }
         };
-window.processPayment = async function() {
+
+        window.processPayment = async function() {
             let orderCustomerData = {};
             
             if (paymentMethod === 'cash') {
@@ -2581,7 +2656,8 @@ window.processPayment = async function() {
                     if (paymentAmount < grandTotal) message += ` (50% adelanto)\nSaldo restante: Gs. ${(grandTotal - paymentAmount).toLocaleString()}`;
                     message += `\n\n*DATOS PARA TRANSFERENCIA:*\n\n🏦 *Banco Itaú*\nAlias: 0972629430 (Tel.)\nTitular: Laureano Galeano Martínez\nCI: 4.161.580\nCuenta: 520604647\n\n🏦 *Ueno Bank*\nAlias: 4161580 (C.I.)\nTitular: Laureano Galeano Martínez\nCI: 4.161.580\nCuenta: 1801269`;
                 }
-// Redirección mejorada multiplataforma
+
+                // Redirección mejorada multiplataforma
                 const whatsappNumber = '595972629430';
                 const encodedMessage = encodeURIComponent(message);
                 
@@ -2635,7 +2711,8 @@ window.processPayment = async function() {
                 alert('Hubo un error al procesar tu pedido. Por favor, intenta nuevamente.');
             }
         };
-// Inicializar productos al cargar la página
+
+        // Inicializar productos al cargar la página
         renderProducts();
         
         // Cerrar menú social al hacer scroll
@@ -2651,6 +2728,3 @@ window.processPayment = async function() {
     </script>
 </body>
 </html>
-
-
-
