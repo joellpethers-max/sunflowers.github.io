@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="format-detection" content="telephone=no">
     <title>Sunflowers - Catálogo</title>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
-    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
-    <style>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css"><style>
         * { 
             margin: 0; 
             padding: 0; 
@@ -77,8 +77,7 @@
             pointer-events: none;
             z-index: 0;
         }
-        
-        /* Header - MEJORADO */
+/* Header - MEJORADO */
         header {
             background: linear-gradient(135deg, var(--dark-bg) 0%, var(--secondary-color) 100%);
             padding: 12px 0;
@@ -364,8 +363,7 @@
             font-size: 1.2em;
             color: var(--primary-color);
         }
-        
-        /* Products Grid */
+/* Products Grid */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -738,6 +736,7 @@
             color: var(--danger);
             font-weight: bold;
         }
+
 /* Checkout Section */
         .checkout-section {
             margin-top: 30px;
@@ -832,8 +831,7 @@
         .payment-amount.active {
             display: block;
         }
-        
-        /* Map Selection */
+/* Map Selection */
         .map-selection {
             margin-top: 15px;
             display: none;
@@ -1168,8 +1166,7 @@
             height: 450px;
             border: none;
         }
-
-        /* Responsive - MEJORADO */
+/* Responsive - MEJORADO */
         @media (max-width: 768px) {
             .cart-sidebar {
                 width: 100%;
@@ -1603,8 +1600,7 @@
 
         // Detección de iOS
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
-        // NUEVA FUNCIÓN: Abrir enlaces de redes sociales (funciona en Android e iOS)
+// NUEVA FUNCIÓN: Abrir enlaces de redes sociales (funciona en Android e iOS)
         window.openSocialLink = function(platform) {
             console.log('Abriendo red social:', platform);
             
@@ -1704,8 +1700,7 @@
             dropdown.classList.remove('active');
             overlay.classList.remove('active');
         };
-
-        function decimalToDMS(decimal, isLatitude) {
+function decimalToDMS(decimal, isLatitude) {
             const absolute = Math.abs(decimal);
             const degrees = Math.floor(absolute);
             const minutesDecimal = (absolute - degrees) * 60;
@@ -1742,8 +1737,7 @@
                 return '';
             }
         }
-
-        function destroyMap() {
+function destroyMap() {
             console.log('Destruyendo mapa...');
             
             if (selectedMarker) {
@@ -1925,8 +1919,7 @@
                 }
             }, 250);
         }
-
-        async function handleMapClick(lngLat) {
+async function handleMapClick(lngLat) {
             const clickedLng = lngLat.lng;
             const clickedLat = lngLat.lat;
             const placeName = await reverseGeocode(clickedLng, clickedLat);
@@ -2071,8 +2064,7 @@
                 mapClickArea.classList.add('select-mode');
             };
         }
-
-        function renderProducts() {
+function renderProducts() {
             const bouquetsGrid = document.getElementById('bouquetsGrid');
             const boxesGrid = document.getElementById('boxesGrid');
             products.bouquets.forEach(product => {
@@ -2167,8 +2159,7 @@
                 return 'El pago debe realizarse por separado mediante los datos de transferencia proporcionados en la web, en la sección "información de entrega" (Banco Itaú o Ueno Bank). Luego de enviar el comprobante y haber confirmado el impacto, su pedido estará en trámite para su entrega inmediata.';
             }
         }
-
-        function updateCart() {
+function updateCart() {
             const cartCount = document.getElementById('cartCount');
             const cartContent = document.getElementById('cartContent');
             cartCount.textContent = cart.length;
@@ -2213,8 +2204,7 @@
             const cardTotal = cart.reduce((sum, item) => sum + (item.withCard ? 7000 : 0), 0);
             const deliveryCost = calculateDeliveryCost();
             const grandTotal = productsTotal + cardTotal + deliveryCost;
-
-            cartHTML += `</div>
+cartHTML += `</div>
                 <div class="checkout-section">
                     <div class="options-box">
                         <label>Método de Pago:</label>
@@ -2268,8 +2258,7 @@
                             <input type="tel" id="accountPhone" value="${customerData.online.accountPhone}" required>
                         </div>
                     </div>
-                    
-                    <div class="options-box">
+<div class="options-box">
                         <label>Opciones de Entrega:</label>
                         <div class="option-item">
                             <input type="radio" name="delivery" id="delivery-pickup" value="pickup" ${deliveryOption === 'pickup' ? 'checked' : ''} onchange="changeDeliveryOption('pickup')">
@@ -2312,8 +2301,7 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="payment-notice">
+<div class="payment-notice">
                         <strong>⚠️ IMPORTANTE - Proceso de Pago:</strong>
                         ${getPaymentNoticeText()}
                     </div>
@@ -2364,8 +2352,7 @@
                 }, 300);
             }
         }
-
-        function setupInputListeners() {
+function setupInputListeners() {
             const customerNameInput = document.getElementById('customerName');
             const customerPhoneInput = document.getElementById('customerPhone');
             if (customerNameInput) customerNameInput.addEventListener('input', e => {
@@ -2491,8 +2478,7 @@
                 paymentNotice.innerHTML = `<strong>⚠️ IMPORTANTE - Proceso de Pago:</strong>${getPaymentNoticeText()}`;
             }
         }
-
-        window.changeDeliveryOption = function(option) {
+window.changeDeliveryOption = function(option) {
             console.log('Cambiando delivery a:', option);
             deliveryOption = option;
             const mapSelection = document.getElementById('mapSelection');
@@ -2550,8 +2536,7 @@
                 closeSocialMenu();
             }
         };
-
-        window.processPayment = async function() {
+window.processPayment = async function() {
             let orderCustomerData = {};
             
             if (paymentMethod === 'cash') {
@@ -2609,8 +2594,7 @@
             }
 
             const deliveryText = deliveryOption === 'pickup' ? 'Retiro en sucursal' : `Delivery (${deliveryOption === 'near' ? 'Zona Céntrica' : deliveryOption === 'medium' ? 'Zona Media' : 'Zona Lejana'})`;
-
-            const orderData = {
+const orderData = {
                 customer: orderCustomerData,
                 deliveryAddress: deliveryLocation,
                 deliveryCoordinates,
@@ -2675,8 +2659,7 @@
                     if (paymentAmount < grandTotal) message += ` (50% adelanto)\nSaldo restante: Gs. ${(grandTotal - paymentAmount).toLocaleString()}`;
                     message += `\n\n*DATOS PARA TRANSFERENCIA:*\n\n🏦 *Banco Itaú*\nAlias: 0972629430 (Tel.)\nTitular: Laureano Galeano Martínez\nCI: 4.161.580\nCuenta: 520604647\n\n🏦 *Ueno Bank*\nAlias: 4161580 (C.I.)\nTitular: Laureano Galeano Martínez\nCI: 4.161.580\nCuenta: 1801269`;
                 }
-
-                // Redirección mejorada multiplataforma
+// Redirección mejorada multiplataforma
                 const whatsappNumber = '595972629430';
                 const encodedMessage = encodeURIComponent(message);
                 
@@ -2730,8 +2713,7 @@
                 alert('Hubo un error al procesar tu pedido. Por favor, intenta nuevamente.');
             }
         };
-
-        // Inicializar productos al cargar la página
+// Inicializar productos al cargar la página
         renderProducts();
         
         // Cerrar menú social al hacer scroll
