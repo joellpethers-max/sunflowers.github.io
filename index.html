@@ -1429,11 +1429,11 @@
                         🌐
                     </button>
                     <div class="social-dropdown" id="socialDropdown">
-                        <a href="#" onclick="openSocialLink('instagram'); return false;" class="social-link instagram">
+                        <a href="javascript:void(0);" onclick="openSocialLink('instagram')" class="social-link instagram">
                             <span class="social-icon">📷</span>
                             <span>Instagram</span>
                         </a>
-                        <a href="#" onclick="openSocialLink('facebook'); return false;" class="social-link facebook">
+                        <a href="javascript:void(0);" onclick="openSocialLink('facebook')" class="social-link facebook">
                             <span class="social-icon">📘</span>
                             <span>Facebook</span>
                         </a>
@@ -1606,69 +1606,88 @@
 
         // NUEVA FUNCIÓN: Abrir enlaces de redes sociales (funciona en Android e iOS)
         window.openSocialLink = function(platform) {
+            console.log('Abriendo red social:', platform);
+            
             const urls = {
                 instagram: 'https://www.instagram.com/sunflowers_oviedo?igsh=amE1MHdpM2l4Z2g5',
                 facebook: 'https://www.facebook.com/share/1AFRjhh1tm/'
             };
             
             const url = urls[platform];
-            if (!url) return;
+            if (!url) {
+                console.error('URL no encontrada para:', platform);
+                return;
+            }
             
-            // Cerrar el menú social
+            // Cerrar el menú social primero
             closeSocialMenu();
             
-            // Detectar si es móvil
-            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
-            
-            if (isMobile) {
-                if (platform === 'instagram') {
-                    // Para Instagram en móviles
-                    if (isIOS) {
-                        // iOS: intentar abrir la app primero
-                        const instagramAppURL = 'instagram://user?username=sunflowers_oviedo';
-                        window.location.href = instagramAppURL;
-                        
-                        // Fallback al navegador después de 1.5 segundos
-                        setTimeout(() => {
+            // Pequeño delay para que la animación se vea
+            setTimeout(() => {
+                // Detectar si es móvil
+                const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+                const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
+                
+                console.log('Es móvil:', isMobile, 'Es iOS:', isIOS);
+                
+                if (isMobile) {
+                    if (platform === 'instagram') {
+                        // Para Instagram en móviles
+                        if (isIOS) {
+                            // iOS: intentar abrir la app primero
+                            const instagramAppURL = 'instagram://user?username=sunflowers_oviedo';
+                            console.log('Intentando abrir Instagram app iOS');
+                            
+                            // Crear un iframe oculto para intentar abrir la app
+                            const iframe = document.createElement('iframe');
+                            iframe.style.display = 'none';
+                            iframe.src = instagramAppURL;
+                            document.body.appendChild(iframe);
+                            
+                            // Fallback al navegador después de 1.5 segundos
+                            setTimeout(() => {
+                                document.body.removeChild(iframe);
+                                window.location.href = url;
+                            }, 1500);
+                        } else {
+                            // Android: usar API directa
+                            console.log('Abriendo Instagram en Android');
                             window.location.href = url;
-                        }, 1500);
-                    } else {
-                        // Android: intentar intent primero
-                        const intentURL = 'intent://instagram.com/_u/sunflowers_oviedo/#Intent;package=com.instagram.android;scheme=https;end';
-                        window.location.href = intentURL;
-                        
-                        // Fallback
-                        setTimeout(() => {
+                        }
+                    } else if (platform === 'facebook') {
+                        // Para Facebook en móviles
+                        if (isIOS) {
+                            // iOS: intentar abrir la app primero
+                            const facebookAppURL = 'fb://profile/61566588072846';
+                            console.log('Intentando abrir Facebook app iOS');
+                            
+                            const iframe = document.createElement('iframe');
+                            iframe.style.display = 'none';
+                            iframe.src = facebookAppURL;
+                            document.body.appendChild(iframe);
+                            
+                            // Fallback
+                            setTimeout(() => {
+                                document.body.removeChild(iframe);
+                                window.location.href = url;
+                            }, 1500);
+                        } else {
+                            // Android: usar URL directa
+                            console.log('Abriendo Facebook en Android');
                             window.location.href = url;
-                        }, 1500);
+                        }
                     }
-                } else if (platform === 'facebook') {
-                    // Para Facebook en móviles
-                    if (isIOS) {
-                        // iOS: intentar abrir la app primero
-                        const facebookAppURL = 'fb://profile/61566588072846'; // ID de la página
-                        window.location.href = facebookAppURL;
-                        
-                        // Fallback
-                        setTimeout(() => {
-                            window.location.href = url;
-                        }, 1500);
-                    } else {
-                        // Android: intentar intent primero
-                        const intentURL = 'intent://facebook.com/share/1AFRjhh1tm/#Intent;package=com.facebook.katana;scheme=https;end';
-                        window.location.href = intentURL;
-                        
-                        // Fallback
-                        setTimeout(() => {
-                            window.location.href = url;
-                        }, 1500);
+                } else {
+                    // Para desktop, abrir en nueva pestaña
+                    console.log('Abriendo en desktop, nueva pestaña');
+                    const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
+                    if (!newWindow) {
+                        // Si el popup fue bloqueado, intentar con location
+                        console.log('Popup bloqueado, usando location');
+                        window.location.href = url;
                     }
                 }
-            } else {
-                // Para desktop, abrir en nueva pestaña
-                window.open(url, '_blank', 'noopener,noreferrer');
-            }
+            }, 100);
         };
 
         // Función para toggle del menú social
