@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="format-detection" content="telephone=no">
     <title>Sunflowers - Catálogo</title>
@@ -12,7 +11,7 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
-<style>
+    <style>
         * { 
             margin: 0; 
             padding: 0; 
@@ -43,6 +42,7 @@
             min-height: 100vh;
         }
         
+        /* Patrón de fondo decorativo con flores sutiles */
         body::before {
             content: '';
             position: fixed;
@@ -58,6 +58,7 @@
             z-index: 0;
         }
         
+        /* Patrón de pétalos flotantes */
         body::after {
             content: '';
             position: fixed;
@@ -76,7 +77,8 @@
             pointer-events: none;
             z-index: 0;
         }
-/* Header */
+        
+        /* Header - MEJORADO */
         header {
             background: linear-gradient(135deg, var(--dark-bg) 0%, var(--secondary-color) 100%);
             padding: 12px 0;
@@ -134,8 +136,7 @@
             gap: 8px;
             flex-shrink: 0;
         }
-
-        /* Botón de Redes Sociales */
+/* Botón de Redes Sociales */
         .social-menu {
             position: relative;
         }
@@ -331,6 +332,7 @@
             position: relative;
         }
         
+        /* Decoración floral en las secciones */
         .section::before {
             content: '✿';
             position: absolute;
@@ -362,7 +364,7 @@
             font-size: 1.2em;
             color: var(--primary-color);
         }
-
+        
         /* Products Grid */
         .products-grid {
             display: grid;
@@ -381,6 +383,7 @@
             position: relative;
         }
         
+        /* Efecto de brillo sutil en las cards */
         .product-card::before {
             content: '';
             position: absolute;
@@ -409,6 +412,7 @@
             border-color: var(--primary-color);
         }
         
+        /* MEJORADO: Contenedor de imagen con bordes decorativos */
         .product-image-container {
             position: relative;
             width: 100%;
@@ -419,6 +423,7 @@
             padding: 15px;
         }
         
+        /* Marco decorativo interno */
         .product-image-container::before {
             content: '';
             position: absolute;
@@ -432,6 +437,7 @@
             z-index: 1;
         }
         
+        /* Esquinas decorativas */
         .product-image-container::after {
             content: '✿';
             position: absolute;
@@ -826,7 +832,7 @@
         .payment-amount.active {
             display: block;
         }
-
+        
         /* Map Selection */
         .map-selection {
             margin-top: 15px;
@@ -953,554 +959,555 @@
             border: 2px solid var(--success);
             border-radius: 10px;
             font-size: 0.85em;
-            display: none;
-        }
-        
-        .coordinates-display.active {
-            display: block;
-        }
-        
-        .coordinates-display strong {
-            color: var(--success);
-            display: block;
-            margin-bottom: 8px;
-            font-size: 1.05em;
-        }
-        
-        .coordinates-display div {
-            margin: 5px 0;
-            color: var(--text-dark);
-            word-break: break-all;
-        }
-        
-        .geocoder-container {
-            margin-bottom: 10px;
-        }
-        
-        .mapboxgl-ctrl-geocoder {
-            max-width: none;
-            width: 100%;
-            box-shadow: none;
-            font-size: 15px;
-        }
+display: none;
+}
+    .coordinates-display.active {
+        display: block;
+    }
+    
+    .coordinates-display strong {
+        color: var(--success);
+        display: block;
+        margin-bottom: 8px;
+        font-size: 1.05em;
+    }
+    
+    .coordinates-display div {
+        margin: 5px 0;
+        color: var(--text-dark);
+        word-break: break-all;
+    }
+    
+    .geocoder-container {
+        margin-bottom: 10px;
+    }
+    
+    .mapboxgl-ctrl-geocoder {
+        max-width: none;
+        width: 100%;
+        box-shadow: none;
+        font-size: 15px;
+    }
 /* Payment Notice */
-        .payment-notice {
-            background: linear-gradient(135deg, #fff9e6 0%, #ffedd5 100%);
-            border: 2px solid #ffd700;
-            border-radius: 12px;
-            padding: 18px;
-            margin: 20px 0;
-            color: #856404;
-            font-size: 0.9em;
-            line-height: 1.7;
-        }
-        
-        .payment-notice strong {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 1.05em;
-            color: var(--dark-bg);
-        }
-        
-        /* Totals */
-        .totals-box {
-            background: linear-gradient(135deg, #fef9f3 0%, #fceee3 100%);
-            padding: 18px;
-            border-radius: 12px;
-            margin-bottom: 18px;
-            border: 1px solid var(--accent-color);
-        }
-        
-        .subtotal-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            font-size: 1em;
-            color: var(--text-dark);
-        }
-        
-        .total-price {
-            font-size: 1.8em;
-            color: var(--primary-color);
-            font-weight: bold;
-            text-align: right;
-            margin: 20px 0;
-            padding-top: 18px;
-            border-top: 3px solid var(--accent-color);
-        }
-        
-        .pay-btn {
+.payment-notice {
+background: linear-gradient(135deg, #fff9e6 0%, #ffedd5 100%);
+border: 2px solid #ffd700;
+border-radius: 12px;
+padding: 18px;
+margin: 20px 0;
+color: #856404;
+font-size: 0.9em;
+line-height: 1.7;
+}
+    .payment-notice strong {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 1.05em;
+        color: var(--dark-bg);
+    }
+    
+    /* Totals */
+    .totals-box {
+        background: linear-gradient(135deg, #fef9f3 0%, #fceee3 100%);
+        padding: 18px;
+        border-radius: 12px;
+        margin-bottom: 18px;
+        border: 1px solid var(--accent-color);
+    }
+    
+    .subtotal-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        font-size: 1em;
+        color: var(--text-dark);
+    }
+    
+    .total-price {
+        font-size: 1.8em;
+        color: var(--primary-color);
+        font-weight: bold;
+        text-align: right;
+        margin: 20px 0;
+        padding-top: 18px;
+        border-top: 3px solid var(--accent-color);
+    }
+    
+    .pay-btn {
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.2em;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        position: relative;
+        overflow: hidden;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    
+    .pay-btn::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+    }
+    
+    .pay-btn:hover::before {
+        width: 500px;
+        height: 500px;
+    }
+    
+    .pay-btn:active {
+        transform: scale(0.98);
+    }
+    
+    .pay-btn:hover {
+        transform: scale(1.02);
+        box-shadow: 0 8px 25px rgba(139, 111, 71, 0.4);
+    }
+    
+    /* Delivery Info Section */
+    .delivery-info {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 40px 30px;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        margin-top: 50px;
+        text-align: center;
+        border: 1px solid var(--accent-color);
+        backdrop-filter: blur(10px);
+    }
+    
+    .delivery-info h3 {
+        color: var(--secondary-color);
+        margin-bottom: 25px;
+        font-size: 2em;
+        font-weight: normal;
+        letter-spacing: 2px;
+    }
+    
+    .delivery-info p {
+        font-size: 1.05em;
+        margin: 12px 0;
+        color: var(--text-dark);
+    }
+    
+    .bank-info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin-top: 30px;
+    }
+    
+    .bank-card {
+        background: linear-gradient(135deg, var(--dark-bg) 0%, var(--secondary-color) 100%);
+        padding: 30px;
+        border-radius: 15px;
+        color: white;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease;
+    }
+    
+    .bank-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .bank-card h4 {
+        font-size: 1.4em;
+        margin-bottom: 18px;
+        text-align: center;
+        font-weight: normal;
+        letter-spacing: 1px;
+        color: var(--accent-color);
+    }
+    
+    .bank-card p {
+        margin: 10px 0;
+        font-size: 1em;
+        color: white;
+    }
+    
+    .bank-card strong {
+        display: inline-block;
+        min-width: 80px;
+        color: var(--accent-color);
+    }
+    
+    /* Map Section */
+    .map-section {
+        margin: 60px auto;
+        text-align: center;
+    }
+    
+    .map-container {
+        max-width: 900px;
+        margin: 30px auto;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        border: 2px solid var(--accent-color);
+    }
+    
+    .map-container iframe {
+        width: 100%;
+        height: 450px;
+        border: none;
+    }
+
+    /* Responsive - MEJORADO */
+    @media (max-width: 768px) {
+        .cart-sidebar {
             width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            position: relative;
-            overflow: hidden;
-            -webkit-user-select: none;
-            user-select: none;
+            max-width: 100%;
+            right: -100%;
         }
         
-        .pay-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
+        .hero {
+            background-attachment: scroll;
+            height: 60vh;
+            min-height: 350px;
         }
         
-        .pay-btn:hover::before {
-            width: 500px;
-            height: 500px;
+        .hero h1 {
+            font-size: 2.2em;
         }
         
-        .pay-btn:active {
-            transform: scale(0.98);
+        .hero p {
+            font-size: 1em;
         }
         
-        .pay-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 8px 25px rgba(139, 111, 71, 0.4);
+        .products-grid {
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
         }
         
-        /* Delivery Info Section */
-        .delivery-info {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            margin-top: 50px;
-            text-align: center;
-            border: 1px solid var(--accent-color);
-            backdrop-filter: blur(10px);
-        }
-        
-        .delivery-info h3 {
-            color: var(--secondary-color);
-            margin-bottom: 25px;
-            font-size: 2em;
-            font-weight: normal;
-            letter-spacing: 2px;
-        }
-        
-        .delivery-info p {
-            font-size: 1.05em;
-            margin: 12px 0;
-            color: var(--text-dark);
+        .product-image-container {
+            height: 280px;
+            padding: 12px;
         }
         
         .bank-info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
+            grid-template-columns: 1fr;
         }
         
-        .bank-card {
-            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--secondary-color) 100%);
-            padding: 30px;
-            border-radius: 15px;
-            color: white;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s ease;
+        .section-title {
+            font-size: 2em;
         }
         
-        .bank-card:hover {
-            transform: translateY(-5px);
+        /* Header responsive mejorado */
+        .header-container {
+            padding: 0 10px;
+            gap: 6px;
         }
         
-        .bank-card h4 {
-            font-size: 1.4em;
-            margin-bottom: 18px;
-            text-align: center;
-            font-weight: normal;
-            letter-spacing: 1px;
-            color: var(--accent-color);
+        .logo-container {
+            gap: 6px;
+            flex: 0 1 auto;
+            max-width: none;
         }
         
-        .bank-card p {
-            margin: 10px 0;
+        .brand-text {
             font-size: 1em;
-            color: white;
+            letter-spacing: 1px;
         }
         
-        .bank-card strong {
-            display: inline-block;
-            min-width: 80px;
-            color: var(--accent-color);
+        .logo {
+            height: 48px;
         }
         
-        /* Map Section */
-        .map-section {
-            margin: 60px auto;
-            text-align: center;
+        .cart-button {
+            padding: 9px 14px;
+            font-size: 0.85em;
+            gap: 5px;
         }
         
-        .map-container {
-            max-width: 900px;
-            margin: 30px auto;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-            border: 2px solid var(--accent-color);
+        .cart-count {
+            width: 19px;
+            height: 19px;
+            font-size: 0.75em;
+        }
+        
+        .social-toggle {
+            width: 44px;
+            height: 44px;
+            padding: 9px;
+            font-size: 1.15em;
+        }
+        
+        .social-dropdown {
+            min-width: 160px;
+        }
+        
+        #mapClickArea {
+            height: 300px;
         }
         
         .map-container iframe {
-            width: 100%;
-            height: 450px;
-            border: none;
+            height: 350px;
         }
-
-        /* Overlay */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            z-index: 999;
+        
+        .container {
+            padding: 30px 15px;
+        }
+        
+        .delivery-info {
+            padding: 30px 20px;
+        }
+        
+        .delivery-info h3 {
+            font-size: 1.6em;
+        }
+        
+        .bank-card {
+            padding: 25px;
+        }
+        
+        .map-controls {
+            gap: 6px;
+        }
+        
+        .map-mode-btn,
+        .my-location-btn {
+            padding: 8px 12px;
+            font-size: 0.85em;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .hero h1 {
+            font-size: 1.8em;
+        }
+        
+        .products-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .product-image-container {
+            height: 320px;
+            padding: 15px;
+        }
+        
+        .section-title {
+            font-size: 1.6em;
+        }
+        
+        /* Header ultra-responsive */
+        .logo-container {
+            gap: 5px;
+        }
+        
+        .brand-text {
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
+        }
+        
+        .logo {
+            height: 44px;
+        }
+        
+        .header-actions {
+            gap: 5px;
+        }
+        
+        .cart-button {
+            padding: 8px 12px;
+            font-size: 0.8em;
+        }
+        
+        .cart-button span:nth-child(2) {
             display: none;
         }
         
-        .overlay.active {
-            display: block;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .cart-sidebar {
-                width: 100%;
-                max-width: 100%;
-                right: -100%;
-            }
-            
-            .hero {
-                background-attachment: scroll;
-                height: 60vh;
-                min-height: 350px;
-            }
-            
-            .hero h1 {
-                font-size: 2.2em;
-            }
-            
-            .hero p {
-                font-size: 1em;
-            }
-            
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-                gap: 20px;
-            }
-            
-            .product-image-container {
-                height: 280px;
-                padding: 12px;
-            }
-            
-            .bank-info-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .section-title {
-                font-size: 2em;
-            }
-            
-            .header-container {
-                padding: 0 10px;
-                gap: 6px;
-            }
-            
-            .logo-container {
-                gap: 6px;
-                flex: 0 1 auto;
-                max-width: none;
-            }
-            
-            .brand-text {
-                font-size: 1em;
-                letter-spacing: 1px;
-            }
-            
-            .logo {
-                height: 48px;
-            }
-            
-            .cart-button {
-                padding: 9px 14px;
-                font-size: 0.85em;
-                gap: 5px;
-            }
-            
-            .cart-count {
-                width: 19px;
-                height: 19px;
-                font-size: 0.75em;
-            }
-            
-            .social-toggle {
-                width: 44px;
-                height: 44px;
-                padding: 9px;
-                font-size: 1.15em;
-            }
-            
-            .social-dropdown {
-                min-width: 160px;
-            }
-            
-            #mapClickArea {
-                height: 300px;
-            }
-            
-            .map-container iframe {
-                height: 350px;
-            }
-            
-            .container {
-                padding: 30px 15px;
-            }
-            
-            .delivery-info {
-                padding: 30px 20px;
-            }
-            
-            .delivery-info h3 {
-                font-size: 1.6em;
-            }
-            
-            .bank-card {
-                padding: 25px;
-            }
-            
-            .map-controls {
-                gap: 6px;
-            }
-            
-            .map-mode-btn,
-            .my-location-btn {
-                padding: 8px 12px;
-                font-size: 0.85em;
-            }
+        .social-toggle {
+            width: 40px;
+            height: 40px;
+            font-size: 1.1em;
         }
         
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 1.8em;
-            }
-            
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .product-image-container {
-                height: 320px;
-                padding: 15px;
-            }
-            
-            .section-title {
-                font-size: 1.6em;
-            }
-            
-            .logo-container {
-                gap: 5px;
-            }
-            
-            .brand-text {
-                font-size: 0.85em;
-                letter-spacing: 0.5px;
-            }
-            
-            .logo {
-                height: 44px;
-            }
-            
-            .header-actions {
-                gap: 5px;
-            }
-            
-            .cart-button {
-                padding: 8px 12px;
-                font-size: 0.8em;
-            }
-            
-            .cart-button span:nth-child(2) {
-                display: none;
-            }
-            
-            .social-toggle {
-                width: 40px;
-                height: 40px;
-                font-size: 1.1em;
-            }
-            
-            .total-price {
-                font-size: 1.5em;
-            }
-            
-            .pay-btn {
-                font-size: 1.1em;
-                padding: 14px;
-            }
+        .total-price {
+            font-size: 1.5em;
         }
         
-        @media (max-width: 360px) {
-            .header-container {
-                padding: 0 8px;
-            }
-            
-            .brand-text {
-                font-size: 0.75em;
-                letter-spacing: 0.3px;
-            }
-            
-            .logo {
-                height: 40px;
-            }
-            
-            .cart-button {
-                padding: 7px 10px;
-            }
-            
-            .social-toggle {
-                width: 38px;
-                height: 38px;
-                font-size: 1em;
-            }
+        .pay-btn {
+            font-size: 1.1em;
+            padding: 14px;
+        }
+    }
+    
+    /* Breakpoint adicional para pantallas muy pequeñas */
+    @media (max-width: 360px) {
+        .header-container {
+            padding: 0 8px;
         }
         
-        @supports (-webkit-touch-callout: none) {
-            body {
-                background-attachment: scroll;
-            }
-            
-            .hero {
-                background-attachment: scroll;
-            }
-            
-            input,
-            textarea,
-            select {
-                font-size: 16px !important;
-            }
-            
-            .cart-sidebar {
-                -webkit-overflow-scrolling: touch;
-            }
+        .brand-text {
+            font-size: 0.75em;
+            letter-spacing: 0.3px;
         }
-    </style>
+        
+        .logo {
+            height: 40px;
+        }
+        
+        .cart-button {
+            padding: 7px 10px;
+        }
+        
+        .social-toggle {
+            width: 38px;
+            height: 38px;
+            font-size: 1em;
+        }
+    }
+    
+    /* iOS specific fixes */
+    @supports (-webkit-touch-callout: none) {
+        body {
+            background-attachment: scroll;
+        }
+        
+        .hero {
+            background-attachment: scroll;
+        }
+        
+        input,
+        textarea,
+        select {
+            font-size: 16px !important;
+        }
+        
+        .cart-sidebar {
+            -webkit-overflow-scrolling: touch;
+        }
+    }
+    
+    /* Overlay para cerrar el menú social al hacer click fuera */
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        z-index: 999;
+        display: none;
+    }
+    
+    .overlay.active {
+        display: block;
+    }
+</style>
 </head>
 <body>
     <!-- Overlay para cerrar menú social -->
     <div class="overlay" id="overlay" onclick="closeSocialMenu()"></div>
-    
-    <header>
-        <div class="header-container">
-            <div class="logo-container">
-                <img src="logo.png" alt="Sunflowers Logo" class="logo">
-                <div class="brand-text">SUNFLOWERS</div>
-            </div>
-            <div class="header-actions">
-                <div class="social-menu">
-                    <button class="social-toggle" onclick="toggleSocialMenu()" aria-label="Redes Sociales">
-                        🌐
-                    </button>
-                    <div class="social-dropdown" id="socialDropdown">
-                        <a href="#" onclick="openSocialLink('instagram'); return false;" class="social-link instagram">
-                            <span class="social-icon">📷</span>
-                            <span>Instagram</span>
-                        </a>
-                        <a href="#" onclick="openSocialLink('facebook'); return false;" class="social-link facebook">
-                            <span class="social-icon">📘</span>
-                            <span>Facebook</span>
-                        </a>
-                    </div>
-                </div>
-                <button class="cart-button" onclick="toggleCart()">
-                    <span>🛒</span>
-                    <span>Carrito</span>
-                    <div class="cart-count" id="cartCount">0</div>
+<header>
+    <div class="header-container">
+        <div class="logo-container">
+            <img src="logo.png" alt="Sunflowers Logo" class="logo">
+            <div class="brand-text">SUNFLOWERS</div>
+        </div>
+        <div class="header-actions">
+            <div class="social-menu">
+                <button class="social-toggle" onclick="toggleSocialMenu()" aria-label="Redes Sociales">
+                    🌐
                 </button>
+                <div class="social-dropdown" id="socialDropdown">
+                    <a href="https://www.instagram.com/sunflowers_oviedo/?igsh=amE1MHdpM2l4Z2g5#" target="_blank" rel="noopener noreferrer" class="social-link instagram">
+                        <span class="social-icon">📷</span>
+                        <span>Instagram</span>
+                    </a>
+                    <a href="https://www.facebook.com/people/SunflowersCo/100053110941442/?rdid=ZZG6VZsFb2kKckJH&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1AFRjhh1tm%2F" target="_blank" rel="noopener noreferrer" class="social-link facebook">
+                        <span class="social-icon">📘</span>
+                        <span>Facebook</span>
+                    </a>
+                </div>
             </div>
-        </div>
-    </header>
-
-    <div class="hero">
-        <div class="hero-content">
-            <h1>Catálogo</h1>
-            <p>Belleza natural, momentos especiales</p>
+            <button class="cart-button" onclick="toggleCart()">
+                <span>🛒</span>
+                <span>Carrito</span>
+                <div class="cart-count" id="cartCount">0</div>
+            </button>
         </div>
     </div>
+</header>
 
-    <div class="container">
-        <div class="section" id="bouquets">
-            <h2 class="section-title">Bouquets</h2>
-            <div class="products-grid" id="bouquetsGrid"></div>
-        </div>
+<div class="hero">
+    <div class="hero-content">
+        <h1>Catálogo</h1>
+        <p>Belleza natural, momentos especiales</p>
+    </div>
+</div>
 
-        <div class="section" id="boxes">
-            <h2 class="section-title">Boxes</h2>
-            <div class="products-grid" id="boxesGrid"></div>
-        </div>
+<div class="container">
+    <div class="section" id="bouquets">
+        <h2 class="section-title">Bouquets</h2>
+        <div class="products-grid" id="bouquetsGrid"></div>
+    </div>
 
-        <div class="delivery-info">
-            <h3>Información de Entrega</h3>
-            <p><strong>Delivery Zona Céntrica:</strong> Gs. 15.000</p>
-            <p><strong>Tarjeta personalizada + porta tarjeta:</strong> Gs. 7.000</p>
-            <p style="margin-top: 25px; font-size: 0.95em;">Los pedidos se agendan con el pago de un adelanto del 50% del costo del producto elegido.</p>
+    <div class="section" id="boxes">
+        <h2 class="section-title">Boxes</h2>
+        <div class="products-grid" id="boxesGrid"></div>
+    </div>
+
+    <div class="delivery-info">
+        <h3>Información de Entrega</h3>
+        <p><strong>Delivery Zona Céntrica:</strong> Gs. 15.000</p>
+        <p><strong>Tarjeta personalizada + porta tarjeta:</strong> Gs. 7.000</p>
+        <p style="margin-top: 25px; font-size: 0.95em;">Los pedidos se agendan con el pago de un adelanto del 50% del costo del producto elegido.</p>
+        
+        <div class="bank-info-grid">
+            <div class="bank-card">
+                <h4>🏦 Banco Itaú</h4>
+                <p><strong>Alias:</strong> 0972629430 (Tel.)</p>
+                <p><strong>Titular:</strong> Laureano Galeano Martínez</p>
+                <p><strong>C.I. Nº:</strong> 4.161.580</p>
+                <p><strong>Cuenta Nº:</strong> 520604647</p>
+            </div>
             
-            <div class="bank-info-grid">
-                <div class="bank-card">
-                    <h4>🏦 Banco Itaú</h4>
-                    <p><strong>Alias:</strong> 0972629430 (Tel.)</p>
-                    <p><strong>Titular:</strong> Laureano Galeano Martínez</p>
-                    <p><strong>C.I. Nº:</strong> 4.161.580</p>
-                    <p><strong>Cuenta Nº:</strong> 520604647</p>
-                </div>
-                
-                <div class="bank-card">
-                    <h4>🏦 Ueno Bank</h4>
-                    <p><strong>Alias:</strong> 4161580 (C.I.)</p>
-                    <p><strong>Titular:</strong> Laureano Galeano Martínez</p>
-                    <p><strong>C.I. Nº:</strong> 4.161.580</p>
-                    <p><strong>Cuenta Nº:</strong> 1801269</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="map-section">
-            <h2 class="section-title">Nuestra Ubicación</h2>
-            <div class="map-container">
-                <iframe src="https://www.google.com/maps?q=-25.4464578,-56.4491767&output=embed" width="600" height="450" allowfullscreen="" loading="lazy"></iframe>
+            <div class="bank-card">
+                <h4>🏦 Ueno Bank</h4>
+                <p><strong>Alias:</strong> 4161580 (C.I.)</p>
+                <p><strong>Titular:</strong> Laureano Galeano Martínez</p>
+                <p><strong>C.I. Nº:</strong> 4.161.580</p>
+                <p><strong>Cuenta Nº:</strong> 1801269</p>
             </div>
         </div>
     </div>
 
-    <div class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h2>Mi Carrito</h2>
-            <button class="close-cart" onclick="toggleCart()" aria-label="Cerrar carrito">×</button>
-        </div>
-        <div class="cart-content" id="cartContent">
-            <div class="empty-cart">
-                <p>Tu carrito está vacío</p>
-                <p>🛒</p>
-            </div>
+    <div class="map-section">
+        <h2 class="section-title">Nuestra Ubicación</h2>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps?q=-25.4464578,-56.4491767&output=embed" width="600" height="450" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </div>
+</div>
+
+<div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+        <h2>Mi Carrito</h2>
+        <button class="close-cart" onclick="toggleCart()" aria-label="Cerrar carrito">×</button>
+    </div>
+    <div class="cart-content" id="cartContent">
+        <div class="empty-cart">
+            <p>Tu carrito está vacío</p>
+            <p>🛒</p>
+        </div>
+    </div>
+</div>
 <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
         import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
@@ -1591,44 +1598,8 @@
             online: { accountHolder: '', accountCI: '', accountNumber: '', accountPhone: '' }
         };
 
+        // Detección de iOS
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
-        // FUNCIÓN CORREGIDA: Abrir enlaces de redes sociales
-        window.openSocialLink = function(platform) {
-            console.log('Abriendo red social:', platform);
-            
-            const urls = {
-                instagram: 'https://www.instagram.com/sunflowers_oviedo/',
-                facebook: 'https://www.facebook.com/share/1AFRjhh1tm/'
-            };
-            
-            const url = urls[platform];
-            if (!url) {
-                console.error('URL no encontrada para:', platform);
-                return;
-            }
-            
-            // Cerrar el menú social primero
-            closeSocialMenu();
-            
-            // Pequeño delay para que la animación se vea
-            setTimeout(() => {
-                const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-                const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
-                
-                if (isMobile) {
-                    // En móviles, abrir directamente
-                    window.location.href = url;
-                } else {
-                    // En desktop, abrir en nueva pestaña
-                    const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
-                    if (!newWindow) {
-                        // Si el popup fue bloqueado, usar location
-                        window.location.href = url;
-                    }
-                }
-            }, 100);
-        };
 
         // Función para toggle del menú social
         window.toggleSocialMenu = function() {
@@ -1728,8 +1699,7 @@ function decimalToDMS(decimal, isLatitude) {
             mapInteractionMode = 'navigate';
             console.log('Mapa destruido completamente');
         }
-
-        function initializeMap() {
+function initializeMap() {
             console.log('Iniciando mapa...');
             
             const mapElement = document.getElementById('deliveryMap');
@@ -1763,252 +1733,252 @@ function decimalToDMS(decimal, isLatitude) {
                 if (!mapDiv) {
                     console.error('deliveryMap no encontrado después de timeout');
                     return;
-                }
+}
+            try {
+                console.log('Creando nueva instancia del mapa...');
+                const centerPosition = [-56.434392, -25.427703];
                 
-                try {
-                    console.log('Creando nueva instancia del mapa...');
-                    const centerPosition = [-56.434392, -25.427703];
-                    
-                    mapboxMap = new mapboxgl.Map({
-                        container: 'deliveryMap',
-                        style: 'mapbox://styles/mapbox/streets-v12',
-                        center: centerPosition,
-                        zoom: 14,
-                        attributionControl: true,
-                        touchPitch: false,
-                        touchZoomRotate: true,
-                        dragRotate: false
-                    });
+                mapboxMap = new mapboxgl.Map({
+                    container: 'deliveryMap',
+                    style: 'mapbox://styles/mapbox/streets-v12',
+                    center: centerPosition,
+                    zoom: 14,
+                    attributionControl: true,
+                    touchPitch: false,
+                    touchZoomRotate: true,
+                    dragRotate: false
+                });
 
-                    mapboxMap.addControl(new mapboxgl.NavigationControl(), 'top-right');
+                mapboxMap.addControl(new mapboxgl.NavigationControl(), 'top-right');
 
-                    geocoder = new MapboxGeocoder({
-                        accessToken: mapboxgl.accessToken,
-                        mapboxgl: mapboxgl,
-                        marker: false,
-                        placeholder: 'Buscar lugares en Paraguay...',
-                        language: 'es',
-                        limit: 10,
-                        countries: 'PY',
-                        types: 'place,locality,neighborhood,address,poi'
-                    });
+                geocoder = new MapboxGeocoder({
+                    accessToken: mapboxgl.accessToken,
+                    mapboxgl: mapboxgl,
+                    marker: false,
+                    placeholder: 'Buscar lugares en Paraguay...',
+                    language: 'es',
+                    limit: 10,
+                    countries: 'PY',
+                    types: 'place,locality,neighborhood,address,poi'
+                });
 
-                    const mapClickArea = document.getElementById('mapClickArea');
-                    if (!mapClickArea) {
-                        console.error('mapClickArea no encontrado');
-                        return;
-                    }
-
-                    const existingGeocoder = mapClickArea.querySelector('.geocoder-container');
-                    if (existingGeocoder) {
-                        existingGeocoder.remove();
-                    }
-
-                    const geocoderContainer = document.createElement('div');
-                    geocoderContainer.className = 'geocoder-container';
-                    const currentMapDiv = document.getElementById('deliveryMap');
-                    if (currentMapDiv) {
-                        mapClickArea.insertBefore(geocoderContainer, currentMapDiv);
-                        geocoderContainer.appendChild(geocoder.onAdd(mapboxMap));
-                    }
-
-                    geocoder.on('result', function(e) {
-                        const coords = e.result.geometry.coordinates;
-                        const placeName = e.result.place_name;
-                        handleLocationSelect(coords[0], coords[1], placeName);
-                    });
-
-                    mapboxMap.on('load', function() {
-                        console.log('✓ Mapa cargado exitosamente');
-                        mapInitialized = true;
-                        setupMapModeButtons();
-                        
-                        if (deliveryCoordinates.lat && deliveryCoordinates.lng) {
-                            console.log('Restaurando ubicación previa:', deliveryCoordinates);
-                            setTimeout(() => {
-                                handleLocationSelect(
-                                    deliveryCoordinates.lng, 
-                                    deliveryCoordinates.lat, 
-                                    deliveryLocation,
-                                    true
-                                );
-                            }, 100);
-                        }
-                    });
-
-                    mapboxMap.on('click', function(e) {
-                        if (mapInteractionMode === 'select') {
-                            handleMapClick(e.lngLat);
-                        }
-                    });
-                    
-                    if (isIOS) {
-                        mapboxMap.on('touchend', function(e) {
-                            if (mapInteractionMode === 'select' && e.originalEvent.touches.length === 0) {
-                                const point = e.point;
-                                const lngLat = mapboxMap.unproject(point);
-                                handleMapClick(lngLat);
-                            }
-                        });
-                    }
-
-                    console.log('✓ Mapa inicializado correctamente');
-                } catch (error) {
-                    console.error('Error inicializando mapa:', error);
-                    mapInitialized = false;
-                    setTimeout(() => {
-                        console.log('Reintentando inicialización del mapa...');
-                        initializeMap();
-                    }, 500);
+                const mapClickArea = document.getElementById('mapClickArea');
+                if (!mapClickArea) {
+                    console.error('mapClickArea no encontrado');
+                    return;
                 }
-            }, 250);
-        }
 
-        async function handleMapClick(lngLat) {
-            const clickedLng = lngLat.lng;
-            const clickedLat = lngLat.lat;
-            const placeName = await reverseGeocode(clickedLng, clickedLat);
-            handleLocationSelect(clickedLng, clickedLat, placeName);
-        }
+                const existingGeocoder = mapClickArea.querySelector('.geocoder-container');
+                if (existingGeocoder) {
+                    existingGeocoder.remove();
+                }
 
-        function handleLocationSelect(lng, lat, placeName, updateInput = true) {
-            if (!mapboxMap) {
-                console.error('Mapa no disponible');
-                return;
-            }
-            
-            deliveryCoordinates = { lat: lat, lng: lng };
-            
-            if (selectedMarker) {
-                selectedMarker.remove();
-            }
-            
-            selectedMarker = new mapboxgl.Marker({ color: '#d4a574', draggable: false })
-                .setLngLat([lng, lat])
-                .addTo(mapboxMap);
+                const geocoderContainer = document.createElement('div');
+                geocoderContainer.className = 'geocoder-container';
+                const currentMapDiv = document.getElementById('deliveryMap');
+                if (currentMapDiv) {
+                    mapClickArea.insertBefore(geocoderContainer, currentMapDiv);
+                    geocoderContainer.appendChild(geocoder.onAdd(mapboxMap));
+                }
 
-            mapboxMap.flyTo({ center: [lng, lat], zoom: 16, essential: true, duration: 1000 });
-            
-            const latDMS = decimalToDMS(lat, true);
-            const lngDMS = decimalToDMS(lng, false);
-            const dmsCoordinates = `${latDMS} ${lngDMS}`;
-            const decimalCoordinates = `${lat.toFixed(7)}, ${lng.toFixed(7)}`;
-            
-            deliveryPlusCode = generatePlusCode(lat, lng);
-            deliveryGoogleMapsLink = `https://www.google.com/maps?q=${lat},${lng}`;
-            deliveryLocation = placeName || dmsCoordinates;
-            
-            const addressInput = document.getElementById('deliveryAddress');
-            if (addressInput && updateInput) {
-                addressInput.value = placeName || dmsCoordinates;
-                addressInput.style.borderColor = '#6b8e23';
-                addressInput.style.backgroundColor = '#e8f5e9';
-                addressInput.style.fontWeight = 'bold';
+                geocoder.on('result', function(e) {
+                    const coords = e.result.geometry.coordinates;
+                    const placeName = e.result.place_name;
+                    handleLocationSelect(coords[0], coords[1], placeName);
+                });
+
+                mapboxMap.on('load', function() {
+                    console.log('✓ Mapa cargado exitosamente');
+                    mapInitialized = true;
+                    setupMapModeButtons();
+                    
+                    if (deliveryCoordinates.lat && deliveryCoordinates.lng) {
+                        console.log('Restaurando ubicación previa:', deliveryCoordinates);
+                        setTimeout(() => {
+                            handleLocationSelect(
+                                deliveryCoordinates.lng, 
+                                deliveryCoordinates.lat, 
+                                deliveryLocation,
+                                true
+                            );
+                        }, 100);
+                    }
+                });
+
+                // Eventos para click y touch
+                mapboxMap.on('click', function(e) {
+                    if (mapInteractionMode === 'select') {
+                        handleMapClick(e.lngLat);
+                    }
+                });
+                
+                if (isIOS) {
+                    mapboxMap.on('touchend', function(e) {
+                        if (mapInteractionMode === 'select' && e.originalEvent.touches.length === 0) {
+                            const point = e.point;
+                            const lngLat = mapboxMap.unproject(point);
+                            handleMapClick(lngLat);
+                        }
+                    });
+                }
+
+                console.log('✓ Mapa inicializado correctamente');
+            } catch (error) {
+                console.error('Error inicializando mapa:', error);
+                mapInitialized = false;
                 setTimeout(() => {
-                    addressInput.style.borderColor = '#e8c4a0';
-                    addressInput.style.backgroundColor = 'white';
-                    addressInput.style.fontWeight = 'normal';
-                }, 2000);
+                    console.log('Reintentando inicialización del mapa...');
+                    initializeMap();
+                }, 500);
             }
-            
-            const coordDisplay = document.getElementById('coordinatesDisplay');
-            const coordDMS = document.getElementById('coordDMS');
-            const coordDecimal = document.getElementById('coordDecimal');
-            const coordPlusCode = document.getElementById('coordPlusCode');
-            const coordLink = document.getElementById('coordLink');
-            const coordPlace = document.getElementById('coordPlace');
-            
-            if (coordDisplay) {
-                coordDisplay.classList.add('active');
-                if (coordPlace) coordPlace.textContent = `Lugar: ${placeName || 'Ubicación seleccionada'}`;
-                if (coordDMS) coordDMS.textContent = `DMS: ${dmsCoordinates}`;
-                if (coordDecimal) coordDecimal.textContent = `Decimal: ${decimalCoordinates}`;
-                if (coordPlusCode) coordPlusCode.textContent = `Plus Code: ${deliveryPlusCode}`;
-                if (coordLink) coordLink.innerHTML = `Link: <a href="${deliveryGoogleMapsLink}" target="_blank" style="color: #d4a574; text-decoration: underline;">Ver en Google Maps</a>`;
-            }
-        }
+        }, 250);
+    }
 
-        window.useMyLocation = async function() {
-            const btn = document.getElementById('myLocationBtn');
-            if (!btn) return;
-            
-            btn.disabled = true;
-            btn.innerHTML = '📍 Obteniendo ubicación...';
-            
-            if (!navigator.geolocation) {
-                alert('Tu navegador no soporta geolocalización');
+    async function handleMapClick(lngLat) {
+        const clickedLng = lngLat.lng;
+        const clickedLat = lngLat.lat;
+        const placeName = await reverseGeocode(clickedLng, clickedLat);
+        handleLocationSelect(clickedLng, clickedLat, placeName);
+    }
+
+    function handleLocationSelect(lng, lat, placeName, updateInput = true) {
+        if (!mapboxMap) {
+            console.error('Mapa no disponible');
+            return;
+        }
+        
+        deliveryCoordinates = { lat: lat, lng: lng };
+        
+        if (selectedMarker) {
+            selectedMarker.remove();
+        }
+        
+        selectedMarker = new mapboxgl.Marker({ color: '#d4a574', draggable: false })
+            .setLngLat([lng, lat])
+            .addTo(mapboxMap);
+
+        mapboxMap.flyTo({ center: [lng, lat], zoom: 16, essential: true, duration: 1000 });
+        
+        const latDMS = decimalToDMS(lat, true);
+        const lngDMS = decimalToDMS(lng, false);
+        const dmsCoordinates = `${latDMS} ${lngDMS}`;
+        const decimalCoordinates = `${lat.toFixed(7)}, ${lng.toFixed(7)}`;
+        
+        deliveryPlusCode = generatePlusCode(lat, lng);
+        deliveryGoogleMapsLink = `https://www.google.com/maps?q=${lat},${lng}`;
+        deliveryLocation = placeName || dmsCoordinates;
+        
+        const addressInput = document.getElementById('deliveryAddress');
+        if (addressInput && updateInput) {
+            addressInput.value = placeName || dmsCoordinates;
+            addressInput.style.borderColor = '#6b8e23';
+            addressInput.style.backgroundColor = '#e8f5e9';
+            addressInput.style.fontWeight = 'bold';
+            setTimeout(() => {
+                addressInput.style.borderColor = '#e8c4a0';
+                addressInput.style.backgroundColor = 'white';
+                addressInput.style.fontWeight = 'normal';
+            }, 2000);
+        }
+        
+        const coordDisplay = document.getElementById('coordinatesDisplay');
+        const coordDMS = document.getElementById('coordDMS');
+        const coordDecimal = document.getElementById('coordDecimal');
+        const coordPlusCode = document.getElementById('coordPlusCode');
+        const coordLink = document.getElementById('coordLink');
+        const coordPlace = document.getElementById('coordPlace');
+        
+        if (coordDisplay) {
+            coordDisplay.classList.add('active');
+            if (coordPlace) coordPlace.textContent = `Lugar: ${placeName || 'Ubicación seleccionada'}`;
+            if (coordDMS) coordDMS.textContent = `DMS: ${dmsCoordinates}`;
+            if (coordDecimal) coordDecimal.textContent = `Decimal: ${decimalCoordinates}`;
+            if (coordPlusCode) coordPlusCode.textContent = `Plus Code: ${deliveryPlusCode}`;
+            if (coordLink) coordLink.innerHTML = `Link: <a href="${deliveryGoogleMapsLink}" target="_blank" style="color: #d4a574; text-decoration: underline;">Ver en Google Maps</a>`;
+        }
+    }
+
+    window.useMyLocation = async function() {
+        const btn = document.getElementById('myLocationBtn');
+        if (!btn) return;
+        
+        btn.disabled = true;
+        btn.innerHTML = '📍 Obteniendo ubicación...';
+        
+        if (!navigator.geolocation) {
+            alert('Tu navegador no soporta geolocalización');
+            btn.disabled = false;
+            btn.innerHTML = '📍 Mi Ubicación';
+            return;
+        }
+        
+        navigator.geolocation.getCurrentPosition(
+            async function(position) {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                const placeName = await reverseGeocode(lng, lat);
+                handleLocationSelect(lng, lat, placeName);
                 btn.disabled = false;
                 btn.innerHTML = '📍 Mi Ubicación';
-                return;
-            }
-            
-            navigator.geolocation.getCurrentPosition(
-                async function(position) {
-                    const lat = position.coords.latitude;
-                    const lng = position.coords.longitude;
-                    const placeName = await reverseGeocode(lng, lat);
-                    handleLocationSelect(lng, lat, placeName);
-                    btn.disabled = false;
-                    btn.innerHTML = '📍 Mi Ubicación';
-                },
-                function(error) {
-                    let errorMessage = 'No se pudo obtener tu ubicación. ';
-                    switch(error.code) {
-                        case error.PERMISSION_DENIED:
-                            errorMessage += 'Por favor, permite el acceso a tu ubicación en la configuración del navegador.';
-                            break;
-                        case error.POSITION_UNAVAILABLE:
-                            errorMessage += 'La información de ubicación no está disponible.';
-                            break;
-                        case error.TIMEOUT:
-                            errorMessage += 'La solicitud de ubicación tardó demasiado tiempo.';
-                            break;
-                        default:
-                            errorMessage += 'Ocurrió un error desconocido.';
-                    }
-                    alert(errorMessage);
-                    btn.disabled = false;
-                    btn.innerHTML = '📍 Mi Ubicación';
-                },
-                {
-                    enableHighAccuracy: true,
-                    timeout: 10000,
-                    maximumAge: 0
+            },
+            function(error) {
+                let errorMessage = 'No se pudo obtener tu ubicación. ';
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        errorMessage += 'Por favor, permite el acceso a tu ubicación en la configuración del navegador.';
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        errorMessage += 'La información de ubicación no está disponible.';
+                        break;
+                    case error.TIMEOUT:
+                        errorMessage += 'La solicitud de ubicación tardó demasiado tiempo.';
+                        break;
+                    default:
+                        errorMessage += 'Ocurrió un error desconocido.';
                 }
-            );
+                alert(errorMessage);
+                btn.disabled = false;
+                btn.innerHTML = '📍 Mi Ubicación';
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+            }
+        );
+    };
+
+    function setupMapModeButtons() {
+        const btnNavigate = document.getElementById('mapModeNavigate');
+        const btnSelect = document.getElementById('mapModeSelect');
+        const mapClickArea = document.getElementById('mapClickArea');
+        
+        if (!btnNavigate || !btnSelect || !mapClickArea) {
+            return;
+        }
+
+        btnNavigate.onclick = function(e) {
+            e.preventDefault();
+            mapInteractionMode = 'navigate';
+            btnNavigate.classList.remove('inactive');
+            btnNavigate.classList.add('active');
+            btnSelect.classList.remove('active');
+            btnSelect.classList.add('inactive');
+            mapClickArea.classList.remove('select-mode');
+            mapClickArea.classList.add('navigate-mode');
         };
 
-        function setupMapModeButtons() {
-            const btnNavigate = document.getElementById('mapModeNavigate');
-            const btnSelect = document.getElementById('mapModeSelect');
-            const mapClickArea = document.getElementById('mapClickArea');
-            
-            if (!btnNavigate || !btnSelect || !mapClickArea) {
-                return;
-            }
-
-            btnNavigate.onclick = function(e) {
-                e.preventDefault();
-                mapInteractionMode = 'navigate';
-                btnNavigate.classList.remove('inactive');
-                btnNavigate.classList.add('active');
-                btnSelect.classList.remove('active');
-                btnSelect.classList.add('inactive');
-                mapClickArea.classList.remove('select-mode');
-                mapClickArea.classList.add('navigate-mode');
-            };
-
-            btnSelect.onclick = function(e) {
-                e.preventDefault();
-                mapInteractionMode = 'select';
-                btnSelect.classList.remove('inactive');
-                btnSelect.classList.add('active');
-                btnNavigate.classList.remove('active');
-                btnNavigate.classList.add('inactive');
-                mapClickArea.classList.remove('navigate-mode');
-                mapClickArea.classList.add('select-mode');
-            };
-        }
+        btnSelect.onclick = function(e) {
+            e.preventDefault();
+            mapInteractionMode = 'select';
+            btnSelect.classList.remove('inactive');
+            btnSelect.classList.add('active');
+            btnNavigate.classList.remove('active');
+            btnNavigate.classList.add('inactive');
+            mapClickArea.classList.remove('navigate-mode');
+            mapClickArea.classList.add('select-mode');
+        };
+    }
 function renderProducts() {
             const bouquetsGrid = document.getElementById('bouquetsGrid');
             const boxesGrid = document.getElementById('boxesGrid');
@@ -2105,63 +2075,6 @@ function renderProducts() {
             }
         }
 
-        window.removeFromCart = function(cartId) {
-            cart = cart.filter(item => item.cartId !== cartId);
-            updateCart();
-        };
-
-        window.toggleCart = function() {
-            const sidebar = document.getElementById('cartSidebar');
-            sidebar.classList.toggle('open');
-            
-            if (sidebar.classList.contains('open')) {
-                closeSocialMenu();
-            }
-        };
-
-        window.changeDeliveryOption = function(option) {
-            console.log('Cambiando delivery a:', option);
-            deliveryOption = option;
-            const mapSelection = document.getElementById('mapSelection');
-            
-            if (option === 'pickup') {
-                mapSelection.classList.remove('active');
-                setTimeout(() => destroyMap(), 100);
-            } else {
-                mapSelection.classList.add('active');
-                setTimeout(() => {
-                    console.log('Inicializando mapa después de cambio...');
-                    initializeMap();
-                }, 300);
-            }
-            updateTotals();
-        };
-
-        window.changePaymentMethod = function(method) {
-            paymentMethod = method;
-            const cashInfo = document.getElementById('cashCustomerInfo');
-            const onlineInfo = document.getElementById('onlineCustomerInfo');
-            
-            if (method === 'cash') {
-                cashInfo.classList.add('active');
-                onlineInfo.classList.remove('active');
-            } else {
-                cashInfo.classList.remove('active');
-                onlineInfo.classList.add('active');
-            }
-            
-            const paymentNotice = document.querySelector('.payment-notice');
-            if (paymentNotice) {
-                paymentNotice.innerHTML = `<strong>⚠️ IMPORTANTE - Proceso de Pago:</strong>${getPaymentNoticeText()}`;
-            }
-            
-            const payBtn = document.querySelector('.pay-btn');
-            if (payBtn) {
-                payBtn.textContent = method === 'cash' ? 'Confirmar Pedido' : 'Proceder al Pago';
-            }
-            
-            updateTotals();
-        };
 function updateCart() {
             const cartCount = document.getElementById('cartCount');
             const cartContent = document.getElementById('cartContent');
@@ -2262,6 +2175,7 @@ function updateCart() {
                             <input type="tel" id="accountPhone" value="${customerData.online.accountPhone}" required>
                         </div>
                     </div>
+
 <div class="options-box">
                         <label>Opciones de Entrega:</label>
                         <div class="option-item">
@@ -2305,7 +2219,7 @@ function updateCart() {
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="payment-notice">
                         <strong>⚠️ IMPORTANTE - Proceso de Pago:</strong>
                         ${getPaymentNoticeText()}
@@ -2358,7 +2272,7 @@ function updateCart() {
             }
         }
 
-        function setupInputListeners() {
+function setupInputListeners() {
             const customerNameInput = document.getElementById('customerName');
             const customerPhoneInput = document.getElementById('customerPhone');
             if (customerNameInput) customerNameInput.addEventListener('input', e => {
@@ -2484,6 +2398,66 @@ function updateCart() {
                 paymentNotice.innerHTML = `<strong>⚠️ IMPORTANTE - Proceso de Pago:</strong>${getPaymentNoticeText()}`;
             }
         }
+
+window.changeDeliveryOption = function(option) {
+            console.log('Cambiando delivery a:', option);
+            deliveryOption = option;
+            const mapSelection = document.getElementById('mapSelection');
+            
+            if (option === 'pickup') {
+                mapSelection.classList.remove('active');
+                setTimeout(() => destroyMap(), 100);
+            } else {
+                mapSelection.classList.add('active');
+                setTimeout(() => {
+                    console.log('Inicializando mapa después de cambio...');
+                    initializeMap();
+                }, 300);
+            }
+            updateTotals();
+        };
+
+        window.changePaymentMethod = function(method) {
+            paymentMethod = method;
+            const cashInfo = document.getElementById('cashCustomerInfo');
+            const onlineInfo = document.getElementById('onlineCustomerInfo');
+            
+            if (method === 'cash') {
+                cashInfo.classList.add('active');
+                onlineInfo.classList.remove('active');
+            } else {
+                cashInfo.classList.remove('active');
+                onlineInfo.classList.add('active');
+            }
+            
+            const paymentNotice = document.querySelector('.payment-notice');
+            if (paymentNotice) {
+                paymentNotice.innerHTML = `<strong>⚠️ IMPORTANTE - Proceso de Pago:</strong>${getPaymentNoticeText()}`;
+            }
+            
+            const payBtn = document.querySelector('.pay-btn');
+            if (payBtn) {
+                payBtn.textContent = method === 'cash' ? 'Confirmar Pedido' : 'Proceder al Pago';
+            }
+            
+            updateTotals();
+        };
+
+        window.removeFromCart = function(cartId) {
+            cart = cart.filter(item => item.cartId !== cartId);
+            updateCart();
+        };
+
+        window.toggleCart = function() {
+            const sidebar = document.getElementById('cartSidebar');
+            sidebar.classList.toggle('open');
+            
+            // Cerrar menú social si está abierto
+            if (sidebar.classList.contains('open')) {
+                closeSocialMenu();
+            }
+        };
+
 window.processPayment = async function() {
             let orderCustomerData = {};
             
@@ -2608,20 +2582,34 @@ window.processPayment = async function() {
                     if (paymentAmount < grandTotal) message += ` (50% adelanto)\nSaldo restante: Gs. ${(grandTotal - paymentAmount).toLocaleString()}`;
                     message += `\n\n*DATOS PARA TRANSFERENCIA:*\n\n🏦 *Banco Itaú*\nAlias: 0972629430 (Tel.)\nTitular: Laureano Galeano Martínez\nCI: 4.161.580\nCuenta: 520604647\n\n🏦 *Ueno Bank*\nAlias: 4161580 (C.I.)\nTitular: Laureano Galeano Martínez\nCI: 4.161.580\nCuenta: 1801269`;
                 }
-
-                // Redirección mejorada multiplataforma
-                const whatsappNumber = '595972629430';
+// Redirección mejorada multiplataforma
+                const whatsappNumber = '595976461032';
                 const encodedMessage = encodeURIComponent(message);
                 
+                // Detectar tipo de dispositivo
                 const userAgent = navigator.userAgent || navigator.vendor || window.opera;
                 const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
                 
                 if (isMobile) {
-                    // En móviles, abrir directamente
-                    const whatsappURL = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
-                    window.location.href = whatsappURL;
+                    // Para móviles, intentar abrir la app directamente
+                    if (isIOS) {
+                        // iOS: intentar esquema de URL primero
+                        const whatsappURL = `whatsapp://send?phone=${whatsappNumber}&text=${encodedMessage}`;
+                        const fallbackURL = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
+                        
+                        window.location.href = whatsappURL;
+                        
+                        // Fallback si no abre en 1.5 segundos
+                        setTimeout(() => {
+                            window.location.href = fallbackURL;
+                        }, 1500);
+                    } else {
+                        // Android: usar intent o API
+                        const whatsappURL = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
+                        window.location.href = whatsappURL;
+                    }
                 } else {
-                    // En desktop, abrir en nueva pestaña
+                    // Para desktop, abrir en nueva pestaña
                     const whatsappURL = `https://web.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
                     window.open(whatsappURL, '_blank', 'noopener,noreferrer');
                 }
@@ -2648,8 +2636,7 @@ window.processPayment = async function() {
                 alert('Hubo un error al procesar tu pedido. Por favor, intenta nuevamente.');
             }
         };
-
-        // Inicializar productos al cargar la página
+// Inicializar productos al cargar la página
         renderProducts();
         
         // Cerrar menú social al hacer scroll
